@@ -1,0 +1,14 @@
+{
+  "name": "my-planet",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/9inpachi/my-planet.git",
+  "author": "Fawad Ali <m.fawaadali98@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "typescript": "^4.6.3",
+    "webpack": "^5.72.0",
+    "webpack-cli": "^4.9.2"
+  }
+}

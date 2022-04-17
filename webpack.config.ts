@@ -4,10 +4,14 @@ import { Configuration } from 'webpack';
 
 const config: Configuration = {
   mode: 'development',
-  entry: './src/index.ts',
+  context: path.resolve(__dirname, './'),
+  entry: path.resolve(__dirname, './src/index.ts'),
   output: {
     path: path.resolve(__dirname, './dist'),
     filename: 'bundle.js',
+  },
+  resolve: {
+    extensions: ['.ts', '.js', '.json'],
   },
   module: {
     rules: [
@@ -16,7 +20,6 @@ const config: Configuration = {
         loader: 'esbuild-loader',
         options: {
           loader: 'ts',
-          target: 'es5',
         },
       },
     ],

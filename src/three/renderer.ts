@@ -1,7 +1,7 @@
-import { Renderer, WebGLRenderer } from 'three';
+import { WebGLRenderer } from 'three';
 
 export class ThreeRenderer {
-  private renderer: Renderer;
+  private renderer: WebGLRenderer;
 
   constructor(canvas: HTMLCanvasElement) {
     this.renderer = this.buildRenderer(canvas);

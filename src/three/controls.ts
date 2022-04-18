@@ -1,6 +1,6 @@
 import { Camera, PerspectiveCamera } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { IUpdatable } from './iupdatable';
+import { IUpdatable } from './library/iupdatable';
 
 export class ThreeControls implements IUpdatable {
   private camera: Camera;
@@ -36,7 +36,7 @@ export class ThreeControls implements IUpdatable {
     return this.orbitControls;
   }
 
-  update() {
+  public update() {
     this.orbitControls.update();
   }
 }

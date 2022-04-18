@@ -3,7 +3,7 @@ import {
   MeshLambertMaterial,
   SphereGeometry,
 } from 'three';
-import { Three, ThreeConfiguration } from './three';
+import { Three, ThreeConfiguration } from '../three';
 
 export class MyPlanet {
   private three: Three;

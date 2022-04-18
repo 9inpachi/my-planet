@@ -1,5 +1,5 @@
 import { AmbientLight, DirectionalLight, Scene } from 'three';
-import { LIGHT_COLOR } from './library/constants';
+import { colors } from './library/colors';
 
 export class ThreeScene {
   private scene: Scene;
@@ -11,10 +11,9 @@ export class ThreeScene {
   }
 
   private setupLights() {
-    const ambientLight = new AmbientLight(LIGHT_COLOR, 0.5);
-    const directionalLight = new DirectionalLight(LIGHT_COLOR, 0.25);
-    directionalLight.position.set(100, 100, 100);
-    directionalLight.castShadow = true;
+    const ambientLight = new AmbientLight(colors.ambientLight);
+    const directionalLight = new DirectionalLight(colors.directionLight);
+    directionalLight.position.set(-10, 10, 10);
 
     this.scene.add(ambientLight);
     this.scene.add(directionalLight);

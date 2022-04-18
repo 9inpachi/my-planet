@@ -8,9 +8,10 @@ export class ThreeControls {
       36,
       window.innerWidth / window.innerHeight,
       1,
-      100
+      100,
     );
-    perspectiveCamera.position.set(3, 3, 3);
+    perspectiveCamera.position.set(20, 20, 20);
+    perspectiveCamera.lookAt(0, 0, 0);
 
     this.camera = perspectiveCamera;
   }

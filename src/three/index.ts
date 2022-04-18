@@ -14,7 +14,7 @@ export class Three {
   constructor(configuration: ThreeConfiguration) {
     this.threeScene = new ThreeScene();
     this.threeRenderer = new ThreeRenderer(configuration.canvasElement);
-    this.threeControls = new ThreeControls();
+    this.threeControls = new ThreeControls(configuration.canvasElement);
 
     this.animate();
   }
@@ -24,7 +24,10 @@ export class Three {
     const camera = this.threeControls.getCamera();
     const renderer = this.threeRenderer.getRenderer();
 
-    renderer.setAnimationLoop(() => renderer.render(scene, camera));
+    renderer.setAnimationLoop(() => {
+      this.threeControls.update();
+      renderer.render(scene, camera)
+    });
   }
 
   public getScene() {

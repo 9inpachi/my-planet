@@ -1,22 +1,42 @@
 import { Camera, PerspectiveCamera } from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { IUpdatable } from './iupdatable';
 
-export class ThreeControls {
+export class ThreeControls implements IUpdatable {
   private camera: Camera;
+  private orbitControls: OrbitControls;
 
-  constructor() {
+  constructor(domElement: HTMLCanvasElement) {
+    this.camera = this.buildPerspectiveCamera();
+    this.orbitControls = this.buildOrbitControls(domElement);
+  }
+
+  private buildPerspectiveCamera() {
     const perspectiveCamera = new PerspectiveCamera(
       36,
       window.innerWidth / window.innerHeight,
       1,
-      100,
+      1000,
     );
     perspectiveCamera.position.set(20, 20, 20);
     perspectiveCamera.lookAt(0, 0, 0);
 
-    this.camera = perspectiveCamera;
+    return perspectiveCamera;
+  }
+
+  private buildOrbitControls(domElement: HTMLCanvasElement) {
+    return new OrbitControls(this.getCamera(), domElement);
   }
 
   public getCamera() {
     return this.camera;
+  }
+
+  public getOrbitControls() {
+    return this.orbitControls;
+  }
+
+  update() {
+    this.orbitControls.update();
   }
 }

@@ -19,8 +19,7 @@ export class ThreeControls implements IUpdatable {
       1,
       1000,
     );
-    perspectiveCamera.position.set(20, 20, 20);
-    perspectiveCamera.lookAt(0, 0, 0);
+    perspectiveCamera.position.set(50, 0, 0);
 
     return perspectiveCamera;
   }

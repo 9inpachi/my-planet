@@ -1,4 +1,4 @@
-import { AmbientLight, DirectionalLight, Scene } from 'three';
+import { AmbientLight, Group, Scene } from 'three';
 import { colors } from './library/colors';
 
 export class ThreeScene {
@@ -6,17 +6,16 @@ export class ThreeScene {
 
   constructor() {
     this.scene = new Scene();
-
     this.setupLights();
   }
 
   private setupLights() {
     const ambientLight = new AmbientLight(colors.ambientLight);
-    const directionalLight = new DirectionalLight(colors.directionLight);
-    directionalLight.position.set(-10, 10, 10);
+    const lights = new Group();
+    lights.name = 'lights';
 
-    this.scene.add(ambientLight);
-    this.scene.add(directionalLight);
+    lights.add(ambientLight);
+    this.scene.add(lights);
   }
 
   public getScene(): Scene {

@@ -60,3 +60,4 @@ src/**/*.map
 .idea/
 *.swp
 *.iml
+.vscode/

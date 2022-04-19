@@ -9,6 +9,7 @@ export class ThreeControls implements IUpdatable {
   constructor(domElement: HTMLCanvasElement) {
     this.camera = this.buildPerspectiveCamera();
     this.orbitControls = this.buildOrbitControls(domElement);
+    this.orbitControls.autoRotate = true;
   }
 
   private buildPerspectiveCamera() {

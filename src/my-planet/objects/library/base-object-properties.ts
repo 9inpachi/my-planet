@@ -1,5 +1,5 @@
-import { Color } from 'three';
+import { ColorRepresentation } from 'three';
 
 export type BaseObjectProperties = {
-  color: Color;
+  color: ColorRepresentation;
 };

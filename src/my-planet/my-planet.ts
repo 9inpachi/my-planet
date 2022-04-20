@@ -16,7 +16,7 @@ export class MyPlanet {
 
     // scene.add(sun.getObject(), planet.getObject());
 
-    const tree = new Tree({ size: 1 });
+    const tree = new Tree({ scale: 1 });
     tree.addTo(scene);
   }
 

@@ -14,16 +14,16 @@ export type TreeProperties = {
 };
 
 export class Tree extends BaseObject<TreeProperties> {
-  protected build() {
+  protected constructObject() {
     const group = new Group();
-    const trunk = this.buildTrunk();
-    group.add(trunk, this.buildCrown(trunk.position));
+    const trunk = this.constructTrunk();
+    group.add(trunk, this.constructCrown(trunk.position));
     group.name = 'tree';
 
     return group;
   }
 
-  private buildTrunk() {
+  private constructTrunk() {
     const cube = new BoxGeometry(1, 2, 1);
     const material = new MeshLambertMaterial({ color: colors.tree.trunk });
     const mesh = new Mesh(cube, material);
@@ -32,7 +32,7 @@ export class Tree extends BaseObject<TreeProperties> {
     return mesh;
   }
 
-  private buildCrown(trunkPosition: Vector3) {
+  private constructCrown(trunkPosition: Vector3) {
     const cone = new ConeGeometry(2, 5, 3);
     const material = new MeshLambertMaterial({ color: colors.tree.crown });
     const mesh = new Mesh(cone, material);

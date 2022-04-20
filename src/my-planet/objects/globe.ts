@@ -11,7 +11,7 @@ export class Globe extends BaseObject<GlobeProperties> {
     super(properties);
   }
 
-  protected build() {
+  protected constructObject() {
     const geometry = new SphereGeometry(this.properties.size, 64, 32);
     const material = new MeshLambertMaterial({ color: this.properties.color });
     const globe = new Mesh(geometry, material);

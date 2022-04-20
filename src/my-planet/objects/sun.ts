@@ -9,15 +9,15 @@ import { colors } from '../../common/library/colors';
 import { BaseObject } from './base-object';
 
 export class Sun extends BaseObject {
-  protected build() {
+  protected constructObject() {
     const group = new Group();
-    group.add(this.buildLight(), this.buildSun());
+    group.add(this.constructLight(), this.constructSphere());
     group.position.set(10, 10, 10);
 
     return group;
   }
 
-  private buildSun() {
+  private constructSphere() {
     const sphere = new SphereGeometry(3, 32, 24);
     const material = new MeshLambertMaterial({
       color: colors.sun,
@@ -28,7 +28,7 @@ export class Sun extends BaseObject {
     return mesh;
   }
 
-  private buildLight() {
+  private constructLight() {
     return new DirectionalLight(colors.sun, 0.5);
   }
 }

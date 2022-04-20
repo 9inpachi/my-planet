@@ -5,10 +5,10 @@ import { BaseObjectProperties } from './library/base-object-properties';
 export abstract class BaseObject<ObjectProperties = unknown> {
   protected object: Object3D;
 
-  protected abstract build(): Object3D;
+  protected abstract constructObject(): Object3D;
 
   constructor(protected properties?: BaseObjectProperties & ObjectProperties) {
-    this.object = this.build();
+    this.object = this.constructObject();
   }
 
   public getObject() {

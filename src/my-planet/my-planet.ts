@@ -11,12 +11,12 @@ export class MyPlanet {
     this.three = new Three(configuration);
     const scene = this.three.getScene();
 
-    // const planet = new Globe({ color: colors.earth, size: 10 });
-    // const sun = new Sun();
+    const planet = new Globe({ color: colors.earth, size: 100 });
+    const sun = new Sun({ size: 20 });
 
-    // scene.add(sun.getObject(), planet.getObject());
+    scene.add(sun.getObject(), planet.getObject());
 
-    const tree = new Tree({ scale: 1 });
+    const tree = new Tree();
     tree.addTo(scene);
   }
 

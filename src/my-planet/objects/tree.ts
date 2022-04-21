@@ -9,7 +9,7 @@ import { colors } from '../../common/library/colors';
 import { BaseObject } from './base-object';
 
 export type TreeProperties = {
-  scale: number;
+  scale?: number;
 };
 
 export class Tree extends BaseObject<TreeProperties> {

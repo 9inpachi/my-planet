@@ -1,6 +1,7 @@
 import { colors } from '../common/library/colors';
 import { Three, ThreeConfiguration } from '../three';
 import { Globe } from './objects/globe';
+import { Mountain } from './objects/mountain';
 import { Sun } from './objects/sun';
 import { Tree } from './objects/tree';
 
@@ -13,11 +14,13 @@ export class MyPlanet {
 
     const planet = new Globe({ color: colors.earth, size: 100 });
     const sun = new Sun({ size: 20 });
-
-    scene.add(sun.getObject(), planet.getObject());
-
     const tree = new Tree();
-    tree.addTo(scene);
+    const mountain = new Mountain({ size: 10 });
+
+    // planet.addTo(scene);
+    // sun.addTo(scene);
+    // tree.addTo(scene);
+    mountain.addTo(scene);
   }
 
   public static build(configuration: ThreeConfiguration) {

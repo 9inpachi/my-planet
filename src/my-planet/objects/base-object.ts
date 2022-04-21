@@ -15,7 +15,6 @@ export abstract class BaseObject<ObjectProperties = unknown> {
     this.properties = properties as FieldOptional<
       BaseObjectProperties & ObjectProperties
     >;
-
     this.object = this.constructObject();
 
     if (this.properties?.name) {

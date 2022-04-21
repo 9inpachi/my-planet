@@ -37,6 +37,7 @@ export class Tree extends BaseObject<TreeProperties> {
     const cone = new ConeGeometry(3, 7, 3);
     const material = new MeshLambertMaterial({ color: colors.tree.crown });
     const mesh = new Mesh(cone, material);
+
     mesh.position.setY(5);
 
     return mesh;

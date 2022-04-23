@@ -9,4 +9,8 @@ export const colors = {
     crown: new Color(0x9ede73),
   },
   mountain: new Color(0x9ede73),
+  house: {
+    roof: new Color(0xB20600),
+    base: new Color(0xD7A86E),
+  },
 };

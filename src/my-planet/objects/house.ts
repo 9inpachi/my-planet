@@ -13,21 +13,23 @@ import { BaseObject } from './base-object';
 
 export type HouseProperties = {
   scale?: number;
+  size?: number;
 };
 
 export class House extends BaseObject<HouseProperties> {
   protected constructObject() {
     const group = new Group();
-    const roof = this.constructRoof();
-    const base = this.constructBase();
+    const roof = this.constructRoof(this.properties?.size);
+    const base = this.constructBase(this.properties?.size);
 
     group.add(roof, base);
+    this.properties?.scale && group.scale.setScalar(this.properties.scale);
 
     return group;
   }
 
-  private constructBase() {
-    const cylinder = new BoxGeometry(7, 5, 10);
+  private constructBase(size: number = 10) {
+    const cylinder = new BoxGeometry(size * 0.7, size / 2, size);
     const material = new MeshLambertMaterial({ color: colors.house.base });
     const mesh = new Mesh(cylinder, material);
 
@@ -42,7 +44,7 @@ export class House extends BaseObject<HouseProperties> {
     });
     const mesh = new Mesh(geometry, material);
 
-    mesh.position.setY(4);
+    mesh.position.setY(size * 0.4);
 
     return mesh;
   }

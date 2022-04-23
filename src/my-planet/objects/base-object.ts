@@ -1,4 +1,5 @@
 import { Object3D } from 'three';
+import { FieldOptional, ParameterOptional } from '../../common/library/types';
 import { BaseObjectProperties } from './library/base-object-properties';
 
 // TODO: Switch to using an interface if abstract class reaches its limit.

@@ -6,6 +6,7 @@ const config: Configuration = {
   mode: 'development',
   context: path.resolve(__dirname, './'),
   entry: path.resolve(__dirname, './src/index.ts'),
+  devtool: 'inline-source-map',
   output: {
     path: path.resolve(__dirname, './dist'),
     filename: 'bundle.js',

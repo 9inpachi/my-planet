@@ -26,7 +26,7 @@ export class Three {
 
     renderer.setAnimationLoop(() => {
       this.threeControls.update();
-      renderer.render(scene, camera)
+      renderer.render(scene, camera);
     });
   }
 

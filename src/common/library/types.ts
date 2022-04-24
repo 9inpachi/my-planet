@@ -1,4 +1,5 @@
 export type HasRequiredKey<T> = {
+  // eslint-disable-next-line @typescript-eslint/ban-types
   [K in keyof T]-?: {} extends { [P in K]: T[K] } ? never : K;
 }[keyof T];
 

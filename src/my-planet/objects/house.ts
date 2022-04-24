@@ -28,7 +28,7 @@ export class House extends BaseObject<HouseProperties> {
     return group;
   }
 
-  private constructBase(size: number = 10) {
+  private constructBase(size = 10) {
     const cylinder = new BoxGeometry(size * 0.7, size / 2, size);
     const material = new MeshLambertMaterial({ color: colors.house.base });
     const mesh = new Mesh(cylinder, material);
@@ -36,7 +36,7 @@ export class House extends BaseObject<HouseProperties> {
     return mesh;
   }
 
-  private constructRoof(size: number = 10) {
+  private constructRoof(size = 10) {
     const geometry = this.constructRoofGeometry(size);
     const material = new MeshLambertMaterial({
       color: colors.house.roof,

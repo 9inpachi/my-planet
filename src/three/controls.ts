@@ -9,7 +9,6 @@ export class ThreeControls implements IUpdatable {
   constructor(domElement: HTMLCanvasElement) {
     this.camera = this.buildPerspectiveCamera();
     this.orbitControls = this.buildOrbitControls(domElement);
-    this.orbitControls.autoRotate = true;
   }
 
   private buildPerspectiveCamera() {
@@ -25,7 +24,12 @@ export class ThreeControls implements IUpdatable {
   }
 
   private buildOrbitControls(domElement: HTMLCanvasElement) {
-    return new OrbitControls(this.getCamera(), domElement);
+    const orbitControls = new OrbitControls(this.getCamera(), domElement);
+    orbitControls.autoRotate = true;
+    orbitControls.enableDamping = true;
+    orbitControls.dampingFactor = 0.1;
+
+    return orbitControls;
   }
 
   public getCamera() {

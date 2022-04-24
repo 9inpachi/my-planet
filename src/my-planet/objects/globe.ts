@@ -20,4 +20,8 @@ export class Globe extends BaseObject<GlobeProperties> {
 
     return globe;
   }
+
+  public getRadius() {
+    return this.properties.size;
+  }
 }

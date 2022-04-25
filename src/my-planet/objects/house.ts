@@ -23,34 +23,38 @@ export class House extends BaseObject<HouseProperties> {
     const base = this.constructBase(this.properties?.size);
 
     group.add(roof, base);
+    group.name = 'house';
     this.properties?.scale && group.scale.setScalar(this.properties.scale);
 
     return group;
   }
 
   private constructBase(size = 10) {
-    const cylinder = new BoxGeometry(size * 0.7, size / 2, size);
+    const box = new BoxGeometry(size * 0.7, size / 2, size);
     const material = new MeshLambertMaterial({ color: colors.house.base });
-    const mesh = new Mesh(cylinder, material);
+    const mesh = new Mesh(box, material);
+
+    box.translate(0, size / 2 / 2, 0);
 
     return mesh;
   }
 
   private constructRoof(size = 10) {
-    const geometry = this.constructRoofGeometry(size);
+    const [width, height] = [size, size / 3];
+    const baseHeight = size / 2;
+    const geometry = this.constructRoofGeometry(width, height);
     const material = new MeshLambertMaterial({
       color: colors.house.roof,
       side: DoubleSide,
     });
     const mesh = new Mesh(geometry, material);
 
-    mesh.position.setY(size * 0.4);
+    geometry.translate(0, baseHeight + height / 2, 0);
 
     return mesh;
   }
 
-  private constructRoofGeometry(size: number) {
-    const [width, height] = [size, size / 3];
+  private constructRoofGeometry(width: number, height: number) {
     const points = [
       [0, 0],
       [width / 2, height],
@@ -58,7 +62,7 @@ export class House extends BaseObject<HouseProperties> {
     ].map((val) => new Vector2(...val));
     const shape = new Shape(points);
     const geometry = new ExtrudeGeometry(shape, {
-      depth: size,
+      depth: width,
     });
 
     geometry.translate(-width / 2, -height / 2, -width / 2);

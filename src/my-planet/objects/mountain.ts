@@ -20,6 +20,8 @@ export class Mountain extends BaseObject<MountainProperties> {
     const material = new MeshLambertMaterial({ color });
     const mesh = new Mesh(geometry, material);
 
+    mesh.name = 'mountain';
+
     return mesh;
   }
 }

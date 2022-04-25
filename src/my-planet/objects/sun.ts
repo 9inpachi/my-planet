@@ -17,6 +17,7 @@ export class Sun extends BaseObject<SunProperties> {
     const group = new Group();
 
     group.add(this.constructLight(), this.constructSphere());
+    group.name = 'sun';
     group.position.set(100, 100, 100);
 
     return group;

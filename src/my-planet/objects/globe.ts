@@ -16,9 +16,11 @@ export class Globe extends BaseObject<GlobeProperties> {
     const { size } = this.properties;
     const geometry = new SphereGeometry(size, size * 6, size * 3);
     const material = new MeshLambertMaterial({ color: colors.earth });
-    const globe = new Mesh(geometry, material);
+    const mesh = new Mesh(geometry, material);
 
-    return globe;
+    mesh.name = 'globe';
+
+    return mesh;
   }
 
   public getRadius() {

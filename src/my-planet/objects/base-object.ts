@@ -32,8 +32,8 @@ export abstract class BaseObject<ObjectProperties = unknown> {
     object.add(this.object);
   }
 
-  public applyLatLng(radius: number, latitude: number, longitude: number) {
-    const latLngPosition = positionFromLatLng(radius, latitude, longitude);
+  public applyLatLng(radius: number, lat: number, lng: number) {
+    const latLngPosition = positionFromLatLng(radius, lat, lng);
     const { x, y, z } = latLngPosition;
 
     this.object.position.set(x, y, z);

@@ -25,20 +25,24 @@ export class Tree extends BaseObject<TreeProperties> {
     return group;
   }
 
-  private constructTrunk() {
-    const cube = new BoxGeometry(1, 3, 1);
+  private constructTrunk(trunkHeight = 3) {
+    const cube = new BoxGeometry(1, trunkHeight, 1);
     const material = new MeshLambertMaterial({ color: colors.tree.trunk });
     const mesh = new Mesh(cube, material);
+
+    // Translating to make the trunk root as the object's center.
+    cube.translate(0, trunkHeight / 2, 0);
 
     return mesh;
   }
 
-  private constructCrown() {
-    const cone = new ConeGeometry(3, 7, 3);
+  private constructCrown(trunkHeight = 3) {
+    const coneHeight = 7;
+    const cone = new ConeGeometry(3, coneHeight, 3);
     const material = new MeshLambertMaterial({ color: colors.tree.crown });
     const mesh = new Mesh(cone, material);
 
-    mesh.position.setY(5);
+    cone.translate(0, trunkHeight + coneHeight / 2, 0);
 
     return mesh;
   }

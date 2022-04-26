@@ -1,6 +1,5 @@
 import { MathUtils, Object3D } from 'three';
 import { FieldOptional, ParameterOptional } from '../../common/library/types';
-import { positionFromLatLng } from '../../common/utils/coordinates';
 import { BaseObjectProperties } from './library/base-object-properties';
 
 // TODO: Switch to using an interface if abstract class reaches its limit.
@@ -33,10 +32,10 @@ export abstract class BaseObject<ObjectProperties = unknown> {
   }
 
   public applyLatLng(radius: number, lat: number, lng: number) {
-    const latLngPosition = positionFromLatLng(radius, lat, lng);
-    const { x, y, z } = latLngPosition;
+    const phi = MathUtils.degToRad(lng);
+    const theta = MathUtils.degToRad(lat);
 
-    this.object.position.set(x, y, z);
+    this.object.position.setFromSphericalCoords(radius, phi, theta);
     this.object.lookAt(0, 0, 0);
     this.object.rotateX(MathUtils.degToRad(-90));
   }

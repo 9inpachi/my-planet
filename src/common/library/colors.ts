@@ -13,4 +13,5 @@ export const colors = {
     roof: new Color(0xb20600),
     base: new Color(0xd7a86e),
   },
+  land: new Color(0x83bd75),
 };

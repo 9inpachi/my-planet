@@ -1,5 +1,6 @@
-import * as path from 'path';
-import * as HtmlWebpackPlugin from 'html-webpack-plugin';
+import path from 'path';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import { Configuration } from 'webpack';
 
 const config: Configuration = {
@@ -29,6 +30,7 @@ const config: Configuration = {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, './public/index.html'),
     }),
+    new ForkTsCheckerWebpackPlugin(),
   ],
 };
 

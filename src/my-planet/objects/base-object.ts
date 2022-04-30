@@ -34,9 +34,12 @@ export abstract class BaseObject<ObjectProperties = unknown>
     object.add(this.object);
   }
 
+  /**
+   * Uses earth's geographic coordinate system. lat=0, lng=0 is equator.
+   */
   public applyLatLng(radius: number, lat: number, lng: number) {
-    const phi = MathUtils.degToRad(lng);
-    const theta = MathUtils.degToRad(lat);
+    const phi = MathUtils.degToRad(-lat + 90);
+    const theta = MathUtils.degToRad(lng);
 
     this.object.position.setFromSphericalCoords(radius, phi, theta);
     this.object.lookAt(0, 0, 0);

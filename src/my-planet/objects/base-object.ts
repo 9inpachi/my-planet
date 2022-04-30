@@ -1,9 +1,12 @@
 import { MathUtils, Object3D } from 'three';
+import { ICustomObject } from '../../common/library/icustom-object';
 import { FieldOptional, ParameterOptional } from '../../common/library/types';
 import { BaseObjectProperties } from './library/base-object-properties';
 
 // TODO: Switch to using an interface if abstract class reaches its limit.
-export abstract class BaseObject<ObjectProperties = unknown> {
+export abstract class BaseObject<ObjectProperties = unknown>
+  implements ICustomObject
+{
   protected object: Object3D;
   protected properties: FieldOptional<BaseObjectProperties & ObjectProperties>;
 

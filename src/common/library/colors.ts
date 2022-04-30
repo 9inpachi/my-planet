@@ -11,7 +11,7 @@ export const colors = {
   mountain: new Color(0x9ede73),
   house: {
     roof: new Color(0xb20600),
-    base: new Color(0xd7a86e),
+    base: new Color(0xffffff),
   },
   land: new Color(0x83bd75),
 };

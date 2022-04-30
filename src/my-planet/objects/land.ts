@@ -10,6 +10,7 @@ import { BaseObject } from './base-object';
 export type LandProperties = {
   size?: number;
   height?: number;
+  sides?: number;
   color?: ColorRepresentation;
 };
 
@@ -18,10 +19,11 @@ export class Land extends BaseObject<LandProperties> {
     const {
       size = 10,
       height = 1,
+      sides = 6,
       color = colors.land,
     } = this.properties ?? {};
 
-    const geometry = new CylinderGeometry(size, size, height, 5, 1);
+    const geometry = new CylinderGeometry(size, size, height, sides, 1);
     const material = new MeshLambertMaterial({ color });
     const mesh = new Mesh(geometry, material);
 

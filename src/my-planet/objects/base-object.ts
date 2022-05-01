@@ -8,13 +8,13 @@ export abstract class BaseObject<ObjectProperties = unknown>
   implements ICustomObject
 {
   protected object: Object3D;
-  protected properties: FieldOptional<BaseObjectProperties & ObjectProperties>;
+  protected properties: FieldOptional<BaseObjectProperties<ObjectProperties>>;
 
   protected abstract constructObject(): Object3D;
 
   // An alternative to using spread syntax for optional parameter is using "T | void".
   constructor(
-    ...[properties]: ParameterOptional<BaseObjectProperties & ObjectProperties>
+    ...[properties]: ParameterOptional<BaseObjectProperties<ObjectProperties>>
   ) {
     this.properties = properties as FieldOptional<
       BaseObjectProperties & ObjectProperties

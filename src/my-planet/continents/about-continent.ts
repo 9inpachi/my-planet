@@ -1,40 +1,22 @@
-import { Group, MathUtils, Object3D } from 'three';
-import { ICustomObject } from '../../common/library/icustom-object';
-import { Land } from '../objects/land';
+import { Group } from 'three';
+import { HouseProperties } from '../objects/house';
+import { LandProperties } from '../objects/land';
+import { BaseContinent } from './base-continent';
+import { WithPositionAttributes } from './library/types';
 
-type AboutContinentProperties = {
-  globeRadius: number;
-};
+export class AboutContinent extends BaseContinent {
+  public constructContinent() {
+    const continent = new Group();
+    continent.name = 'aboutContinent';
 
-type LandValues = {
-  size: number;
-  height?: number;
-  sides?: number;
-  lat?: number;
-  lng?: number;
-  rotation?: number;
-};
+    continent.add(this.getLandsGroup());
+    continent.add(this.getHousesGroup());
 
-export class AboutContinent implements ICustomObject {
-  private lands: Land[];
-  private landsGroup: Object3D;
-
-  constructor(private properties: AboutContinentProperties) {
-    this.lands = this.constructLands();
-    this.landsGroup = new Group();
-    this.lands.forEach((land) => land.addTo(this.landsGroup));
+    return continent;
   }
 
-  public getObject() {
-    return this.landsGroup;
-  }
-
-  public addTo(object: Object3D) {
-    object.add(this.landsGroup);
-  }
-
-  private constructLands(): Land[] {
-    const landsValues: LandValues[] = [
+  private getLandsGroup(): Group {
+    const landsValues: WithPositionAttributes<LandProperties>[] = [
       {
         size: 15,
         height: 3,
@@ -71,21 +53,19 @@ export class AboutContinent implements ICustomObject {
       },
     ];
 
-    return landsValues.map(this.constructLand.bind(this));
+    return this.getLands(landsValues);
   }
 
-  private constructLand(landValues: LandValues): Land {
-    const { size, height, sides, lat, lng, rotation } = landValues;
+  private getHousesGroup(): Group {
+    const housesValues: WithPositionAttributes<HouseProperties>[] = [
+      {
+        scale: 0.5,
+        altitude: 2,
+        lat: 10,
+        lng: -2,
+      },
+    ];
 
-    const land = new Land({ size, height, sides });
-
-    lat !== undefined &&
-      lng !== undefined &&
-      land.applyLatLng(this.properties.globeRadius, lat, lng);
-
-    rotation !== undefined &&
-      land.getObject().rotateY(MathUtils.degToRad(rotation));
-
-    return land;
+    return this.getHouses(housesValues);
   }
 }

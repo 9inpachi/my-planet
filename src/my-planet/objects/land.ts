@@ -22,10 +22,11 @@ export class Land extends BaseObject<LandProperties> {
       sides = 6,
       color = colors.land,
     } = this.properties ?? {};
-
     const geometry = new CylinderGeometry(size, size, height, sides, 1);
     const material = new MeshLambertMaterial({ color });
     const mesh = new Mesh(geometry, material);
+
+    mesh.name = 'land';
 
     return mesh;
   }

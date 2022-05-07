@@ -10,3 +10,8 @@ export type ParameterOptional<T> = HasRequiredKey<T> extends never
 export type FieldOptional<T> = HasRequiredKey<T> extends never
   ? T | undefined
   : T;
+
+export interface Constructor<T> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  new (...args: any[]): T;
+}

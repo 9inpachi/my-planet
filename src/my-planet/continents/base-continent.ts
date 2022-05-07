@@ -1,5 +1,6 @@
 import { Group, MathUtils, Object3D } from 'three';
 import { ICustomObject } from '../../common/library/icustom-object';
+import { Constructor } from '../../common/library/types';
 import { BaseObject } from '../objects/base-object';
 import { House, HouseProperties } from '../objects/house';
 import { Land, LandProperties } from '../objects/land';
@@ -27,9 +28,8 @@ export abstract class BaseContinent implements ICustomObject {
     object.add(this.continent);
   }
 
-  protected constructObject<T, O extends BaseObject>(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ObjectClass: InstanceType<any>,
+  protected constructObject<T, O extends BaseObject<T>>(
+    ObjectClass: Constructor<O>,
     attributes: WithPositionAttributes<T>,
   ): O {
     const {
@@ -40,8 +40,8 @@ export abstract class BaseContinent implements ICustomObject {
       ...objectProperties
     } = attributes;
     const object = new ObjectClass({ ...objectProperties });
-    object.applyLatLng(this.properties.globeRadius + altitude, lat, lng);
 
+    object.applyLatLng(this.properties.globeRadius + altitude, lat, lng);
     if (rotation !== undefined) {
       object.getObject().rotateY(MathUtils.degToRad(rotation));
     }
@@ -54,8 +54,9 @@ export abstract class BaseContinent implements ICustomObject {
   ): Group {
     const landsGroup = new Group();
     landsGroup.name = 'continentLands';
+
     attributes.forEach((landAttributes) => {
-      const land = this.constructObject.apply(this, [Land, landAttributes]);
+      const land = this.constructObject(Land, landAttributes);
       landsGroup.add(land.getObject());
     });
 
@@ -67,8 +68,9 @@ export abstract class BaseContinent implements ICustomObject {
   ): Group {
     const housesGroup = new Group();
     housesGroup.name = 'continentHouses';
+
     attributes.forEach((houseAttributes) => {
-      const house = this.constructObject.apply(this, [House, houseAttributes]);
+      const house = this.constructObject(House, houseAttributes);
       housesGroup.add(house.getObject());
     });
 

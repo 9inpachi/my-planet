@@ -35,7 +35,7 @@ export abstract class BaseObject<ObjectProperties = unknown>
   }
 
   /**
-   * Uses earth's geographic coordinate system. lat=0, lng=0 is equator.
+   * Uses earth's geographic coordinate system. lat = 0 and lng = 0 is the centre of earth.
    */
   public applyLatLng(radius: number, lat: number, lng: number) {
     const phi = MathUtils.degToRad(-lat + 90);

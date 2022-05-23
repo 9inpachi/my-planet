@@ -1,6 +1,6 @@
 import { Group } from 'three';
-import { HouseProperties } from '../objects/house';
-import { LandProperties } from '../objects/land';
+import { House, HouseProperties } from '../objects/house';
+import { Land, LandProperties } from '../objects/land';
 import { BaseContinent } from './base-continent';
 import { WithPositionAttributes } from './library/types';
 
@@ -53,7 +53,7 @@ export class AboutContinent extends BaseContinent {
       },
     ];
 
-    return this.getLands(landsValues);
+    return this.getObjectsGroup(Land, 'continentLands', landsValues);
   }
 
   private getHousesGroup(): Group {
@@ -66,6 +66,6 @@ export class AboutContinent extends BaseContinent {
       },
     ];
 
-    return this.getHouses(housesValues);
+    return this.getObjectsGroup(House, 'continentHouses', housesValues);
   }
 }

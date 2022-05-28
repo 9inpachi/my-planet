@@ -1,3 +1,4 @@
+import { colors } from '../../../common/library/colors';
 import { HouseProperties } from '../../objects/house';
 import { LandProperties } from '../../objects/land';
 import { TreeProperties } from '../../objects/tree';
@@ -37,6 +38,7 @@ export const aboutLands: WithPositionAttributes<LandProperties>[] = [
     height: 0.5,
     lat: -1,
     lng: 13,
+    color: colors.land.brown,
   },
 ];
 
@@ -46,6 +48,13 @@ export const aboutHouses: WithPositionAttributes<HouseProperties>[] = [
     altitude: 2,
     lat: 10,
     lng: -2,
+  },
+  {
+    scale: 0.7,
+    altitude: 0.5,
+    lat: -1,
+    lng: 13,
+    rotation: -14,
   },
 ];
 

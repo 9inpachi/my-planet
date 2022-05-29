@@ -11,8 +11,8 @@ export class AboutContinent extends BaseContinent {
     continent.name = 'aboutContinent';
 
     continent.add(this.getObjectsGroup(Land, 'aboutLands', aboutLands));
-    continent.add(this.getObjectsGroup(House, 'aboutHouses', aboutHouses));
     continent.add(this.getObjectsGroup(Tree, 'aboutTrees', aboutTrees));
+    continent.add(this.getObjectsGroup(House, 'aboutHouses', aboutHouses));
 
     return continent;
   }

@@ -21,6 +21,7 @@ export class Mountain extends BaseObject<MountainProperties> {
     const mesh = new Mesh(geometry, material);
 
     mesh.name = 'mountain';
+    geometry.translate(0, height / 2, 0);
 
     return mesh;
   }

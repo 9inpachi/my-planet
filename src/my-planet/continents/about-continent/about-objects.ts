@@ -45,13 +45,13 @@ export const aboutLands: WithPositionAttributes<LandProperties>[] = [
 export const aboutHouses: WithPositionAttributes<HouseProperties>[] = [
   {
     scale: 0.5,
-    altitude: 2,
+    altitude: 1.5,
     lat: 10,
     lng: -2,
   },
   {
     scale: 0.7,
-    altitude: 0.5,
+    altitude: 0.25,
     lat: -1,
     lng: 13,
     rotation: -14,
@@ -61,19 +61,19 @@ export const aboutHouses: WithPositionAttributes<HouseProperties>[] = [
 export const aboutTrees: WithPositionAttributes<TreeProperties>[] = [
   {
     scale: 0.5,
-    altitude: 2,
+    altitude: 1.5,
     lat: 10,
     lng: 4,
   },
   {
     scale: 0.7,
-    altitude: 2,
+    altitude: 1.5,
     lat: 8,
     lng: 3,
   },
   {
     scale: 1,
-    altitude: 2,
+    altitude: 1.5,
     lat: 10,
     lng: 2,
   },

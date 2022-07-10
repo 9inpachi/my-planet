@@ -1,8 +1,8 @@
 export class Logger {
   private static instance: Logger;
-  private prefix = 'LOGGER: ';
+  private prefix = 'LOGGER:';
 
-  public getInstance(): Logger {
+  public static getInstance(): Logger {
     if (Logger.instance === undefined) {
       Logger.instance = new Logger();
     }

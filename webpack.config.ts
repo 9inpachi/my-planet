@@ -24,6 +24,22 @@ const config: Configuration = {
           loader: 'ts',
         },
       },
+      {
+        test: /\.(jpe?g|png|gif)$/,
+        loader: 'file-loader',
+        options: {
+          name: '[name].[ext]',
+          outputPath: 'assets/images',
+        },
+      },
+      {
+        test: /\.(gltf|obj|fbx)$/,
+        loader: 'file-loader',
+        options: {
+          name: '[name].[ext]',
+          outputPath: 'assets/geometries',
+        },
+      },
     ],
   },
   plugins: [

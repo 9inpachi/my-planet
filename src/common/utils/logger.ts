@@ -2,6 +2,10 @@ export class Logger {
   private static instance: Logger;
   private prefix = 'LOGGER:';
 
+  constructor() {
+    return Logger.getInstance();
+  }
+
   public static getInstance(): Logger {
     if (Logger.instance === undefined) {
       Logger.instance = new Logger();

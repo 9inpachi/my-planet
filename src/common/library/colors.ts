@@ -1,20 +1,20 @@
-import { Color } from 'three';
+import { rgbColor } from '../utils/colors';
 
 export const colors = {
-  ambientLight: new Color(0xffffff),
-  sun: new Color(0xfcd900),
-  earth: new Color(0x4d96ff),
+  ambientLight: rgbColor('#ffffff'),
+  sun: rgbColor('#fcd900'),
+  earth: rgbColor('#4d96ff'),
   tree: {
-    trunk: new Color(0xbe8c63),
-    crown: new Color(0x9ede73),
+    trunk: rgbColor('#be8c63'),
+    crown: rgbColor('#9ede73'),
   },
-  mountain: new Color(0x9ede73),
+  mountain: rgbColor('#9ede73'),
   house: {
-    roof: new Color(0xb20600),
-    base: new Color(0xffffff),
+    roof: rgbColor('#b20600'),
+    base: rgbColor('#ffffff'),
   },
   land: {
-    brown: new Color(0xffcc8f),
-    green: new Color(0x83bd75),
+    brown: rgbColor('#ffcc8f'),
+    green: rgbColor('#83bd75'),
   },
 };

@@ -18,7 +18,7 @@ export class Sun extends BaseObject<SunProperties> {
 
     group.add(this.constructLight(), this.constructSphere());
     group.name = 'sun';
-    group.position.set(100, 100, 100);
+    group.position.set(120, 120, 120);
 
     return group;
   }
@@ -36,6 +36,6 @@ export class Sun extends BaseObject<SunProperties> {
   }
 
   private constructLight() {
-    return new DirectionalLight(colors.sun, 0.5);
+    return new DirectionalLight(colors.sun, 2);
   }
 }

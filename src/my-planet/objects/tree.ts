@@ -30,7 +30,7 @@ export class Tree extends BaseObject<TreeProperties> {
     const material = new MeshLambertMaterial({ color: colors.tree.trunk });
     const mesh = new Mesh(cube, material);
 
-    // Translating to make the trunk root as the object's center.
+    // Translating to make the trunk root the object's center.
     cube.translate(0, trunkHeight / 2, 0);
 
     return mesh;

@@ -1,4 +1,4 @@
-import { WebGLRenderer } from 'three';
+import { sRGBEncoding, WebGLRenderer } from 'three';
 
 export class ThreeRenderer {
   private renderer: WebGLRenderer;
@@ -14,6 +14,7 @@ export class ThreeRenderer {
       alpha: true,
     });
 
+    webglRenderer.outputEncoding = sRGBEncoding;
     webglRenderer.setSize(window.innerWidth, window.innerHeight);
     webglRenderer.setPixelRatio(window.devicePixelRatio);
 

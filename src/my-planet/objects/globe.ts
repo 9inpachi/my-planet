@@ -1,6 +1,6 @@
 import { Mesh, MeshLambertMaterial, SphereGeometry } from 'three';
 import { BaseObject } from './base-object';
-import { colors } from '../../common/library/colors';
+import { colors } from '../../common/lib/colors';
 
 export type GlobeProperties = {
   size: number;

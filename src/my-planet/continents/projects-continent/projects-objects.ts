@@ -1,7 +1,7 @@
 import { LandProperties } from '../../objects/land';
 import { MountainProperties } from '../../objects/mountain';
 import { TreeProperties } from '../../objects/tree';
-import { WithPositionAttributes } from '../library/types';
+import { WithPositionAttributes } from '../lib/types';
 
 export const projectsLands: WithPositionAttributes<LandProperties>[] = [
   {

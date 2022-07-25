@@ -1,8 +1,8 @@
-import { colors } from '../../../common/library/colors';
+import { colors } from '../../../common/lib/colors';
 import { HouseProperties } from '../../objects/house';
 import { LandProperties } from '../../objects/land';
 import { TreeProperties } from '../../objects/tree';
-import { WithPositionAttributes } from '../library/types';
+import { WithPositionAttributes } from '../lib/types';
 
 export const aboutLands: WithPositionAttributes<LandProperties>[] = [
   {

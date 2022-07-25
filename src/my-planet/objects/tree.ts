@@ -5,7 +5,7 @@ import {
   Mesh,
   MeshLambertMaterial,
 } from 'three';
-import { colors } from '../../common/library/colors';
+import { colors } from '../../common/lib/colors';
 import { BaseObject } from './base-object';
 
 export type TreeProperties = {

@@ -1,6 +1,6 @@
 import { Mesh, Object3D } from 'three';
 import { BaseObject } from './base-object';
-import { BaseObjectProperties } from './library/base-object-properties';
+import { BaseObjectProperties } from './lib/base-object-properties';
 
 export type SimpleObjectProperties = {
   object: Object3D;

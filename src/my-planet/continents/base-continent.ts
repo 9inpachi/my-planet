@@ -1,8 +1,8 @@
 import { Group, MathUtils, Object3D } from 'three';
-import { ICustomObject } from '../../common/library/icustom-object';
-import { Constructor } from '../../common/library/types';
+import { ICustomObject } from '../../common/lib/icustom-object';
+import { Constructor } from '../../common/lib/types';
 import { BaseObject } from '../objects/base-object';
-import { WithPositionAttributes } from './library/types';
+import { WithPositionAttributes } from './lib/types';
 
 type BaseContinentProperties = {
   globeRadius: number;

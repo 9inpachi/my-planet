@@ -5,7 +5,7 @@ import {
   MeshLambertMaterial,
   SphereGeometry,
 } from 'three';
-import { colors } from '../../common/library/colors';
+import { colors } from '../../common/lib/colors';
 import { BaseObject } from './base-object';
 
 export type SunProperties = {
@@ -36,6 +36,6 @@ export class Sun extends BaseObject<SunProperties> {
   }
 
   private constructLight() {
-    return new DirectionalLight(colors.sun, 2);
+    return new DirectionalLight(colors.sun, 1.5);
   }
 }

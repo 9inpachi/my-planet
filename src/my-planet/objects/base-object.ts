@@ -1,6 +1,7 @@
 import { MathUtils, Object3D } from 'three';
 import { ICustomObject } from '../../common/lib/icustom-object';
 import { FieldOptional, ParameterOptional } from '../../common/lib/types';
+import { getPositionFromLatLng } from '../common/utils/coordinates';
 import { BaseObjectProperties } from './lib/base-object-properties';
 
 // TODO: Switch to using an interface if abstract class reaches its limit.
@@ -38,10 +39,9 @@ export abstract class BaseObject<ObjectProperties = unknown>
    * Uses earth's geographic coordinate system. lat = 0 and lng = 0 is the centre of earth.
    */
   public applyLatLng(radius: number, lat: number, lng: number) {
-    const phi = MathUtils.degToRad(-lat + 90);
-    const theta = MathUtils.degToRad(lng);
+    const positionOnGlobe = getPositionFromLatLng(radius, lat, lng);
 
-    this.object.position.setFromSphericalCoords(radius, phi, theta);
+    this.object.position.copy(positionOnGlobe);
     this.object.lookAt(0, 0, 0);
     this.object.rotateX(MathUtils.degToRad(-90));
   }

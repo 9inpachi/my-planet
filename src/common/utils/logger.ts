@@ -18,11 +18,11 @@ export class Logger {
     console.info(this.prefix, '[INFO]', message, ...additionalInfo);
   }
 
-  public logError(message: string, ...additionalInfo: unknown[]) {
-    console.error(this.prefix, '[ERROR]', message, ...additionalInfo);
-  }
-
   public logWarning(message: string, ...additionalInfo: unknown[]) {
     console.warn(this.prefix, '[WARN]', message, ...additionalInfo);
+  }
+
+  public logError(message: string, ...additionalInfo: unknown[]) {
+    console.error(this.prefix, '[ERROR]', message, ...additionalInfo);
   }
 }

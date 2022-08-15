@@ -25,19 +25,11 @@ const config: Configuration = {
         },
       },
       {
-        test: /\.(jpe?g|png|gif)$/,
+        test: /\.(jpe?g|png|gif|gltf|obj|fbx)$/,
         loader: 'file-loader',
         options: {
-          name: '[name].[ext]',
-          outputPath: 'assets/images',
-        },
-      },
-      {
-        test: /\.(gltf|obj|fbx)$/,
-        loader: 'file-loader',
-        options: {
-          name: '[name].[ext]',
-          outputPath: 'assets/geometries',
+          name: '[folder]/[name].[ext]',
+          outputPath: 'assets',
         },
       },
     ],

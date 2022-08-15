@@ -18,15 +18,15 @@ export type HouseProperties = {
 
 export class House extends BaseObject<HouseProperties> {
   protected constructObject() {
-    const group = new Group();
+    const house = new Group();
     const roof = this.constructRoof(this.properties?.size);
     const base = this.constructBase(this.properties?.size);
 
-    group.add(roof, base);
-    group.name = 'house';
-    this.properties?.scale && group.scale.setScalar(this.properties.scale);
+    house.add(roof, base);
+    house.name = 'house';
+    this.properties?.scale && house.scale.setScalar(this.properties.scale);
 
-    return group;
+    return house;
   }
 
   private constructBase(size = 10) {

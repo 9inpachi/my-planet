@@ -47,7 +47,8 @@ export class Building extends BaseObject<BuildingProperties> {
     const mesh = new Mesh(box, material);
 
     const baseHeight = height / 2;
-    box.translate(0, baseHeight + (floor + 1) * size + floor * height, 0);
+    // Alternative formula: baseHeight + (floor + 1) * size + floor * height
+    box.translate(0, (floor + 1) * (size + height) - baseHeight, 0);
 
     return mesh;
   }

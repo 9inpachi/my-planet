@@ -11,7 +11,7 @@ export const colors = {
   mountain: rgbColor('#9ede73'),
   house: {
     roof: rgbColor('#b20600'),
-    base: rgbColor('#ffffff'),
+    base: rgbColor('#f1eee9'),
   },
   land: {
     brown: rgbColor('#ffcc8f'),

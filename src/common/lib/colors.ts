@@ -18,7 +18,7 @@ export const colors = {
     green: rgbColor('#83bd75'),
   },
   building: {
-    floor: rgbColor('#c1efff'),
-    split: rgbColor('#1c3879'),
+    floor: rgbColor('#f1eee9'),
+    split: rgbColor('#73777b'),
   },
 };

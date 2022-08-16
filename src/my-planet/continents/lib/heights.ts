@@ -1,4 +1,4 @@
-export const landHeights = {
-  levelOne: 2.25,
-  levelTwo: 4.5,
-};
+export enum LandHeight {
+  LevelOne = 2.25,
+  LevelTwo = 4.5,
+}

@@ -1,6 +1,7 @@
 import { LandProperties } from '../../objects/land';
 import { MountainProperties } from '../../objects/mountain';
 import { TreeProperties } from '../../objects/tree';
+import { LandHeight } from '../lib/heights';
 import { WithPositionAttributes } from '../lib/types';
 
 export const projectsLands: WithPositionAttributes<LandProperties>[] = [
@@ -29,7 +30,7 @@ export const projectsMountains: WithPositionAttributes<MountainProperties>[] = [
     size: 10,
     lat: 69,
     lng: 21,
-    altitude: 1,
+    landHeight: LandHeight.LevelTwo,
   },
 ];
 
@@ -38,24 +39,24 @@ export const projectsTrees: WithPositionAttributes<TreeProperties>[] = [
     scale: 0.7,
     lat: 72,
     lng: 5,
-    altitude: 1,
+    landHeight: LandHeight.LevelOne,
   },
   {
     scale: 0.5,
     lat: 75,
     lng: 10,
-    altitude: 1,
+    landHeight: LandHeight.LevelOne,
   },
   {
     scale: 0.5,
     lat: 73,
     lng: 8,
-    altitude: 1,
+    landHeight: LandHeight.LevelOne,
   },
   {
     scale: 0.6,
     lat: 76,
     lng: 16,
-    altitude: 1,
+    landHeight: LandHeight.LevelOne,
   },
 ];

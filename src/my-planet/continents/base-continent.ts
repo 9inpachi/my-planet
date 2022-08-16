@@ -7,6 +7,7 @@ import { House, HouseProperties } from '../objects/house';
 import { Land, LandProperties } from '../objects/land';
 import { Mountain, MountainProperties } from '../objects/mountain';
 import { Tree, TreeProperties } from '../objects/tree';
+import { LandHeight } from './lib/heights';
 import { WithPositionAttributes } from './lib/types';
 
 type BaseContinentProperties = {
@@ -39,12 +40,12 @@ export abstract class BaseContinent implements ICustomObject {
       lat,
       lng,
       rotation,
-      altitude = 0,
+      landHeight = LandHeight.LevelOne,
       ...objectProperties
     } = attributes;
     const object = new ObjectClass({ ...objectProperties });
 
-    object.applyLatLng(this.properties.globeRadius + altitude, lat, lng);
+    object.applyLatLng(this.properties.globeRadius + landHeight, lat, lng);
     if (rotation !== undefined) {
       object.getObject().rotateY(MathUtils.degToRad(rotation));
     }

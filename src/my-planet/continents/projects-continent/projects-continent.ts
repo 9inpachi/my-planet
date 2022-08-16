@@ -1,7 +1,4 @@
 import { Group } from 'three';
-import { Land } from '../../objects/land';
-import { Mountain } from '../../objects/mountain';
-import { Tree } from '../../objects/tree';
 import { BaseContinent } from '../base-continent';
 import {
   projectsLands,
@@ -14,11 +11,11 @@ export class ProjectsContinent extends BaseContinent {
     const continent = new Group();
     continent.name = 'projectsContinent';
 
-    continent.add(this.getObjectsGroup(Land, 'projectsLands', projectsLands));
+    continent.add(this.constructLands('projectsLands', projectsLands));
     continent.add(
-      this.getObjectsGroup(Mountain, 'projectsMountains', projectsMountains),
+      this.constructMountains('projectsMountains', projectsMountains),
     );
-    continent.add(this.getObjectsGroup(Tree, 'projectsTrees', projectsTrees));
+    continent.add(this.constructTrees('projectsTrees', projectsTrees));
 
     return continent;
   }

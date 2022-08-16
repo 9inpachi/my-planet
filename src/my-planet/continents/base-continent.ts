@@ -2,6 +2,11 @@ import { Group, MathUtils, Object3D } from 'three';
 import { ICustomObject } from '../../common/lib/icustom-object';
 import { Constructor } from '../../common/lib/types';
 import { BaseObject } from '../objects/base-object';
+import { Building, BuildingProperties } from '../objects/building';
+import { House, HouseProperties } from '../objects/house';
+import { Land, LandProperties } from '../objects/land';
+import { Mountain, MountainProperties } from '../objects/mountain';
+import { Tree, TreeProperties } from '../objects/tree';
 import { WithPositionAttributes } from './lib/types';
 
 type BaseContinentProperties = {
@@ -47,7 +52,7 @@ export abstract class BaseContinent implements ICustomObject {
     return object;
   }
 
-  protected getObjectsGroup<O extends BaseObject<T>, T>(
+  protected constructObjectsGroup<O extends BaseObject<T>, T>(
     ObjectClass: Constructor<O>,
     groupName: string,
     attributes: WithPositionAttributes<T>[],
@@ -61,5 +66,40 @@ export abstract class BaseContinent implements ICustomObject {
     });
 
     return group;
+  }
+
+  protected constructLands(
+    groupName: string,
+    attributes: WithPositionAttributes<LandProperties>[],
+  ) {
+    return this.constructObjectsGroup(Land, groupName, attributes);
+  }
+
+  protected constructTrees(
+    groupName: string,
+    attributes: WithPositionAttributes<TreeProperties>[],
+  ) {
+    return this.constructObjectsGroup(Tree, groupName, attributes);
+  }
+
+  protected constructMountains(
+    groupName: string,
+    attributes: WithPositionAttributes<MountainProperties>[],
+  ) {
+    return this.constructObjectsGroup(Mountain, groupName, attributes);
+  }
+
+  protected constructHouses(
+    groupName: string,
+    attributes: WithPositionAttributes<HouseProperties>[],
+  ) {
+    return this.constructObjectsGroup(House, groupName, attributes);
+  }
+
+  protected constructBuildings(
+    groupName: string,
+    attributes: WithPositionAttributes<BuildingProperties>[],
+  ) {
+    return this.constructObjectsGroup(Building, groupName, attributes);
   }
 }

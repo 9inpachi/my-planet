@@ -15,11 +15,8 @@ export class Building extends BaseObject<BuildingProperties> {
 
     for (let floorNum = 0; floorNum < floors; floorNum++) {
       const floor = this.constructFloor(floorNum, size);
-      building.add(floor);
-    }
-    for (let floorNum = 0; floorNum < floors - 1; floorNum++) {
       const split = this.constructSplit(floorNum, size);
-      building.add(split);
+      building.add(floor, split);
     }
 
     building.name = 'building';

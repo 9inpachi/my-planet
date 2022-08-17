@@ -5,7 +5,6 @@ import { BaseObject } from './base-object';
 export type BuildingProperties = {
   floors?: number;
   size?: number;
-  scale?: number;
 };
 
 export class Building extends BaseObject<BuildingProperties> {

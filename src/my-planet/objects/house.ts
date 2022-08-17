@@ -12,7 +12,6 @@ import { colors } from '../../common/lib/colors';
 import { BaseObject } from './base-object';
 
 export type HouseProperties = {
-  scale?: number;
   size?: number;
 };
 

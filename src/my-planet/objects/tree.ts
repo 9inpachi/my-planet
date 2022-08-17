@@ -8,9 +8,7 @@ import {
 import { colors } from '../../common/lib/colors';
 import { BaseObject } from './base-object';
 
-export type TreeProperties = {
-  scale?: number;
-};
+export type TreeProperties = unknown;
 
 export class Tree extends BaseObject<TreeProperties> {
   protected constructObject() {

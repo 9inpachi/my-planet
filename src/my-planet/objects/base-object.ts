@@ -1,8 +1,13 @@
-import { MathUtils, Object3D } from 'three';
+import { ColorRepresentation, MathUtils, Object3D } from 'three';
 import { ICustomObject } from '../../common/lib/icustom-object';
 import { FieldOptional, ParameterOptional } from '../../common/lib/types';
 import { getPositionFromLatLng } from '../common/utils/coordinates';
-import { BaseObjectProperties } from './lib/base-object-properties';
+
+export type BaseObjectProperties<T = unknown> = T & {
+  scale?: number;
+  name?: string;
+  color?: ColorRepresentation;
+};
 
 // TODO: Switch to using an interface if abstract class reaches its limit.
 export abstract class BaseObject<ObjectProperties = unknown>

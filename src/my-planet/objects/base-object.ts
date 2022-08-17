@@ -1,10 +1,6 @@
 import { MathUtils, Object3D } from 'three';
 import { ICustomObject } from '../../common/lib/icustom-object';
-import {
-  Constructor,
-  FieldOptional,
-  ParameterOptional,
-} from '../../common/lib/types';
+import { FieldOptional, ParameterOptional } from '../../common/lib/types';
 import { getPositionFromLatLng } from '../common/utils/coordinates';
 
 export type BaseObjectProperties<T = unknown> = T & {
@@ -16,41 +12,28 @@ export type BaseObjectProperties<T = unknown> = T & {
 export abstract class BaseObject<ObjectProperties = unknown>
   implements ICustomObject
 {
-  protected object!: Object3D;
-  protected properties!: FieldOptional<BaseObjectProperties<ObjectProperties>>;
+  protected object: Object3D;
+  protected properties: FieldOptional<BaseObjectProperties<ObjectProperties>>;
 
   protected abstract constructObject(): Object3D;
 
-  // An alternative to using spread syntax for optional parameter is using "T | void".
+  // Note 1: In derived classes, we cannot use object properties in the `this.constructObject` method
+  // because the method is called before the derived class constructor.
+  // Note 2: An alternative to using spread syntax for optional parameter is using "T | void".
   constructor(
     ...[properties]: ParameterOptional<BaseObjectProperties<ObjectProperties>>
   ) {
     this.properties = properties as FieldOptional<
       BaseObjectProperties & ObjectProperties
     >;
-  }
+    this.object = this.constructObject();
 
-  // An alternative for making the parameter options using spread syntax is to use "ObjectProperties | void".
-  // We use the static `construct` method here for creating the object which is also called a static factory method.
-  // The problem with using a constructor is that the fields are not accessible to the methods called in the parent class contructor.
-  public static construct<
-    ObjectClass extends BaseObject<ObjectProperties>,
-    ObjectProperties,
-  >(
-    this: Constructor<ObjectClass>,
-    ...[properties]: ParameterOptional<BaseObjectProperties<ObjectProperties>>
-  ) {
-    const objectInstance = new this(properties);
-    objectInstance.object = objectInstance.constructObject();
-
-    if (objectInstance.properties?.name) {
-      objectInstance.object.name = objectInstance.properties.name;
+    if (this.properties?.name) {
+      this.object.name = this.properties.name;
     }
-    if (objectInstance.properties?.scale) {
-      objectInstance.object.scale.setScalar(objectInstance.properties.scale);
+    if (this.properties?.scale) {
+      this.object.scale.setScalar(this.properties.scale);
     }
-
-    return objectInstance;
   }
 
   public getObject() {

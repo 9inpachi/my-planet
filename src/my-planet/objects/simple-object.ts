@@ -1,8 +1,9 @@
-import { Mesh, Object3D } from 'three';
+import { ColorRepresentation, Mesh, Object3D } from 'three';
 import { BaseObject } from './base-object';
 
 export type SimpleObjectProperties = {
   object: Object3D;
+  color?: ColorRepresentation;
 };
 
 export class SimpleObject extends BaseObject<SimpleObjectProperties> {

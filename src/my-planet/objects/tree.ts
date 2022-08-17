@@ -18,7 +18,6 @@ export class Tree extends BaseObject<TreeProperties> {
 
     group.add(trunk, crown);
     group.name = 'tree';
-    this.properties?.scale && group.scale.setScalar(this.properties.scale);
 
     return group;
   }

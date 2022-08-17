@@ -23,7 +23,6 @@ export class House extends BaseObject<HouseProperties> {
 
     house.add(roof, base);
     house.name = 'house';
-    this.properties?.scale && house.scale.setScalar(this.properties.scale);
 
     return house;
   }

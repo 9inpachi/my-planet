@@ -19,7 +19,6 @@ export class Building extends BaseObject<BuildingProperties> {
     }
 
     building.name = 'building';
-    this.properties?.scale && building.scale.setScalar(this.properties.scale);
 
     return building;
   }

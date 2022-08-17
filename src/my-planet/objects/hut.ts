@@ -1,0 +1,70 @@
+import {
+  BoxGeometry,
+  ConeGeometry,
+  Group,
+  Mesh,
+  MeshLambertMaterial,
+} from 'three';
+import { colors } from '../../common/lib/colors';
+import { BaseObject } from './base-object';
+
+type PillarPosition = {
+  x: number;
+  z: number;
+};
+
+export type HutProperties = {
+  size?: number;
+};
+
+export class Hut extends BaseObject<HutProperties> {
+  protected constructObject() {
+    const hut = new Group();
+    const roof = this.constructRoof(this.properties?.size);
+    const pillar = this.constructPillars(this.properties?.size);
+
+    hut.add(roof, pillar);
+    hut.name = 'hut';
+
+    return hut;
+  }
+
+  private constructRoof(size = 10) {
+    const geometry = new ConeGeometry(size, size, 9);
+    const material = new MeshLambertMaterial({ color: colors.hut.roof });
+    const mesh = new Mesh(geometry, material);
+    const pillarHeight = size;
+
+    geometry.translate(0, pillarHeight + size / 2, 0);
+
+    return mesh;
+  }
+
+  private constructPillars(size = 10) {
+    const pillarsPositions: PillarPosition[] = [
+      { x: 4.5, z: 4.5 },
+      { x: -4.5, z: 4.5 },
+      { x: 4.5, z: -4.5 },
+      { x: -4.5, z: -4.5 },
+    ];
+    const pillars = new Group();
+    pillars.name = 'pillars';
+
+    for (const pillarPosition of pillarsPositions) {
+      pillars.add(this.constructPillar(pillarPosition, size));
+    }
+
+    return pillars;
+  }
+
+  private constructPillar(position: PillarPosition, size = 10) {
+    const [width, height, depth] = [size / 5, size, size / 5];
+    const geometry = new BoxGeometry(width, height, depth);
+    const material = new MeshLambertMaterial({ color: colors.hut.pillar });
+    const mesh = new Mesh(geometry, material);
+
+    geometry.translate(position.x, height / 2, position.z);
+
+    return mesh;
+  }
+}

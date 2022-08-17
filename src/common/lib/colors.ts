@@ -21,4 +21,8 @@ export const colors = {
     floor: rgbColor('#f1eee9'),
     split: rgbColor('#73777b'),
   },
+  hut: {
+    roof: rgbColor('#a64b2a'),
+    pillar: rgbColor('#c8c2bc'),
+  },
 };

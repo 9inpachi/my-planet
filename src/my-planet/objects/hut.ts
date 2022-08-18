@@ -21,16 +21,16 @@ export class Hut extends BaseObject<HutProperties> {
   protected constructObject() {
     const hut = new Group();
     const roof = this.constructRoof(this.properties?.size);
-    const pillar = this.constructPillars(this.properties?.size);
+    const pillars = this.constructPillars(this.properties?.size);
 
-    hut.add(roof, pillar);
+    hut.add(roof, pillars);
     hut.name = 'hut';
 
     return hut;
   }
 
-  private constructRoof(size = 10) {
-    const geometry = new ConeGeometry(size, size, 9);
+  private constructRoof(size = 5) {
+    const geometry = new ConeGeometry(size * 1.2, size, 6);
     const material = new MeshLambertMaterial({ color: colors.hut.roof });
     const mesh = new Mesh(geometry, material);
     const pillarHeight = size;
@@ -40,12 +40,12 @@ export class Hut extends BaseObject<HutProperties> {
     return mesh;
   }
 
-  private constructPillars(size = 10) {
+  private constructPillars(size = 5) {
     const pillarsPositions: PillarPosition[] = [
-      { x: 4.5, z: 4.5 },
-      { x: -4.5, z: 4.5 },
-      { x: 4.5, z: -4.5 },
-      { x: -4.5, z: -4.5 },
+      { x: 2.5, z: 2.5 },
+      { x: -2.5, z: 2.5 },
+      { x: 2.5, z: -2.5 },
+      { x: -2.5, z: -2.5 },
     ];
     const pillars = new Group();
     pillars.name = 'pillars';
@@ -57,7 +57,7 @@ export class Hut extends BaseObject<HutProperties> {
     return pillars;
   }
 
-  private constructPillar(position: PillarPosition, size = 10) {
+  private constructPillar(position: PillarPosition, size: number) {
     const [width, height, depth] = [size / 5, size, size / 5];
     const geometry = new BoxGeometry(width, height, depth);
     const material = new MeshLambertMaterial({ color: colors.hut.pillar });

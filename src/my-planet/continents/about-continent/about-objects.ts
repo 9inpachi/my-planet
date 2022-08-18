@@ -22,10 +22,10 @@ export const aboutHouses: WithPositionAttributes<HouseProperties>[] = [
 
 export const aboutTrees: WithPositionAttributes<TreeProperties>[] = [
   {
-    scale: 1,
+    scale: 1.2,
     landHeight: LandHeight.LevelOne,
-    lat: 20,
-    lng: 90,
+    lat: 18,
+    lng: 88,
   },
   {
     scale: 1.5,
@@ -40,7 +40,7 @@ export const aboutTrees: WithPositionAttributes<TreeProperties>[] = [
     lng: 83,
   },
   {
-    scale: 1,
+    scale: 1.2,
     landHeight: LandHeight.LevelOne,
     lat: 40,
     lng: 110,

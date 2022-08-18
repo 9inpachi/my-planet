@@ -1,6 +1,6 @@
 import { Camera, PerspectiveCamera } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { IUpdatable } from './library/iupdatable';
+import { IUpdatable } from './lib/iupdatable';
 
 export class ThreeControls implements IUpdatable {
   private camera: Camera;
@@ -25,7 +25,6 @@ export class ThreeControls implements IUpdatable {
 
   private buildOrbitControls(domElement: HTMLCanvasElement) {
     const orbitControls = new OrbitControls(this.getCamera(), domElement);
-    orbitControls.autoRotate = true;
     orbitControls.enableDamping = true;
     orbitControls.dampingFactor = 0.1;
 

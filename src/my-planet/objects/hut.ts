@@ -30,12 +30,13 @@ export class Hut extends BaseObject<HutProperties> {
   }
 
   private constructRoof(size = 5) {
-    const geometry = new ConeGeometry(size * 1.2, size, 6);
+    const height = size / 1.25;
+    const geometry = new ConeGeometry(size * 1.2, height, 6);
     const material = new MeshLambertMaterial({ color: colors.hut.roof });
     const mesh = new Mesh(geometry, material);
-    const pillarHeight = size;
+    const pillarHeight = size / 1.1;
 
-    geometry.translate(0, pillarHeight + size / 2, 0);
+    geometry.translate(0, pillarHeight + height / 2, 0);
 
     return mesh;
   }
@@ -58,7 +59,7 @@ export class Hut extends BaseObject<HutProperties> {
   }
 
   private constructPillar(position: PillarPosition, size: number) {
-    const [width, height, depth] = [size / 5, size, size / 5];
+    const [width, height, depth] = [size / 5, size / 1.1, size / 5];
     const geometry = new BoxGeometry(width, height, depth);
     const material = new MeshLambertMaterial({ color: colors.hut.pillar });
     const mesh = new Mesh(geometry, material);

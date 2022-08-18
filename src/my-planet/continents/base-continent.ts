@@ -4,6 +4,7 @@ import { Constructor } from '../../common/lib/types';
 import { BaseObject } from '../objects/base-object';
 import { Building, BuildingProperties } from '../objects/building';
 import { House, HouseProperties } from '../objects/house';
+import { Hut, HutProperties } from '../objects/hut';
 import { Land, LandProperties } from '../objects/land';
 import { Mountain, MountainProperties } from '../objects/mountain';
 import { Tree, TreeProperties } from '../objects/tree';
@@ -102,5 +103,12 @@ export abstract class BaseContinent implements ICustomObject {
     attributes: WithPositionAttributes<BuildingProperties>[],
   ) {
     return this.constructObjectsGroup(Building, groupName, attributes);
+  }
+
+  protected constructHuts(
+    groupName: string,
+    attributes: WithPositionAttributes<HutProperties>[],
+  ) {
+    return this.constructObjectsGroup(Hut, groupName, attributes);
   }
 }

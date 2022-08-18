@@ -3,6 +3,7 @@ import { BaseContinent } from '../base-continent';
 import {
   projectsBuildings,
   projectsHouses,
+  projectsHuts,
   projectsMountains,
   projectsTrees,
 } from './projects-objects';
@@ -20,6 +21,7 @@ export class ProjectsContinent extends BaseContinent {
     continent.add(
       this.constructBuildings('projectsBuildings', projectsBuildings),
     );
+    continent.add(this.constructHuts('projectsHuts', projectsHuts));
 
     return continent;
   }

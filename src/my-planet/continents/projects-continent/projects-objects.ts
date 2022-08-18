@@ -1,5 +1,6 @@
 import { BuildingProperties } from '../../objects/building';
 import { HouseProperties } from '../../objects/house';
+import { HutProperties } from '../../objects/hut';
 import { MountainProperties } from '../../objects/mountain';
 import { TreeProperties } from '../../objects/tree';
 import { LandHeight } from '../lib/heights';
@@ -51,6 +52,19 @@ export const projectsBuildings: WithPositionAttributes<BuildingProperties>[] = [
     scale: 0.7,
     lat: 32,
     lng: -17,
+    landHeight: LandHeight.LevelOne,
+  },
+];
+
+export const projectsHuts: WithPositionAttributes<HutProperties>[] = [
+  {
+    lat: 40,
+    lng: 18,
+    landHeight: LandHeight.LevelOne,
+  },
+  {
+    lat: 35,
+    lng: 8,
     landHeight: LandHeight.LevelOne,
   },
 ];

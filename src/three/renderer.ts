@@ -8,6 +8,7 @@ export class ThreeRenderer {
   }
 
   private buildRenderer(canvas: HTMLCanvasElement) {
+    const wrapperElement = canvas.parentElement as HTMLElement;
     const webglRenderer = new WebGLRenderer({
       canvas,
       antialias: true,
@@ -15,7 +16,10 @@ export class ThreeRenderer {
     });
 
     webglRenderer.outputEncoding = sRGBEncoding;
-    webglRenderer.setSize(window.innerWidth, window.innerHeight);
+    webglRenderer.setSize(
+      this.rendererWidth(wrapperElement),
+      this.rendererHeight(wrapperElement),
+    );
     webglRenderer.setPixelRatio(window.devicePixelRatio);
 
     return webglRenderer;
@@ -23,5 +27,17 @@ export class ThreeRenderer {
 
   public getRenderer() {
     return this.renderer;
+  }
+
+  private rendererWidth(wrapperElement: HTMLElement) {
+    return wrapperElement.offsetWidth > 0
+      ? wrapperElement.offsetWidth
+      : window.innerWidth;
+  }
+
+  private rendererHeight(wrapperElement: HTMLElement) {
+    return wrapperElement.offsetHeight > 0
+      ? wrapperElement.offsetHeight
+      : window.innerWidth;
   }
 }

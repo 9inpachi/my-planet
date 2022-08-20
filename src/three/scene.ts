@@ -1,4 +1,4 @@
-import { AmbientLight, Group, Scene } from 'three';
+import { AmbientLight, Color, Group, Scene } from 'three';
 import { colors } from '../common/lib/colors';
 
 export class ThreeScene {
@@ -6,6 +6,7 @@ export class ThreeScene {
 
   constructor() {
     this.scene = new Scene();
+    this.scene.background = new Color('black');
     this.setupLights();
   }
 

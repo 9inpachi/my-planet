@@ -14,7 +14,7 @@ export class Three {
   constructor(configuration: ThreeConfiguration) {
     this.threeScene = new ThreeScene();
     this.threeRenderer = new ThreeRenderer(configuration.canvasElement);
-    this.threeControls = new ThreeControls(configuration.canvasElement);
+    this.threeControls = new ThreeControls(this.threeRenderer);
 
     this.animate();
   }

@@ -16,11 +16,16 @@ export class ThreeRenderer {
     });
 
     webglRenderer.outputEncoding = sRGBEncoding;
-    webglRenderer.setSize(
-      this.rendererWidth(wrapperElement),
-      this.rendererHeight(wrapperElement),
-    );
     webglRenderer.setPixelRatio(window.devicePixelRatio);
+    const updateWebGlRendererSize = () =>
+      webglRenderer.setSize(
+        this.rendererWidth(wrapperElement),
+        this.rendererHeight(wrapperElement),
+        false,
+      );
+
+    updateWebGlRendererSize();
+    window.addEventListener('resize', updateWebGlRendererSize);
 
     return webglRenderer;
   }

@@ -15,10 +15,15 @@ export type SunProperties = {
 export class Sun extends BaseObject<SunProperties> {
   protected constructObject() {
     const group = new Group();
+    const mainSun = new Group();
+    const auxiliaryLight = this.constructAuxiliaryLight();
+    const radius = 120;
 
-    group.add(this.constructLight(), this.constructSphere());
+    mainSun.add(this.constructLight(), this.constructSphere());
+    mainSun.position.setScalar(radius);
+    auxiliaryLight.position.setScalar(-radius);
+    group.add(mainSun, auxiliaryLight);
     group.name = 'sun';
-    group.position.set(120, 120, 120);
 
     return group;
   }
@@ -37,5 +42,9 @@ export class Sun extends BaseObject<SunProperties> {
 
   private constructLight() {
     return new DirectionalLight(colors.sun, 1);
+  }
+
+  private constructAuxiliaryLight() {
+    return new DirectionalLight(colors.sun, 0.3);
   }
 }

@@ -1,3 +1,4 @@
+import { GUI } from 'dat.gui';
 import { Group, MathUtils, Object3D } from 'three';
 import { ICustomObject } from '../../common/lib/icustom-object';
 import { Constructor } from '../../common/lib/types';
@@ -13,15 +14,22 @@ import { WithPositionAttributes } from './lib/types';
 
 type BaseContinentProperties = {
   globeRadius: number;
-  name?: string;
 };
 
 export abstract class BaseContinent implements ICustomObject {
   protected continent: Group;
+  private gui?: GUI;
 
   public abstract constructContinent(): Group;
 
-  constructor(protected properties: BaseContinentProperties) {
+  constructor(
+    protected properties: BaseContinentProperties,
+    private enableControls: boolean = false,
+  ) {
+    if (enableControls) {
+      this.gui = new GUI();
+    }
+
     this.continent = this.constructContinent();
   }
 
@@ -67,7 +75,23 @@ export abstract class BaseContinent implements ICustomObject {
       group.add(object.getObject());
     });
 
+    if (this.enableControls) {
+      this.constructGuiMenu(group);
+    }
+
     return group;
+  }
+
+  private constructGuiMenu<T>(objectsGroup: Group) {
+    if (!this.gui) {
+      return;
+    }
+
+    const folder = this.gui.addFolder(objectsGroup.name);
+
+    objectsGroup.children.forEach((object, index) => {
+      const objectFolder = folder.addFolder(object.name + index);
+    });
   }
 
   protected constructLands(

@@ -10,6 +10,7 @@
     "build": "rm -rf ./dist && webpack --mode production"
   },
   "devDependencies": {
+    "@types/dat.gui": "^0.7.7",
     "@types/three": "^0.139.0",
     "@typescript-eslint/eslint-plugin": "^5.20.0",
     "@typescript-eslint/parser": "^5.20.0",
@@ -28,6 +29,7 @@
     "webpack-dev-server": "^4.8.1"
   },
   "dependencies": {
+    "dat.gui": "^0.7.9",
     "three": "^0.139.2"
   }
 }

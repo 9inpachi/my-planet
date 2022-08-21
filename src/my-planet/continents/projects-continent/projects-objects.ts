@@ -12,7 +12,7 @@ export const projectsMountains: WithPositionAttributes<MountainProperties>[] = [
     lat: 53,
     lng: 4,
     rotation: 7,
-    landHeight: LandHeight.LevelTwo,
+    landHeight: LandHeight.LevelTwo - 0.75,
   },
 ];
 

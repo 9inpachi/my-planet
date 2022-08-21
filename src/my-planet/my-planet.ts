@@ -19,7 +19,7 @@ export class MyPlanet {
     const planet = new Globe({ size: 100 });
     const sun = new Sun({ size: 20 });
     const globeRadius = planet.getRadius();
-    const aboutContinent = new AboutContinent({ globeRadius });
+    const aboutContinent = new AboutContinent({ globeRadius }, true);
     const projectsContinent = new ProjectsContinent({ globeRadius });
 
     planet.addTo(scene);

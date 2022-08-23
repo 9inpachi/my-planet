@@ -1,4 +1,3 @@
-import { GUI } from 'dat.gui';
 import { Group, MathUtils, Object3D } from 'three';
 import { ICustomObject } from '../../common/lib/icustom-object';
 import { Constructor } from '../../common/lib/types';
@@ -8,10 +7,10 @@ import { House, HouseProperties } from '../objects/house';
 import { Hut, HutProperties } from '../objects/hut';
 import { Land, LandProperties } from '../objects/land';
 import { Mountain, MountainProperties } from '../objects/mountain';
-import { SimpleObject } from '../objects/simple-object';
 import { Tree, TreeProperties } from '../objects/tree';
 import { LandHeight } from './lib/heights';
 import { WithPositionAttributes } from './lib/types';
+import { ContinentDebugControls } from './utils/continent-debug-controls';
 
 type BaseContinentProperties = {
   globeRadius: number;
@@ -19,16 +18,16 @@ type BaseContinentProperties = {
 
 export abstract class BaseContinent implements ICustomObject {
   protected continent: Group;
-  private gui?: GUI;
+  private debugControls?: ContinentDebugControls;
 
   public abstract constructContinent(): Group;
 
   constructor(
     protected properties: BaseContinentProperties,
-    private enableControls: boolean = false,
+    enableDebugControls = false,
   ) {
-    if (enableControls) {
-      this.gui = new GUI();
+    if (enableDebugControls) {
+      this.debugControls = new ContinentDebugControls(properties.globeRadius);
     }
 
     this.continent = this.constructContinent();
@@ -71,54 +70,19 @@ export abstract class BaseContinent implements ICustomObject {
     const group = new Group();
     group.name = groupName;
 
-    attributes.forEach((objectAttributes) => {
+    attributes.forEach((objectAttributes, index) => {
       const object = this.constructObject(ObjectClass, objectAttributes);
       group.add(object.getObject());
-    });
 
-    if (this.enableControls) {
-      this.constructGuiMenu(group, attributes);
-    }
+      this.debugControls?.addObjectOptions(
+        groupName,
+        object,
+        objectAttributes,
+        index,
+      );
+    });
 
     return group;
-  }
-
-  private constructGuiMenu<T>(
-    objectsGroup: Group,
-    attributes: WithPositionAttributes<T>[],
-  ) {
-    if (!this.gui) {
-      return;
-    }
-
-    const folder = this.gui.addFolder(objectsGroup.name);
-
-    objectsGroup.children.forEach((object, index) => {
-      const objectFolder = folder.addFolder(object.name + index);
-
-      // BaseObjectProperties (scale)
-      objectFolder.add({ scale: object.scale.x }, 'scale').onChange((scale) => {
-        object.scale.setScalar(scale);
-      });
-
-      // WithPositionAttributes (lat, lng, rotation, landHeight)
-      objectFolder
-        .addFolder('rotation')
-        .add(object.rotation, 'y')
-        .name('rotation');
-
-      const locationAttributes = attributes[index];
-      const wrapperObject = new SimpleObject({ object });
-      ['lat', 'lng', 'landHeight'].forEach((locationAttribute) => {
-        objectFolder.add(locationAttributes, locationAttribute).onChange(() => {
-          wrapperObject.applyLatLng(
-            this.properties.globeRadius + (locationAttributes.landHeight ?? 0),
-            locationAttributes.lat,
-            locationAttributes.lng,
-          );
-        });
-      });
-    });
   }
 
   protected constructLands(

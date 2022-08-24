@@ -26,17 +26,20 @@ export class ContinentDebugControls {
     });
 
     // WithPositionAttributes (lat, lng, rotation, landHeight)
-    objectFolder
-      .addFolder('rotation')
-      .add(object.rotation, 'y')
-      .name('rotation');
+    objectFolder.add(object.rotation, 'y').name('rotation');
 
-    ['lat', 'lng', 'landHeight'].forEach((locationAttribute) => {
-      objectFolder.add(objectAttributes, locationAttribute).onChange(() => {
+    const locationAttributes = {
+      lat: objectAttributes.lat,
+      lng: objectAttributes.lng,
+      landHeight: objectAttributes.landHeight ?? 0,
+    };
+
+    Object.keys(locationAttributes).forEach((locationAttribute) => {
+      objectFolder.add(locationAttributes, locationAttribute).onChange(() => {
         planetObject.applyLatLng(
-          this.globeRadius + (objectAttributes.landHeight ?? 0),
-          objectAttributes.lat,
-          objectAttributes.lng,
+          this.globeRadius + (locationAttributes.landHeight ?? 0),
+          locationAttributes.lat,
+          locationAttributes.lng,
         );
       });
     });

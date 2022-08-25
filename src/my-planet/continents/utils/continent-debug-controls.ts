@@ -1,4 +1,5 @@
 import { GUI } from 'dat.gui';
+import { MathUtils } from 'three';
 import { BaseObject } from '../../objects/base-object';
 import { WithPositionAttributes } from '../lib/types';
 
@@ -26,7 +27,12 @@ export class ContinentDebugControls {
     });
 
     // WithPositionAttributes (lat, lng, rotation, landHeight)
-    objectFolder.add(object.rotation, 'y').name('rotation');
+    objectFolder
+      .add({ y: MathUtils.radToDeg(object.rotation.y) }, 'y')
+      .name('rotation')
+      .onChange((value) => {
+        object.rotateY(MathUtils.degToRad(value));
+      });
 
     const locationAttributes = {
       lat: objectAttributes.lat,

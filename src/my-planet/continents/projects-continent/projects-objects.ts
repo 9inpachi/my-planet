@@ -18,10 +18,17 @@ export const projectsMountains: WithPositionAttributes<MountainProperties>[] = [
 
 export const projectsHouses: WithPositionAttributes<HouseProperties>[] = [
   {
-    scale: 1,
+    scale: 1.2,
     lat: 48,
     lng: -20,
     landHeight: LandHeight.LevelTwo,
+  },
+  {
+    scale: 1,
+    lat: 31,
+    lng: -14,
+    rotation: 36,
+    landHeight: LandHeight.LevelOne,
   },
 ];
 
@@ -38,23 +45,28 @@ export const projectsTrees: WithPositionAttributes<TreeProperties>[] = [
     lng: -10,
     landHeight: LandHeight.LevelTwo,
   },
+  {
+    scale: 1.2,
+    lat: 32,
+    lng: -6,
+    landHeight: LandHeight.LevelOne,
+  },
+  {
+    scale: 1.5,
+    lat: 36,
+    lng: -6,
+    landHeight: LandHeight.LevelOne,
+  },
+  {
+    scale: 1,
+    lat: 33,
+    lng: -2,
+    landHeight: LandHeight.LevelOne,
+  },
 ];
 
-export const projectsBuildings: WithPositionAttributes<BuildingProperties>[] = [
-  {
-    floors: 3,
-    lat: 32,
-    lng: -7,
-    landHeight: LandHeight.LevelOne,
-  },
-  {
-    floors: 3,
-    scale: 0.7,
-    lat: 32,
-    lng: -17,
-    landHeight: LandHeight.LevelOne,
-  },
-];
+export const projectsBuildings: WithPositionAttributes<BuildingProperties>[] =
+  [];
 
 export const projectsHuts: WithPositionAttributes<HutProperties>[] = [
   {

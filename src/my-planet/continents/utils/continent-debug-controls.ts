@@ -21,6 +21,9 @@ export class ContinentDebugControls {
     const object = planetObject.getObject();
     const objectFolder = groupFolder.addFolder(object.name + index);
 
+    // Visibility
+    objectFolder.add(object, 'visible');
+
     // BaseObjectProperties (scale)
     objectFolder
       .add({ scale: object.scale.x }, 'scale', 0, 5)

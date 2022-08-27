@@ -13,7 +13,7 @@ export class ContinentDebugControls {
   public addObjectOptions<T>(
     groupName: string,
     planetObject: BaseObject<T>,
-    objectAttributes: WithPositionAttributes<T>,
+    { lat, lng, rotation, landHeight }: WithPositionAttributes<T>,
     index: number,
   ) {
     const groupFolder =
@@ -28,9 +28,13 @@ export class ContinentDebugControls {
         object.scale.setScalar(scale);
       });
 
-    // WithPositionAttributes (lat, lng, rotation, landHeight)
-    let defaultRotation = object.rotation.clone();
-    const yRotation = { y: 0 };
+    // WithPositionAttributes - rotation
+    const cloneObject = object.clone();
+    rotation && cloneObject.rotateY(-MathUtils.degToRad(rotation));
+    const defaultRotation = cloneObject.rotation.clone();
+
+    const yRotation = { y: rotation ?? 0 };
+
     objectFolder
       .add(yRotation, 'y', 0, 360)
       .name('rotation')
@@ -39,11 +43,8 @@ export class ContinentDebugControls {
         object.rotateY(MathUtils.degToRad(value));
       });
 
-    const locationAttributes = {
-      lat: objectAttributes.lat,
-      lng: objectAttributes.lng,
-      landHeight: objectAttributes.landHeight ?? 0,
-    };
+    // WithPositionAttributes - lat, lng, landHeight
+    const locationAttributes = { lat, lng, landHeight: landHeight ?? 0 };
 
     Object.keys(locationAttributes).forEach((locationAttribute) => {
       objectFolder
@@ -55,8 +56,8 @@ export class ContinentDebugControls {
             locationAttributes.lng,
           );
 
-          defaultRotation = object.rotation.clone();
-          object.rotateY(yRotation.y);
+          defaultRotation.copy(object.rotation);
+          object.rotateY(MathUtils.degToRad(yRotation.y));
         });
     });
   }

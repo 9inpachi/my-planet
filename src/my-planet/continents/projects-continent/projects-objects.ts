@@ -18,13 +18,13 @@ export const projectsMountains: WithPositionAttributes<MountainProperties>[] = [
 
 export const projectsHouses: WithPositionAttributes<HouseProperties>[] = [
   {
-    scale: 1.2,
+    scale: 1,
     lat: 48,
     lng: -20,
     landHeight: LandHeight.LevelTwo,
   },
   {
-    scale: 1,
+    scale: 1.2,
     lat: 31,
     lng: -14,
     rotation: 36,

@@ -8,6 +8,7 @@ import { GltfLoader } from '../three/loaders/gltf-loader';
 import { SimpleObject } from './objects/simple-object';
 
 import continentGeometry from '../assets/geometries/continents.gltf';
+import { WorkContinent } from './continents/work-continent/work-continent';
 
 export class MyPlanet {
   private three: Three;
@@ -19,13 +20,15 @@ export class MyPlanet {
     const planet = new Globe({ size: 100 });
     const sun = new Sun({ size: 20 });
     const globeRadius = planet.getRadius();
-    const aboutContinent = new AboutContinent({ globeRadius }, true);
+    const aboutContinent = new AboutContinent({ globeRadius });
     const projectsContinent = new ProjectsContinent({ globeRadius });
+    const workContinent = new WorkContinent({ globeRadius }, true);
 
     planet.addTo(scene);
     sun.addTo(scene);
     aboutContinent.addTo(scene);
     projectsContinent.addTo(scene);
+    workContinent.addTo(scene);
 
     const gltfLoader = new GltfLoader();
     gltfLoader.loadFile(continentGeometry).then((obj) => {

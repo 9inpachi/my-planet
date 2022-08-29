@@ -1,3 +1,5 @@
+import { colors } from '../../../common/lib/colors';
+import { BuildingProperties } from '../../objects/building';
 import { TreeProperties } from '../../objects/tree';
 import { LandHeight } from '../lib/heights';
 import { WithPositionAttributes } from '../lib/types';
@@ -32,5 +34,21 @@ export const workTrees: WithPositionAttributes<TreeProperties>[] = [
     lat: 31,
     lng: -67,
     landHeight: LandHeight.LevelOne,
+  },
+];
+
+export const workBuildings: WithPositionAttributes<BuildingProperties>[] = [
+  {
+    lat: 21,
+    lng: -83,
+    rotation: 65,
+    landHeight: LandHeight.LevelTwo,
+    floors: 2,
+  },
+  {
+    lat: 16,
+    lng: -73,
+    rotation: 65,
+    landHeight: LandHeight.LevelTwo,
   },
 ];

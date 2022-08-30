@@ -1,5 +1,5 @@
-import { colors } from '../../../common/lib/colors';
 import { BuildingProperties } from '../../objects/building';
+import { HutProperties } from '../../objects/hut';
 import { TreeProperties } from '../../objects/tree';
 import { LandHeight } from '../lib/heights';
 import { WithPositionAttributes } from '../lib/types';
@@ -50,5 +50,24 @@ export const workBuildings: WithPositionAttributes<BuildingProperties>[] = [
     lng: -73,
     rotation: 65,
     landHeight: LandHeight.LevelTwo,
+  },
+];
+
+export const workHuts: WithPositionAttributes<HutProperties>[] = [
+  {
+    scale: 0.7,
+    lat: -1,
+    lng: -78,
+    landHeight: LandHeight.LevelOne,
+  },
+  {
+    lat: 1,
+    lng: -84,
+    landHeight: LandHeight.LevelOne,
+  },
+  {
+    lat: 7,
+    lng: -94,
+    landHeight: LandHeight.LevelOne,
   },
 ];

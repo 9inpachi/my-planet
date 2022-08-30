@@ -1,6 +1,6 @@
 import { Group } from 'three';
 import { BaseContinent } from '../base-continent';
-import { workBuildings, workTrees } from './work-objects';
+import { workBuildings, workHuts, workTrees } from './work-objects';
 
 export class WorkContinent extends BaseContinent {
   public constructContinent() {
@@ -9,6 +9,7 @@ export class WorkContinent extends BaseContinent {
 
     continent.add(this.constructTrees('workTrees', workTrees));
     continent.add(this.constructBuildings('workBuildings', workBuildings));
+    continent.add(this.constructHuts('workHuts', workHuts));
 
     return continent;
   }

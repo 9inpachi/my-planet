@@ -45,6 +45,6 @@ export class Sun extends BaseObject<SunProperties> {
   }
 
   private constructAuxiliaryLight() {
-    return new DirectionalLight(colors.sun, 0.3);
+    return new DirectionalLight(colors.sun, 1);
   }
 }

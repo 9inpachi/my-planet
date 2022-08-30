@@ -1,4 +1,3 @@
-import { BuildingProperties } from '../../objects/building';
 import { HouseProperties } from '../../objects/house';
 import { HutProperties } from '../../objects/hut';
 import { MountainProperties } from '../../objects/mountain';
@@ -64,9 +63,6 @@ export const projectsTrees: WithPositionAttributes<TreeProperties>[] = [
     landHeight: LandHeight.LevelOne,
   },
 ];
-
-export const projectsBuildings: WithPositionAttributes<BuildingProperties>[] =
-  [];
 
 export const projectsHuts: WithPositionAttributes<HutProperties>[] = [
   {

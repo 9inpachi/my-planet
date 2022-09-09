@@ -1,4 +1,4 @@
-import { rgbColor } from '../utils/colors';
+import { rgbColor } from '../util/colors';
 
 export const colors = {
   ambientLight: rgbColor('#ffffff'),

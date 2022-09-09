@@ -1,7 +1,7 @@
 import { Object3D } from 'three';
 import { IGeometryLoader } from './igeometry-loader';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { Logger } from '../../common/utils/logger';
+import { Logger } from '../../common/util/logger';
 
 export class GltfLoader implements IGeometryLoader {
   private loader: GLTFLoader = new GLTFLoader();

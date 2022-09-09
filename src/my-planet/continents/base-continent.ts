@@ -10,7 +10,7 @@ import { Mountain, MountainProperties } from '../objects/mountain';
 import { Tree, TreeProperties } from '../objects/tree';
 import { LandHeight } from './lib/heights';
 import { WithPositionAttributes } from './lib/types';
-import { ContinentDebugControls } from './utils/continent-debug-controls';
+import { ContinentDebugControls } from './util/continent-debug-controls';
 
 type BaseContinentProperties = {
   globeRadius: number;

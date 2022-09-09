@@ -10,6 +10,7 @@ import { BaseObject } from './base-object';
 
 export type SunProperties = {
   size: number;
+  radius?: number;
 };
 
 export class Sun extends BaseObject<SunProperties> {
@@ -17,7 +18,7 @@ export class Sun extends BaseObject<SunProperties> {
     const group = new Group();
     const mainSun = new Group();
     const auxiliaryLight = this.constructAuxiliaryLight();
-    const radius = 120;
+    const radius = this.properties.radius ?? 120;
 
     mainSun.add(this.constructLight(), this.constructSphere());
     mainSun.position.setScalar(radius);

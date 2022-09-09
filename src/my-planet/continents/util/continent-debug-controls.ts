@@ -51,7 +51,7 @@ export class ContinentDebugControls {
 
     Object.keys(locationAttributes).forEach((locationAttribute) => {
       objectFolder
-        .add(locationAttributes, locationAttribute, -360, 360)
+        .add(locationAttributes, locationAttribute, -360, 360, 1)
         .onChange(() => {
           planetObject.applyLatLng(
             this.globeRadius + (locationAttributes.landHeight ?? 0),

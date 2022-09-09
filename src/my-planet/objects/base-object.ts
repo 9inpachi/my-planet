@@ -1,7 +1,7 @@
 import { MathUtils, Object3D } from 'three';
 import { ICustomObject } from '../../common/lib/icustom-object';
 import { FieldOptional, ParameterOptional } from '../../common/lib/types';
-import { getPositionFromLatLng } from '../common/utils/coordinates';
+import { getPositionFromLatLng } from '../common/util/coordinates';
 
 export type BaseObjectProperties<T = unknown> = T & {
   scale?: number;

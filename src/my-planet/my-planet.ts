@@ -9,6 +9,7 @@ import { SimpleObject } from './objects/simple-object';
 
 import continentGeometry from '../assets/geometries/continents.gltf';
 import { WorkContinent } from './continents/work-continent/work-continent';
+import { LifeContinent } from './continents/life-continent/life-continent';
 
 export class MyPlanet {
   private three: Three;
@@ -23,12 +24,14 @@ export class MyPlanet {
     const aboutContinent = new AboutContinent({ globeRadius });
     const projectsContinent = new ProjectsContinent({ globeRadius });
     const workContinent = new WorkContinent({ globeRadius }, true);
+    const lifeContinent = new LifeContinent({ globeRadius }, true);
 
     planet.addTo(scene);
     sun.addTo(scene);
     aboutContinent.addTo(scene);
     projectsContinent.addTo(scene);
     workContinent.addTo(scene);
+    lifeContinent.addTo(scene);
 
     const gltfLoader = new GltfLoader();
     gltfLoader.loadFile(continentGeometry).then((obj) => {

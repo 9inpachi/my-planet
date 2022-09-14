@@ -35,6 +35,18 @@ export const workTrees: WithPositionAttributes<TreeProperties>[] = [
     lng: -67,
     landHeight: LandHeight.LevelOne,
   },
+  {
+    scale: 1,
+    lat: 12,
+    lng: -79,
+    landHeight: LandHeight.LevelTwo,
+  },
+  {
+    scale: 1.2,
+    lat: 13,
+    lng: -83,
+    landHeight: LandHeight.LevelTwo,
+  },
 ];
 
 export const workBuildings: WithPositionAttributes<BuildingProperties>[] = [

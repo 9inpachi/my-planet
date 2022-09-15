@@ -23,6 +23,6 @@ export const colors = {
   },
   hut: {
     roof: rgbColor('#a64b2a'),
-    pillar: rgbColor('#d8cca3'),
+    pillar: rgbColor('#d7a86e'),
   },
 };

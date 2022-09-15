@@ -7,6 +7,7 @@ import { WithPositionAttributes } from '../lib/types';
 
 export const lifeMountains: WithPositionAttributes<MountainProperties>[] = [
   {
+    scale: 1.1,
     size: 20,
     lat: -29,
     lng: -142,
@@ -24,12 +25,54 @@ export const lifeTrees: WithPositionAttributes<TreeProperties>[] = [
     landHeight: LandHeight.LevelOne,
   },
   {
-    lat: 33,
-    lng: -77,
+    lat: -16,
+    lng: -158,
+    landHeight: LandHeight.LevelOne,
   },
   {
-    lat: 33,
-    lng: -77,
+    scale: 1.3,
+    lat: -21,
+    lng: -172,
+    rotation: 10,
+    landHeight: LandHeight.LevelTwo,
+  },
+  {
+    scale: 1.1,
+    lat: -23,
+    lng: -168,
+    rotation: 60,
+    landHeight: LandHeight.LevelTwo,
+  },
+  {
+    lat: -21,
+    lng: -177,
+    rotation: 30,
+    landHeight: LandHeight.LevelTwo,
+  },
+  {
+    scale: 1.2,
+    lat: -25,
+    lng: -174,
+    landHeight: LandHeight.LevelTwo,
+  },
+  {
+    scale: 1.5,
+    lat: -50,
+    lng: -142,
+    landHeight: LandHeight.LevelOne,
+  },
+  {
+    scale: 1.2,
+    lat: -46,
+    lng: -137,
+    rotation: 60,
+    landHeight: LandHeight.LevelOne,
+  },
+  {
+    lat: -45,
+    lng: -144,
+    rotation: 15,
+    landHeight: LandHeight.LevelOne,
   },
 ];
 
@@ -53,15 +96,15 @@ export const lifeBuildings: WithPositionAttributes<BuildingProperties>[] = [
   {
     scale: 1,
     lat: -37,
-    lng: -166,
+    lng: -164,
     rotation: 30,
     landHeight: LandHeight.LevelTwo,
   },
   {
-    scale: 0.9,
-    lat: -37,
-    lng: -166,
+    scale: 0.7,
+    lat: -30,
+    lng: -168,
+    rotation: 30,
     landHeight: LandHeight.LevelTwo,
-    floors: 2,
   },
 ];

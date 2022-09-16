@@ -1,22 +1,21 @@
 import path from 'path';
+import { Configuration } from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
-import { Configuration } from 'webpack';
+
+const isDevServer = process.env.WEBPACK_SERVE ?? false;
 
 const config: Configuration = {
-  mode: 'development',
+  mode: isDevServer ? 'development' : 'production',
   context: path.resolve(__dirname, './'),
   entry: path.resolve(__dirname, './src/index.ts'),
-  devtool: 'inline-source-map',
+  devtool: isDevServer ? 'inline-source-map' : false,
   output: {
     path: path.resolve(__dirname, './dist'),
     filename: 'bundle.js',
   },
   resolve: {
     extensions: ['.ts', '.js', '.json'],
-    alias: {
-      three$: path.resolve('./src/three/exports.ts'),
-    },
   },
   module: {
     rules: [

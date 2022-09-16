@@ -14,6 +14,9 @@ const config: Configuration = {
   },
   resolve: {
     extensions: ['.ts', '.js', '.json'],
+    alias: {
+      three$: path.resolve('./src/three/exports.ts'),
+    },
   },
   module: {
     rules: [

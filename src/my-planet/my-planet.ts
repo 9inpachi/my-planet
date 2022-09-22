@@ -23,8 +23,8 @@ export class MyPlanet {
     const globeRadius = planet.getRadius();
     const aboutContinent = new AboutContinent({ globeRadius });
     const projectsContinent = new ProjectsContinent({ globeRadius });
-    const workContinent = new WorkContinent({ globeRadius }, true);
-    const lifeContinent = new LifeContinent({ globeRadius }, true);
+    const workContinent = new WorkContinent({ globeRadius });
+    const lifeContinent = new LifeContinent({ globeRadius });
 
     planet.addTo(scene);
     sun.addTo(scene);

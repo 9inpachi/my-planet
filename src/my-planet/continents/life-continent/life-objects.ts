@@ -13,7 +13,7 @@ export const lifeMountains: WithPositionAttributes<MountainProperties>[] = [
     lng: -142,
     rotation: 70,
     height: 15,
-    landHeight: LandHeight.LevelOne - 0.75,
+    landHeight: LandHeight.LevelOne - 2,
   },
 ];
 

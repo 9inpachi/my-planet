@@ -17,7 +17,7 @@ export class PlaceholderContinent extends BaseContinent {
     continent.add(
       this.constructBuildings('placeholderBuildings', placeholderBuildings),
     );
-    continent.add(this.constructHouses('placeholderHuts', placeholderHuts));
+    continent.add(this.constructHuts('placeholderHuts', placeholderHuts));
 
     return continent;
   }

@@ -6,10 +6,11 @@ import { AxesHelper } from 'three';
 import { ProjectsContinent } from './continents/projects-continent/projects-continent';
 import { GltfLoader } from '../three/loaders/gltf-loader';
 import { SimpleObject } from './objects/simple-object';
-
-import continentGeometry from '../assets/geometries/continents.gltf';
 import { WorkContinent } from './continents/work-continent/work-continent';
 import { LifeContinent } from './continents/life-continent/life-continent';
+import { PlaceholderContinent } from './continents/placeholder-continent/placeholder-continent';
+
+import continentGeometry from '../assets/geometries/continents.gltf';
 
 export class MyPlanet {
   private three: Three;
@@ -25,6 +26,10 @@ export class MyPlanet {
     const projectsContinent = new ProjectsContinent({ globeRadius });
     const workContinent = new WorkContinent({ globeRadius });
     const lifeContinent = new LifeContinent({ globeRadius });
+    const placeholderContinent = new PlaceholderContinent(
+      { globeRadius },
+      true,
+    );
 
     planet.addTo(scene);
     sun.addTo(scene);
@@ -32,6 +37,7 @@ export class MyPlanet {
     projectsContinent.addTo(scene);
     workContinent.addTo(scene);
     lifeContinent.addTo(scene);
+    placeholderContinent.addTo(scene);
 
     const gltfLoader = new GltfLoader();
     gltfLoader.loadFile(continentGeometry).then((obj) => {

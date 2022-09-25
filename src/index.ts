@@ -1,5 +1,5 @@
-import { MyPlanet } from './my-planet/my-planet';
+import { Planet } from './planet/planet';
 
-MyPlanet.build({
+Planet.build({
   canvasElement: document.getElementById('threeCanvas') as HTMLCanvasElement,
 });

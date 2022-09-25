@@ -11,7 +11,7 @@ import { PlaceholderContinent } from './continents/placeholder-continent/placeho
 
 import continentGeometry from '../assets/geometries/continents.gltf';
 
-export class MyPlanet {
+export class Planet {
   private three: Three;
 
   constructor(configuration: ThreeConfiguration) {
@@ -46,6 +46,6 @@ export class MyPlanet {
   }
 
   public static build(configuration: ThreeConfiguration) {
-    return new MyPlanet(configuration);
+    return new Planet(configuration);
   }
 }

@@ -2,7 +2,6 @@ import { Three, ThreeConfiguration } from '../three';
 import { Globe } from './objects/globe';
 import { Sun } from './objects/sun';
 import { AboutContinent } from './continents/about-continent/about-continent';
-import { AxesHelper } from 'three';
 import { ProjectsContinent } from './continents/projects-continent/projects-continent';
 import { GltfLoader } from '../three/loaders/gltf-loader';
 import { SimpleObject } from './objects/simple-object';
@@ -17,42 +16,33 @@ export class MyPlanet {
 
   constructor(configuration: ThreeConfiguration) {
     this.three = new Three(configuration);
+    this.initializePlanet();
+  }
+
+  private async initializePlanet() {
     const scene = this.three.getScene();
 
     const planet = new Globe({ size: 100 });
-    const sun = new Sun({ size: 20 });
-    const globeRadius = planet.getRadius();
-    const aboutContinent = new AboutContinent({ globeRadius });
-    const projectsContinent = new ProjectsContinent({ globeRadius });
-    const workContinent = new WorkContinent({ globeRadius });
-    const lifeContinent = new LifeContinent({ globeRadius });
-    const placeholderContinent = new PlaceholderContinent(
-      { globeRadius },
-      true,
-    );
-
     planet.addTo(scene);
+    const sun = new Sun({ size: 20 });
     sun.addTo(scene);
+    const globeRadius = planet.getRadius();
+
+    const aboutContinent = new AboutContinent({ globeRadius });
     aboutContinent.addTo(scene);
+    const projectsContinent = new ProjectsContinent({ globeRadius });
     projectsContinent.addTo(scene);
+    const workContinent = new WorkContinent({ globeRadius });
     workContinent.addTo(scene);
+    const lifeContinent = new LifeContinent({ globeRadius });
     lifeContinent.addTo(scene);
+    const placeholderContinent = new PlaceholderContinent({ globeRadius });
     placeholderContinent.addTo(scene);
 
     const gltfLoader = new GltfLoader();
-    gltfLoader.loadFile(continentGeometry).then((obj) => {
-      const continentObject = new SimpleObject({ object: obj.children[0] });
-      continentObject.getObject().scale.setScalar(1);
-      continentObject.addTo(scene);
-    });
-
-    this.testStuff();
-  }
-
-  private testStuff() {
-    const scene = this.three.getScene();
-    const axisHelper = new AxesHelper(500);
-    scene.add(axisHelper);
+    const continentsGltf = await gltfLoader.loadFile(continentGeometry);
+    const continentsObject = new SimpleObject({ object: continentsGltf });
+    continentsObject.addTo(scene);
   }
 
   public static build(configuration: ThreeConfiguration) {

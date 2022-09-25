@@ -18,7 +18,6 @@ export class GltfLoader implements IGeometryLoader {
   async loadFile(filePath: string): Promise<Object3D> {
     try {
       const gltf = await this.loader.loadAsync(filePath);
-
       return gltf.scene;
     } catch (error) {
       Logger.getInstance().logError(

@@ -39,7 +39,7 @@ export const placeholderTrees: WithPositionAttributes<TreeProperties>[] = [
 
 export const placeholderHouses: WithPositionAttributes<HouseProperties>[] = [
   {
-    scale: 0.8,
+    scale: 1,
     lat: -140,
     lng: -167,
     rotation: 120,

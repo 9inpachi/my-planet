@@ -1,5 +1,5 @@
 import { Component } from '../../component';
-import { allEvents } from '../../util/events';
+import { allEvents } from '../events';
 import { IHTMLParser } from './ihtml-parser';
 
 const eventPrefix = 'on:';

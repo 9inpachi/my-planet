@@ -27,12 +27,16 @@ const config: Configuration = {
         },
       },
       {
-        test: /\.(jpe?g|png|gif|gltf|obj|fbx)$/,
-        loader: 'file-loader',
-        options: {
-          name: '[folder]/[name].[ext]',
-          outputPath: 'assets',
+        test: /\.(jpe?g|png|gif|gltf|obj|fbx|css)$/,
+        type: 'asset/resource',
+        generator: {
+          filename: 'assets/[file]',
         },
+      },
+      {
+        test: /\.html$/,
+        exclude: path.resolve(__dirname, './public/index.html'),
+        type: 'asset/source',
       },
     ],
   },

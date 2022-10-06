@@ -23,7 +23,7 @@ export class Sun extends BaseObject<SunProperties> {
     mainSun.add(this.constructLight(), this.constructSphere());
     mainSun.position.setScalar(radius);
     auxiliaryLight.position.setScalar(-radius);
-    group.add(mainSun, auxiliaryLight);
+    group.add(mainSun);
     group.name = 'sun';
 
     return group;

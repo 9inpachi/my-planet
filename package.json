@@ -7,7 +7,7 @@
   "private": true,
   "scripts": {
     "start": "vite",
-    "build": "tsc && vite build"
+    "build": "vite build"
   },
   "devDependencies": {
     "@types/dat.gui": "^0.7.7",

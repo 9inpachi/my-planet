@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  assetsInclude: ['**/*.gltf', '**/*.css'],
+  assetsInclude: ['**/*.gltf'],
   build: {
     lib: {
       entry: './src/index.ts',

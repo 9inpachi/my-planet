@@ -1,3 +1,7 @@
+/**
+ * This code is taken from https://github.com/9inpachi/web-components.
+ */
+
 import { HTMLParser } from './util/html-parser/html-parser';
 import { IHTMLParser } from './util/html-parser/ihtml-parser';
 import { evaluateStringTemplate } from './util/string';

@@ -1,0 +1,15 @@
+/* Global Styles */
+
+:root {
+  /* Variables */
+  --bg-primary: #ffffff;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  /* TODO: Set up 'Varela Round' font. */
+  font-family: 'Varela Round', sans-serif;
+  /* Base font size relative units (`rem`) are calculated from. */
+  font-size: 16px;
+}

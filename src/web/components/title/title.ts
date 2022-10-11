@@ -1,7 +1,7 @@
 import { styles, template } from '../component';
 import { Component } from '../component/component';
 
-import titleTemplate from './title.html';
+import titleTemplate from './title.html?raw';
 import titleStyles from './title.css';
 
 @template(titleTemplate)

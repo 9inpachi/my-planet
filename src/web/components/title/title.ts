@@ -1,5 +1,6 @@
 import { styles, template } from '../component';
 import { Component } from '../component/component';
+import { registerComponent } from '../component/util/register-component';
 
 import titleTemplate from './title.html?raw';
 import titleStyles from './title.css?url';
@@ -8,4 +9,4 @@ import titleStyles from './title.css?url';
 @styles(titleStyles)
 class Title extends Component {}
 
-customElements.define('mp-title', Title);
+registerComponent(Title);

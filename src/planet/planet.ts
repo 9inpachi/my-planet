@@ -1,3 +1,4 @@
+import { Group } from 'three';
 import { Three, ThreeConfiguration } from '../three';
 import { Globe } from './objects/globe';
 import { Sun } from './objects/sun';
@@ -22,27 +23,29 @@ export class Planet {
   private async initializePlanet() {
     const scene = this.three.getScene();
 
-    const planet = new Globe({ size: 100 });
-    planet.addTo(scene);
-    const sun = new Sun({ size: 20 });
+    const sun = new Sun({ size: 10 });
     sun.addTo(scene);
-    const globeRadius = planet.getRadius();
 
-    const aboutContinent = new AboutContinent({ globeRadius });
-    aboutContinent.addTo(scene);
-    const projectsContinent = new ProjectsContinent({ globeRadius });
-    projectsContinent.addTo(scene);
-    const workContinent = new WorkContinent({ globeRadius });
-    workContinent.addTo(scene);
-    const lifeContinent = new LifeContinent({ globeRadius });
-    lifeContinent.addTo(scene);
-    const placeholderContinent = new PlaceholderContinent({ globeRadius });
-    placeholderContinent.addTo(scene);
+    const planet = new Group();
+    planet.name = 'planet';
+    scene.add(planet);
+
+    const globe = new Globe({ size: 100 });
+    globe.addTo(planet);
+    const globeRadius = globe.getRadius();
+
+    [
+      new AboutContinent({ globeRadius }),
+      new ProjectsContinent({ globeRadius }),
+      new WorkContinent({ globeRadius }),
+      new LifeContinent({ globeRadius }),
+      new PlaceholderContinent({ globeRadius }),
+    ].forEach((continent) => continent.addTo(globe.getObject()));
 
     const gltfLoader = new GltfLoader();
     const continentsGltf = await gltfLoader.loadFile(continentGeometry);
     const continentsObject = new SimpleObject({ object: continentsGltf });
-    continentsObject.addTo(scene);
+    continentsObject.addTo(globe.getObject());
   }
 
   public static build(configuration: ThreeConfiguration) {

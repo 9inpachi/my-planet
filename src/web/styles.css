@@ -21,9 +21,3 @@ body {
   /* Base font size relative units (`rem`) are calculated from. */
   font-size: 16px;
 }
-
-#threeCanvas {
-  width: 100%;
-  height: 100%;
-  display: block;
-}

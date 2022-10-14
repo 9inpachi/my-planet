@@ -12,7 +12,7 @@ export interface Component {
 }
 
 export abstract class Component extends HTMLElement {
-  private shadowDOM: ShadowRoot;
+  protected shadowDOM: ShadowRoot;
   private htmlParser!: IHTMLParser;
 
   protected init?(): void;

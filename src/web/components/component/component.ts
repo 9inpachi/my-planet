@@ -15,7 +15,8 @@ export abstract class Component extends HTMLElement {
   protected shadowDOM: ShadowRoot;
   private htmlParser!: IHTMLParser;
 
-  protected init?(): void;
+  protected onInit?(): void;
+  protected onStylesLoaded?(): void;
 
   constructor() {
     super();
@@ -32,13 +33,16 @@ export abstract class Component extends HTMLElement {
     this.styles && this.shadowDOM.appendChild(this.processStyles());
     this.template && this.shadowDOM.append(...this.processTemplate());
 
-    this.init?.();
+    this.onInit?.();
   }
 
   private processStyles() {
     const link = document.createElement('link');
     link.setAttribute('rel', 'stylesheet');
     link.setAttribute('href', this.styles);
+
+    this.onStylesLoaded &&
+      link.addEventListener('load', this.onStylesLoaded.bind(this));
 
     return link;
   }

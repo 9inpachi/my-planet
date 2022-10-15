@@ -7,15 +7,14 @@ import planetStyles from './planet.css?url';
 @template(planetTemplate)
 @styles(planetStyles)
 class Planet extends Component {
-  protected init() {
-    // When styles have loaded. Hack?
-    this.shadowDOM.querySelector('link')?.addEventListener('load', () => {
-      const canvasElement = this.shadowDOM.querySelector(
-        '#planet-canvas',
-      ) as HTMLCanvasElement;
+  protected onStylesLoaded() {
+    // The size of the component is only correctly applied after the styles have loaded.
+    // Hack?
+    const canvasElement = this.shadowDOM.querySelector(
+      '#planet-canvas',
+    ) as HTMLCanvasElement;
 
-      Planet3D.build({ canvasElement });
-    });
+    Planet3D.build({ canvasElement });
   }
 }
 

@@ -16,7 +16,6 @@ export abstract class Component extends HTMLElement {
   private htmlParser!: IHTMLParser;
 
   protected onInit?(): void;
-  protected onStylesLoaded?(): void;
 
   constructor() {
     super();
@@ -30,21 +29,17 @@ export abstract class Component extends HTMLElement {
     const evaluatedTemplate = evaluateStringTemplate(this.template, this);
     this.htmlParser = new HTMLParser(evaluatedTemplate, this);
 
-    this.styles && this.shadowDOM.appendChild(this.processStyles());
+    this.styles && this.processStyles();
     this.template && this.shadowDOM.append(...this.processTemplate());
 
     this.onInit?.();
   }
 
   private processStyles() {
-    const link = document.createElement('link');
-    link.setAttribute('rel', 'stylesheet');
-    link.setAttribute('href', this.styles);
+    const styleSheet = new CSSStyleSheet();
+    styleSheet.replaceSync(this.styles);
 
-    this.onStylesLoaded &&
-      link.addEventListener('load', this.onStylesLoaded.bind(this));
-
-    return link;
+    this.shadowDOM.adoptedStyleSheets = [styleSheet];
   }
 
   protected processTemplate() {

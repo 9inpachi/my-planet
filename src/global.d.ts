@@ -14,7 +14,7 @@ declare module '*.html?raw' {
   export default content;
 }
 
-declare module '*.css?url' {
+declare module '*.css?raw' {
   const content: string;
   export default content;
 }

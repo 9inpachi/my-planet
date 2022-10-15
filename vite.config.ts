@@ -3,6 +3,11 @@ import { defineConfig } from 'vite';
 export default defineConfig({
   assetsInclude: ['**/*.gltf'],
   base: './',
+  esbuild: {
+    // This is to be able to use ComponentClass.name in `registerComponent`.
+    // See src/web/components/component/util/register-component.ts.
+    keepNames: true,
+  },
   build: {
     rollupOptions: {
       output: {

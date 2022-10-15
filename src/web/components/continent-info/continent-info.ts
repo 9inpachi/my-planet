@@ -5,6 +5,6 @@ import continentStyles from './continent-info.css?raw';
 
 @template(continentTemplate)
 @styles(continentStyles)
-export class ContinentInfo extends Component {}
+class ContinentInfo extends Component {}
 
 registerComponent(ContinentInfo);

@@ -1,16 +1,38 @@
+:host {
+  ---continent-vertical-spacing: 14rem;
+}
+
 .continent {
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   position: fixed;
   width: 40%;
   top: 0;
   bottom: 0;
   left: 0;
   background: white;
-  padding: 6rem 2rem;
+  padding-left: 4rem;
+  padding-right: 4rem;
+  padding-bottom: var(---continent-vertical-spacing);
+  overflow: auto;
 }
 
-.content {
-  overflow: auto;
+.continent-header {
+  position: sticky;
+  top: 0;
+  margin-top: var(---continent-vertical-spacing);
+  padding-top: 2rem;
+  padding-bottom: 2.5rem;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 1) 80%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+.continent-title {
+  font-size: 4rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }

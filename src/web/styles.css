@@ -5,7 +5,9 @@
 
 :root {
   /* Variables */
-  --bg-primary: #ffffff;
+  --bg-primary: #000000;
+  --bg-primary-rgb: 0, 0, 0;
+  --primary: #ffffff;
 }
 
 html,

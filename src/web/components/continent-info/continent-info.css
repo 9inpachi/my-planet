@@ -1,8 +1,5 @@
-:host {
-  ---continent-vertical-spacing: 14rem;
-}
-
 .continent {
+  ---continent-vertical-spacing: 16rem;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -22,7 +19,7 @@
   position: sticky;
   top: 0;
   margin-top: var(---continent-vertical-spacing);
-  padding-top: 2rem;
+  padding-top: 1.5rem;
   padding-bottom: 2.5rem;
   background-image: linear-gradient(
     to bottom,
@@ -32,7 +29,16 @@
 }
 
 .continent-title {
-  font-size: 4rem;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  font-size: 3.5rem;
+  margin: 0;
+}
+
+.back-icon {
+  all: unset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
 }

@@ -9,9 +9,13 @@ var La=Object.defineProperty;var Vh=(r,e,t)=>e in r?La(r,e,{enumerable:!0,config
 `,Qh=`<article class="continent">
   <header class="continent-header">
     <nav>
-      <button class="back-icon" title="Go back">\${this.arrowBackIcon}</button>
+      <button class="arrow-back-icon" title="Go back">
+        <span class="bar top"></span>
+        <span class="bar mid"></span>
+        <span class="bar bottom"></span>
+      </button>
     </nav>
-    <h1 class="continent-title">Continent Title</h1>
+    <h1 class="continent-title">About</h1>
   </header>
   <div>
     <p>
@@ -72,7 +76,7 @@ var La=Object.defineProperty;var Vh=(r,e,t)=>e in r?La(r,e,{enumerable:!0,config
   top: 0;
   bottom: 0;
   left: 0;
-  background: white;
+  color: var(--primary);
   padding-left: 4rem;
   padding-right: 4rem;
   padding-bottom: var(---continent-vertical-spacing);
@@ -87,8 +91,8 @@ var La=Object.defineProperty;var Vh=(r,e,t)=>e in r?La(r,e,{enumerable:!0,config
   padding-bottom: 2.5rem;
   background-image: linear-gradient(
     to bottom,
-    rgba(255, 255, 255, 1) 80%,
-    rgba(255, 255, 255, 0) 100%
+    rgba(var(--bg-primary-rgb), 1) 80%,
+    rgba(var(--bg-primary-rgb), 0) 100%
   );
 }
 
@@ -97,14 +101,38 @@ var La=Object.defineProperty;var Vh=(r,e,t)=>e in r?La(r,e,{enumerable:!0,config
   margin: 0;
 }
 
-.back-icon {
+.arrow-back-icon {
   all: unset;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 3rem;
-  margin-bottom: 0.5rem;
+  position: relative;
+  height: 2rem;
+  margin-bottom: 1rem;
   cursor: pointer;
+}
+
+.arrow-back-icon .bar {
+  position: absolute;
+  top: calc(50% - 0.125rem);
+  left: 0;
+  background: var(--primary);
+  border-radius: 0.25rem;
+  transform-origin: 0.125rem center;
+}
+
+.arrow-back-icon .bar.top {
+  transform: rotateZ(45deg);
+  width: 1rem;
+  height: 0.25rem;
+}
+
+.arrow-back-icon .bar.mid {
+  width: 3rem;
+  height: 0.25rem;
+}
+
+.arrow-back-icon .bar.bottom {
+  transform: rotateZ(-45deg);
+  width: 1rem;
+  height: 0.25rem;
 }
 `;var td=Object.defineProperty,nd=Object.getOwnPropertyDescriptor,id=c((r,e,t,n)=>{for(var i=n>1?void 0:n?nd(e,t):e,s=r.length-1,o;s>=0;s--)(o=r[s])&&(i=(n?o(e,t,i):o(i))||i);return n&&i&&td(e,t,i),i},"__decorateClass$1");let To=c(class extends xr{constructor(){super(...arguments);ot(this,"arrowBackIcon",$h)}},"ContinentInfo");To=id([Zo(Qh),Jo(ed)],To);$o(To);/**
  * @license
@@ -3248,15 +3276,7 @@ void main() {
   <canvas id="planet-canvas"></canvas>
 </main>
 `,Ov=`.planet {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  width: 60%;
-}
-
-#threeCanvas {
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
 }
 `;var Nv=Object.defineProperty,Fv=Object.getOwnPropertyDescriptor,Uv=c((r,e,t,n)=>{for(var i=n>1?void 0:n?Fv(e,t):e,s=r.length-1,o;s>=0;s--)(o=r[s])&&(i=(n?o(e,t,i):o(i))||i);return n&&i&&Nv(e,t,i),i},"__decorateClass");let Ko=c(class extends xr{onInit(){const r=this.shadowDOM.querySelector("#planet-canvas");Nr.build({canvasElement:r})}},"Planet");Ko=Uv([Zo(Iv),Jo(Ov)],Ko);$o(Ko);

@@ -11,6 +11,7 @@ import { LifeContinent } from './continents/life-continent/life-continent';
 import { PlaceholderContinent } from './continents/placeholder-continent/placeholder-continent';
 
 import continentGeometry from '../assets/geometries/continents.gltf';
+import { Galaxy } from './objects/galaxy';
 
 export class Planet {
   private three: Three;
@@ -33,6 +34,9 @@ export class Planet {
     const globe = new Globe({ size: 100 });
     globe.addTo(planet);
     const globeRadius = globe.getRadius();
+
+    const galaxy = new Galaxy({ starsCount: 2000, globeRadius });
+    galaxy.addTo(scene);
 
     [
       new AboutContinent({ globeRadius }),

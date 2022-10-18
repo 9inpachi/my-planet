@@ -1,4 +1,4 @@
-import { Group } from 'three';
+import { Group, PerspectiveCamera } from 'three';
 import { Three, ThreeConfiguration } from '../three';
 import { Globe } from './objects/globe';
 import { Sun } from './objects/sun';
@@ -35,7 +35,8 @@ export class Planet {
     globe.addTo(planet);
     const globeRadius = globe.getRadius();
 
-    const galaxy = new Galaxy({ starsCount: 2000, globeRadius });
+    const far = (this.three.getControls().getCamera() as PerspectiveCamera).far;
+    const galaxy = new Galaxy({ starsCount: 2000, far });
     galaxy.addTo(scene);
 
     [

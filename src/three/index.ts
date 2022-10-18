@@ -33,4 +33,8 @@ export class Three {
   public getScene() {
     return this.threeScene.getScene();
   }
+
+  public getControls() {
+    return this.threeControls;
+  }
 }

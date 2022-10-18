@@ -1,7 +1,7 @@
 .planet {
   width: 100%;
   height: 100%;
-  background: #1b1b1b;
+  background: radial-gradient(#424242, #000000);
 }
 
 #planet-canvas {

@@ -2,6 +2,7 @@ import { rgbColor } from '../util/colors';
 
 export const colors = {
   ambientLight: rgbColor('#ffffff'),
+  star: rgbColor('#ffffff'),
   sun: rgbColor('#fcd900'),
   earth: rgbColor('#4d96ff'),
   tree: {

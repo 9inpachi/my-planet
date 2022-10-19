@@ -21,27 +21,6 @@
   direction: ltr;
 }
 
-.continent::-webkit-scrollbar {
-  width: 0.5rem;
-}
-.continent::-webkit-scrollbar-track {
-  background: transparent;
-}
-.continent::-webkit-scrollbar-thumb {
-  background: var(--primary);
-  border-radius: 1rem;
-}
-.continent::-webkit-scrollbar-thumb:hover {
-}
-.continent::-webkit-scrollbar-track-piece:end {
-    background: transparent;
-    margin-bottom: 40vh; 
-}
-.continent::-webkit-scrollbar-track-piece:start {
-    background: transparent;
-    margin-top: 40vh;
-}
-
 .continent-header {
   position: sticky;
   top: 0;
@@ -92,4 +71,29 @@
 
 .continent-content {
   font-size: 1.25rem;
+}
+
+/* Scrollbar Styles */
+
+.continent::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+.continent::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.continent::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 1rem;
+}
+
+.continent::-webkit-scrollbar-track-piece:end {
+    background: transparent;
+    margin-bottom: 40vh; 
+}
+
+.continent::-webkit-scrollbar-track-piece:start {
+    background: transparent;
+    margin-top: 40vh;
 }

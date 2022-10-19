@@ -9,9 +9,10 @@ import { SimpleObject } from './objects/simple-object';
 import { WorkContinent } from './continents/work-continent/work-continent';
 import { LifeContinent } from './continents/life-continent/life-continent';
 import { PlaceholderContinent } from './continents/placeholder-continent/placeholder-continent';
+import { Galaxy } from './objects/galaxy';
+import { enableParallax } from './common/util/parallax';
 
 import continentGeometry from '../assets/geometries/continents.gltf';
-import { Galaxy } from './objects/galaxy';
 
 export class Planet {
   private three: Three;
@@ -28,6 +29,7 @@ export class Planet {
     sun.addTo(scene);
 
     const planet = new Group();
+    enableParallax(planet, 0.01);
     planet.name = 'planet';
     scene.add(planet);
 
@@ -37,6 +39,7 @@ export class Planet {
 
     const far = (this.three.getControls().getCamera() as PerspectiveCamera).far;
     const galaxy = new Galaxy({ starsCount: 2000, far });
+    enableParallax(galaxy.getObject(), 0.1);
     galaxy.addTo(scene);
 
     [

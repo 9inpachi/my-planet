@@ -32,7 +32,7 @@ export class ThreeControls implements IUpdatable {
   private buildOrbitControls(domElement: HTMLCanvasElement) {
     const orbitControls = new OrbitControls(this.getCamera(), domElement);
     orbitControls.maxDistance = 700;
-    orbitControls.minDistance = 200;
+    orbitControls.minDistance = 150;
     orbitControls.zoomSpeed = 0.5;
     orbitControls.enableDamping = true;
     orbitControls.dampingFactor = 0.05;
@@ -41,15 +41,15 @@ export class ThreeControls implements IUpdatable {
     return orbitControls;
   }
 
+  public update() {
+    this.orbitControls.update();
+  }
+
   public getCamera() {
     return this.camera;
   }
 
   public getOrbitControls() {
     return this.orbitControls;
-  }
-
-  public update() {
-    this.orbitControls.update();
   }
 }

@@ -25,22 +25,33 @@ export class Planet {
   private async initializePlanet() {
     const scene = this.three.getScene();
 
+    // Sun
+
     const sun = new Sun({ size: 10 });
     sun.addTo(scene);
 
+    // Planet Group
+
     const planet = new Group();
-    enableParallax(planet, 0.01);
+    enableParallax(planet, 0.005);
     planet.name = 'planet';
     scene.add(planet);
+
+    // Globe
 
     const globe = new Globe({ size: 100 });
     globe.addTo(planet);
     const globeRadius = globe.getRadius();
 
+    // Galaxy
+
     const far = (this.three.getControls().getCamera() as PerspectiveCamera).far;
-    const galaxy = new Galaxy({ starsCount: 2000, far });
+    const galaxy = new Galaxy({ starsCount: 1000, far });
+    galaxy.animateGalaxy();
     enableParallax(galaxy.getObject(), 0.1);
     galaxy.addTo(scene);
+
+    // Continents
 
     [
       new AboutContinent({ globeRadius }),
@@ -49,6 +60,8 @@ export class Planet {
       new LifeContinent({ globeRadius }),
       new PlaceholderContinent({ globeRadius }),
     ].forEach((continent) => continent.addTo(globe.getObject()));
+
+    // Continents - Land Geometries
 
     const gltfLoader = new GltfLoader();
     const continentsGltf = await gltfLoader.loadFile(continentGeometry);

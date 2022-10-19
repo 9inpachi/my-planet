@@ -1,8 +1,10 @@
+import { Tween } from '@tweenjs/tween.js';
 import {
   BufferGeometry,
   Float32BufferAttribute,
   Group,
   MathUtils,
+  Object3D,
   Points,
   PointsMaterial,
   Texture,
@@ -18,8 +20,25 @@ export type GalaxyProperties = {
 
 export class Galaxy extends BaseObject<GalaxyProperties> {
   protected constructObject() {
+    const { starsCount, far } = this.properties;
+    const groupsCount = 4;
+    const galaxy = new Group();
+    galaxy.name = 'galaxy';
+
+    for (let i = 0; i < groupsCount; i++) {
+      const starsGroup = this.constructStarsGroup(
+        starsCount / groupsCount,
+        far,
+      );
+      galaxy.add(starsGroup);
+    }
+
+    return galaxy;
+  }
+
+  private constructStarsGroup(count: number, far = 3000) {
     const geometry = new BufferGeometry();
-    geometry.setAttribute('position', this.constructStarsPositions());
+    geometry.setAttribute('position', this.constructStarsPositions(count, far));
     const material = new PointsMaterial({
       color: colors.star,
       size: 7,
@@ -30,20 +49,14 @@ export class Galaxy extends BaseObject<GalaxyProperties> {
     const points = new Points(geometry, material);
     points.name = 'stars';
 
-    const galaxy = new Group();
-    galaxy.name = 'galaxy';
-    galaxy.add(points);
-
-    return galaxy;
+    return points;
   }
 
-  private constructStarsPositions() {
-    const { starsCount, far = 3000 } = this.properties;
-
+  private constructStarsPositions(count: number, far = 3000) {
     const radius = 700;
     const stars: number[] = [];
 
-    for (let i = 0; i < starsCount; i++) {
+    for (let i = 0; i < count; i++) {
       const vector = new Vector3();
       vector.randomDirection();
       vector.multiplyScalar(MathUtils.randFloat(radius, far / 2));
@@ -71,5 +84,27 @@ export class Galaxy extends BaseObject<GalaxyProperties> {
     texture.needsUpdate = true;
 
     return texture;
+  }
+
+  public animateGalaxy() {
+    const starsGroups = this.object.children;
+    const motionFactor = 0.01;
+    const singleIntervalDuration = 1000;
+
+    // Rotates the group infinitely along the y-axis.
+    // The animation restarts using recursion every 1000 ms.
+    const animateStarsGroup = (group: Object3D, delta = 1) => {
+      const starsTween = new Tween(group.rotation);
+
+      starsTween.to({ y: group.rotation.y + motionFactor * delta });
+      starsTween.duration(singleIntervalDuration);
+      starsTween.start();
+
+      starsTween.onComplete(() => animateStarsGroup(group, delta));
+    };
+
+    for (let i = 0; i < starsGroups.length; i++) {
+      animateStarsGroup(starsGroups[i], i % 2 === 0 ? 1 : -1);
+    }
   }
 }

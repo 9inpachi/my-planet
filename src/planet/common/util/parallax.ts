@@ -5,16 +5,6 @@ export const enableParallax = (
   factor = 0.1,
   wrapper: HTMLElement = document.body,
 ) => {
-  const defaultPosition = object.position.clone();
-
-  wrapper.addEventListener('mouseenter', () => {
-    defaultPosition.copy(object.position);
-  });
-
-  wrapper.addEventListener('mouseleave', () => {
-    object.position.copy(defaultPosition);
-  });
-
   wrapper.addEventListener('mousemove', (event) => {
     const centerX = wrapper.clientWidth / 2;
     const centerY = wrapper.clientHeight / 2;

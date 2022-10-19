@@ -1,3 +1,4 @@
+import { update as tweenUpdate } from '@tweenjs/tween.js';
 import { ThreeControls } from './controls';
 import { ThreeRenderer } from './renderer';
 import { ThreeScene } from './scene';
@@ -27,6 +28,7 @@ export class Three {
     renderer.setAnimationLoop(() => {
       this.threeControls.update();
       renderer.render(scene, camera);
+      tweenUpdate();
     });
   }
 

@@ -1,5 +1,5 @@
 .continent {
-  ---continent-vertical-spacing: 16rem;
+  ---continent-vertical-spacing: 35vh;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -9,10 +9,37 @@
   bottom: 0;
   left: 0;
   color: var(--primary);
-  padding-left: 4rem;
+  padding-left: 2rem;
   padding-right: 4rem;
   padding-bottom: var(---continent-vertical-spacing);
+  margin-left: 2rem;
   overflow: auto;
+  direction: rtl;
+}
+
+.continent > * {
+  direction: ltr;
+}
+
+.continent::-webkit-scrollbar {
+  width: 0.5rem;
+}
+.continent::-webkit-scrollbar-track {
+  background: transparent;
+}
+.continent::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 1rem;
+}
+.continent::-webkit-scrollbar-thumb:hover {
+}
+.continent::-webkit-scrollbar-track-piece:end {
+    background: transparent;
+    margin-bottom: 40vh; 
+}
+.continent::-webkit-scrollbar-track-piece:start {
+    background: transparent;
+    margin-top: 40vh;
 }
 
 .continent-header {
@@ -21,11 +48,6 @@
   margin-top: var(---continent-vertical-spacing);
   padding-top: 1.5rem;
   padding-bottom: 2.5rem;
-  background-image: linear-gradient(
-    to bottom,
-    rgba(var(--bg-primary-rgb), 1) 80%,
-    rgba(var(--bg-primary-rgb), 0) 100%
-  );
 }
 
 .continent-title {
@@ -37,6 +59,7 @@
   all: unset;
   position: relative;
   height: 2rem;
+  width: 3rem;
   margin-bottom: 1rem;
   cursor: pointer;
 }
@@ -50,7 +73,7 @@
   transform-origin: 0.125rem center;
 }
 
-.arrow-back-icon .bar.top {
+.arrow-back-icon .bar.bottom {
   transform: rotateZ(45deg);
   width: 1rem;
   height: 0.25rem;
@@ -61,8 +84,12 @@
   height: 0.25rem;
 }
 
-.arrow-back-icon .bar.bottom {
+.arrow-back-icon .bar.top {
   transform: rotateZ(-45deg);
   width: 1rem;
   height: 0.25rem;
+}
+
+.continent-content {
+  font-size: 1.25rem;
 }

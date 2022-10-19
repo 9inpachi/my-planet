@@ -19,7 +19,7 @@ export class ThreeControls implements IUpdatable {
       wrapperElement.offsetWidth / wrapperElement.offsetHeight;
     const perspectiveCamera = new PerspectiveCamera(36, aspectRatio(), 1, 3000);
 
-    perspectiveCamera.position.set(0, 0, 500);
+    perspectiveCamera.position.set(0, 0, 400);
 
     window.addEventListener('resize', () => {
       perspectiveCamera.aspect = aspectRatio();
@@ -31,10 +31,12 @@ export class ThreeControls implements IUpdatable {
 
   private buildOrbitControls(domElement: HTMLCanvasElement) {
     const orbitControls = new OrbitControls(this.getCamera(), domElement);
-    orbitControls.enableDamping = true;
-    orbitControls.dampingFactor = 0.1;
     orbitControls.maxDistance = 700;
     orbitControls.minDistance = 200;
+    orbitControls.zoomSpeed = 0.5;
+    orbitControls.enableDamping = true;
+    orbitControls.dampingFactor = 0.05;
+    orbitControls.rotateSpeed = 0.2;
 
     return orbitControls;
   }

@@ -2,7 +2,12 @@ var Na=Object.defineProperty;var Jh=(r,e,t)=>e in r?Na(r,e,{enumerable:!0,config
 `,id=`.title {
   font-size: 2rem;
 }
-`;var sd=Object.defineProperty,rd=Object.getOwnPropertyDescriptor,od=c((r,e,t,n)=>{for(var i=n>1?void 0:n?rd(e,t):e,s=r.length-1,o;s>=0;s--)(o=r[s])&&(i=(n?o(e,t,i):o(i))||i);return n&&i&&sd(e,t,i),i},"__decorateClass$2");let Ro=c(class extends wr{},"Title");Ro=od([na(nd),ia(id)],Ro);sa(Ro);const ad=`<article :continent on:wheel="this.onWrapperScroll" class="continent">
+`;var sd=Object.defineProperty,rd=Object.getOwnPropertyDescriptor,od=c((r,e,t,n)=>{for(var i=n>1?void 0:n?rd(e,t):e,s=r.length-1,o;s>=0;s--)(o=r[s])&&(i=(n?o(e,t,i):o(i))||i);return n&&i&&sd(e,t,i),i},"__decorateClass$2");let Ro=c(class extends wr{},"Title");Ro=od([na(nd),ia(id)],Ro);sa(Ro);const ad=`<article
+  :continent
+  class="continent"
+  on:wheel="this.onWrapperMouseWheel"
+  on:scroll="this.onWrapperScroll"
+>
   <header :continentHeader class="continent-header">
     <nav>
       <button class="arrow-back-icon" title="Go back">
@@ -15,8 +20,9 @@ var Na=Object.defineProperty;var Jh=(r,e,t)=>e in r?Na(r,e,{enumerable:!0,config
   </header>
   <div
     :continentContent
-    on:wheel="this.onContentScroll"
     class="continent-content"
+    on:wheel="this.onContentMouseWheel"
+    on:scroll="this.onContentScroll"
   >
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie
@@ -158,11 +164,7 @@ var Na=Object.defineProperty;var Jh=(r,e,t)=>e in r?Na(r,e,{enumerable:!0,config
 .continent::-webkit-scrollbar {
   display: none;
 }
-
-.continent::-webkit-scrollbar-track {
-  background: transparent;
-}
-`;var cd=Object.defineProperty,ud=Object.getOwnPropertyDescriptor,hd=c((r,e,t,n)=>{for(var i=n>1?void 0:n?ud(e,t):e,s=r.length-1,o;s>=0;s--)(o=r[s])&&(i=(n?o(e,t,i):o(i))||i);return n&&i&&cd(e,t,i),i},"__decorateClass$1");let Po=c(class extends wr{constructor(){super(...arguments);et(this,"continent");et(this,"continentContent");et(this,"continentActive",!1)}onInit(){this.continent=this.getElement("continent"),this.continentContent=this.getElement("continentContent")}onWrapperScroll(e){this.isScrollDown(e)&&(this.continent.classList.add("continent-active"),this.continentActive=!0,e.preventDefault())}onContentScroll(e){this.continentActive&&e.stopPropagation(),this.continentContent.scrollTop===0&&this.isScrollUp(e)&&(this.continent.classList.remove("continent-active"),this.continentActive=!1,e.preventDefault())}isScrollUp(e){return e.deltaY<0}isScrollDown(e){return e.deltaY>0}},"ContinentInfo");Po=hd([na(ad),ia(ld)],Po);sa(Po);/**
+`;var cd=Object.defineProperty,ud=Object.getOwnPropertyDescriptor,hd=c((r,e,t,n)=>{for(var i=n>1?void 0:n?ud(e,t):e,s=r.length-1,o;s>=0;s--)(o=r[s])&&(i=(n?o(e,t,i):o(i))||i);return n&&i&&cd(e,t,i),i},"__decorateClass$1");let Po=c(class extends wr{constructor(){super(...arguments);et(this,"continent");et(this,"continentContent");et(this,"continentActive",!1)}onInit(){this.continent=this.getElement("continent"),this.continentContent=this.getElement("continentContent")}onWrapperMouseWheel(e){e.preventDefault(),this.isScrollDown(e)&&(this.continent.classList.add("continent-active"),this.continentActive=!0)}onContentMouseWheel(e){this.continentActive&&e.stopPropagation(),this.continentContent.scrollTop===0&&this.isScrollUp(e)&&(this.continent.classList.remove("continent-active"),this.continentActive=!1)}isScrollUp(e){return e.deltaY<0}isScrollDown(e){return e.deltaY>0}onWrapperScroll(){this.continent.classList.add("continent-active"),this.continentActive=!0}onContentScroll(e){this.continentActive&&e.stopPropagation(),this.continentContent.scrollTop===0&&(this.continent.classList.remove("continent-active"),this.continentActive=!1)}},"ContinentInfo");Po=hd([na(ad),ia(ld)],Po);sa(Po);/**
  * @license
  * Copyright 2010-2022 Three.js Authors
  * SPDX-License-Identifier: MIT

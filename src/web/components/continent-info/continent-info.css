@@ -27,6 +27,11 @@
   margin-top: var(---continent-vertical-spacing);
   padding-top: 1.5rem;
   padding-bottom: 2.5rem;
+  transition: background-image 0.5s;
+}
+
+.continent-header.scrolled {
+  background-image: linear-gradient(black, transparent);
 }
 
 .continent-title {
@@ -89,11 +94,11 @@
 }
 
 .continent::-webkit-scrollbar-track-piece:end {
-    background: transparent;
-    margin-bottom: 40vh; 
+  background: transparent;
+  margin-bottom: 40vh;
 }
 
 .continent::-webkit-scrollbar-track-piece:start {
-    background: transparent;
-    margin-top: 40vh;
+  background: transparent;
+  margin-top: 40vh;
 }

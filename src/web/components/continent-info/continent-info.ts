@@ -8,6 +8,7 @@ import continentStyles from './continent-info.css?raw';
 class ContinentInfo extends Component {
   private continent!: HTMLElement;
   private continentContent!: HTMLElement;
+  private continentActive = false;
 
   onInit() {
     this.continent = this.getElement('continent') as HTMLElement;
@@ -15,28 +16,35 @@ class ContinentInfo extends Component {
   }
 
   onWrapperScroll(event: WheelEvent) {
-    console.log('WRAPPER SCROLL');
-    // Apply the class `continent-active` with a minimal scroll.
+    // Apply the class `continent-active` with a minimum down scroll.
     // This class will disable scroll (`overflow: hidden;`) through css.
-    if (!this.isScrollUp(event)) {
+    if (this.isScrollDown(event)) {
       this.continent.classList.add('continent-active');
+      this.continentActive = true;
       event.preventDefault();
     }
   }
 
   onContentScroll(event: WheelEvent) {
-    console.log('CONTENT SCROLL');
-    event.stopPropagation();
+    // We only stop propagation when the continent is active. If we stop
+    // it in the start, scrolling on the content won't activate the
+    // continent.
+    this.continentActive && event.stopPropagation();
     const scrollTop = this.continentContent.scrollTop;
 
     if (scrollTop === 0 && this.isScrollUp(event)) {
       this.continent.classList.remove('continent-active');
+      this.continentActive = false;
       event.preventDefault();
     }
   }
 
   private isScrollUp(event: WheelEvent) {
     return event.deltaY < 0;
+  }
+
+  private isScrollDown(event: WheelEvent) {
+    return event.deltaY > 0;
   }
 }
 

@@ -74,39 +74,24 @@
 
 /* Handling Scroll */
 
-.continent.scrolled-top {
+.continent.continent-active {
   overflow: hidden;
 }
 
-.continent.scrolled-top > .continent-header {
+.continent.continent-active > .continent-header {
   margin-top: 0;
 }
 
-.continent.scrolled-top > .continent-content {
+.continent.continent-active > .continent-content {
   overflow: auto;
 }
 
 /* Scrollbar Styles */
 
-.continent-content::-webkit-scrollbar {
-  width: 0.5rem;
+.continent::-webkit-scrollbar {
+  display: none;
 }
 
-.continent-content::-webkit-scrollbar-track {
+.continent::-webkit-scrollbar-track {
   background: transparent;
-}
-
-.continent-content::-webkit-scrollbar-thumb {
-  background: var(--primary);
-  border-radius: 1rem;
-}
-
-.continent-content::-webkit-scrollbar-track-piece:end {
-  background: transparent;
-  margin-bottom: 40vh;
-}
-
-.continent-content::-webkit-scrollbar-track-piece:start {
-  background: transparent;
-  margin-top: 40vh;
 }

@@ -91,7 +91,7 @@ export class Galaxy extends BaseObject<GalaxyProperties> {
 
   public animateGalaxy() {
     const starsGroups = this.object.children;
-    const movementFactor = 0.01;
+    const movementFactor = 0.02;
     const singleIntervalDuration = 1000;
 
     // Rotates the group infinitely along the y-axis.

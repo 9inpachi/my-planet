@@ -1,3 +1,3 @@
 import './title/title';
-import './continent-info/continent-info';
+import './continent-info';
 import './planet/planet';

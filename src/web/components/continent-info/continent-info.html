@@ -5,16 +5,7 @@
   on:scroll="this.onWrapperScroll"
   on:click="this.onWrapperClick"
 >
-  <header :continentHeader class="continent-header">
-    <nav>
-      <button class="arrow-back-icon" title="Go back">
-        <span class="bar top"></span>
-        <span class="bar mid"></span>
-        <span class="bar bottom"></span>
-      </button>
-    </nav>
-    <h1 class="continent-title">About</h1>
-  </header>
+  <slot name="continent-header">Placeholder Continent Header</slot>
   <div
     :continentContent
     class="continent-content"

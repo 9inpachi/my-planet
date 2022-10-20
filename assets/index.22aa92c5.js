@@ -7,6 +7,7 @@ var Na=Object.defineProperty;var Jh=(r,e,t)=>e in r?Na(r,e,{enumerable:!0,config
   class="continent"
   on:wheel="this.onWrapperMouseWheel"
   on:scroll="this.onWrapperScroll"
+  on:click="this.onWrapperClick"
 >
   <header :continentHeader class="continent-header">
     <nav>
@@ -87,6 +88,12 @@ var Na=Object.defineProperty;var Jh=(r,e,t)=>e in r?Na(r,e,{enumerable:!0,config
   margin-left: 2rem;
   direction: rtl;
   overflow: auto;
+
+  /* Hide Scrollbar */
+  /* IE and Edge */
+  -ms-overflow-style: none;
+  /* Firefox */
+  scrollbar-width: none;
 }
 
 .continent > * {
@@ -143,6 +150,15 @@ var Na=Object.defineProperty;var Jh=(r,e,t)=>e in r?Na(r,e,{enumerable:!0,config
 .continent-content {
   font-size: 1.25rem;
   padding-bottom: var(---continent-vertical-spacing);
+  direction: rtl;
+
+  /* Scrollbar Styles */
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) transparent;
+}
+
+.continent-content > * {
+  direction: ltr;
 }
 
 /* Handling Scroll */
@@ -157,6 +173,11 @@ var Na=Object.defineProperty;var Jh=(r,e,t)=>e in r?Na(r,e,{enumerable:!0,config
 
 .continent.continent-active > .continent-content {
   overflow: auto;
+
+  /* Scrollbar */
+  /* 0.5rem left for the width of scrollbar. */
+  padding-left: 1.5rem;
+  margin-left: -2rem;
 }
 
 /* Scrollbar Styles */
@@ -164,7 +185,45 @@ var Na=Object.defineProperty;var Jh=(r,e,t)=>e in r?Na(r,e,{enumerable:!0,config
 .continent::-webkit-scrollbar {
   display: none;
 }
-`;var cd=Object.defineProperty,ud=Object.getOwnPropertyDescriptor,hd=c((r,e,t,n)=>{for(var i=n>1?void 0:n?ud(e,t):e,s=r.length-1,o;s>=0;s--)(o=r[s])&&(i=(n?o(e,t,i):o(i))||i);return n&&i&&cd(e,t,i),i},"__decorateClass$1");let Po=c(class extends wr{constructor(){super(...arguments);et(this,"continent");et(this,"continentContent");et(this,"continentActive",!1)}onInit(){this.continent=this.getElement("continent"),this.continentContent=this.getElement("continentContent")}onWrapperMouseWheel(e){e.preventDefault(),this.isScrollDown(e)&&(this.continent.classList.add("continent-active"),this.continentActive=!0)}onContentMouseWheel(e){this.continentActive&&e.stopPropagation(),this.continentContent.scrollTop===0&&this.isScrollUp(e)&&(this.continent.classList.remove("continent-active"),this.continentActive=!1)}isScrollUp(e){return e.deltaY<0}isScrollDown(e){return e.deltaY>0}onWrapperScroll(){this.continent.classList.add("continent-active"),this.continentContent.scrollTop=1,this.continentActive=!0}onContentScroll(e){this.continentActive&&e.stopPropagation(),this.continentContent.scrollTop===0&&(this.continent.classList.remove("continent-active"),this.continentActive=!1)}},"ContinentInfo");Po=hd([na(ad),ia(ld)],Po);sa(Po);/**
+
+.continent-content::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+.continent-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.continent-content::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 1rem;
+}
+
+.continent-content::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-dim);
+}
+
+.continent-content::-webkit-scrollbar-track-piece:end {
+  background: transparent;
+  margin-bottom: 10rem;
+}
+
+.continent-content::-webkit-scrollbar-track-piece:start {
+  background: transparent;
+  margin-top: 10rem;
+}
+
+/* Mobile */
+@media screen and (max-width: 992px) {
+  .continent-content::-webkit-scrollbar-track-piece:end {
+    margin-bottom: 0;
+  }
+
+  .continent-content::-webkit-scrollbar-track-piece:start {
+    margin-top: 0;
+  }
+}
+`;var cd=Object.defineProperty,ud=Object.getOwnPropertyDescriptor,hd=c((r,e,t,n)=>{for(var i=n>1?void 0:n?ud(e,t):e,s=r.length-1,o;s>=0;s--)(o=r[s])&&(i=(n?o(e,t,i):o(i))||i);return n&&i&&cd(e,t,i),i},"__decorateClass$1");let Po=c(class extends wr{constructor(){super(...arguments);et(this,"continent");et(this,"continentContent");et(this,"continentActive",!1)}onInit(){this.continent=this.getElement("continent"),this.continentContent=this.getElement("continentContent")}onWrapperMouseWheel(e){e.preventDefault(),this.isScrollDown(e)&&(this.continent.classList.add("continent-active"),this.continentActive=!0)}onContentMouseWheel(e){this.continentActive&&e.stopPropagation(),this.continentContent.scrollTop===0&&this.isScrollUp(e)&&(this.continent.classList.remove("continent-active"),this.continentActive=!1)}isScrollUp(e){return e.deltaY<0}isScrollDown(e){return e.deltaY>0}onWrapperScroll(){this.continent.classList.add("continent-active"),this.continentContent.scrollTop=1,this.continentActive=!0}onContentScroll(e){this.continentActive&&e.stopPropagation(),this.continentContent.scrollTop===0&&(this.continent.classList.remove("continent-active"),this.continentActive=!1)}onWrapperClick(){this.continentActive||this.continent.classList.add("continent-active")}},"ContinentInfo");Po=hd([na(ad),ia(ld)],Po);sa(Po);/**
  * @license
  * Copyright 2010-2022 Three.js Authors
  * SPDX-License-Identifier: MIT

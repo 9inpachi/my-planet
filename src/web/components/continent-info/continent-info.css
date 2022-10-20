@@ -91,7 +91,3 @@
 .continent::-webkit-scrollbar {
   display: none;
 }
-
-.continent::-webkit-scrollbar-track {
-  background: transparent;
-}

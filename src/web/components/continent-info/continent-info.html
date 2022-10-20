@@ -1,4 +1,9 @@
-<article :continent on:wheel="this.onWrapperScroll" class="continent">
+<article
+  :continent
+  class="continent"
+  on:wheel="this.onWrapperMouseWheel"
+  on:scroll="this.onWrapperScroll"
+>
   <header :continentHeader class="continent-header">
     <nav>
       <button class="arrow-back-icon" title="Go back">
@@ -11,8 +16,9 @@
   </header>
   <div
     :continentContent
-    on:wheel="this.onContentScroll"
     class="continent-content"
+    on:wheel="this.onContentMouseWheel"
+    on:scroll="this.onContentScroll"
   >
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie

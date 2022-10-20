@@ -71,6 +71,14 @@ class ContinentInfo extends Component {
       this.continentActive = false;
     }
   }
+
+  // Other Ways to Activate Continent
+
+  onWrapperClick() {
+    if (!this.continentActive) {
+      this.continent.classList.add('continent-active');
+    }
+  }
 }
 
 registerComponent(ContinentInfo);

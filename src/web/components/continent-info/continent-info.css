@@ -14,6 +14,12 @@
   margin-left: 2rem;
   direction: rtl;
   overflow: auto;
+
+  /* Hide Scrollbar */
+  /* IE and Edge */
+  -ms-overflow-style: none;
+  /* Firefox */
+  scrollbar-width: none;
 }
 
 .continent > * {
@@ -70,6 +76,15 @@
 .continent-content {
   font-size: 1.25rem;
   padding-bottom: var(---continent-vertical-spacing);
+  direction: rtl;
+
+  /* Scrollbar Styles */
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) transparent;
+}
+
+.continent-content > * {
+  direction: ltr;
 }
 
 /* Handling Scroll */
@@ -84,10 +99,53 @@
 
 .continent.continent-active > .continent-content {
   overflow: auto;
+
+  /* Scrollbar */
+  /* 0.5rem left for the width of scrollbar. */
+  padding-left: 1.5rem;
+  margin-left: -2rem;
 }
 
 /* Scrollbar Styles */
 
 .continent::-webkit-scrollbar {
   display: none;
+}
+
+.continent-content::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+.continent-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.continent-content::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 1rem;
+}
+
+.continent-content::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-dim);
+}
+
+.continent-content::-webkit-scrollbar-track-piece:end {
+  background: transparent;
+  margin-bottom: 10rem;
+}
+
+.continent-content::-webkit-scrollbar-track-piece:start {
+  background: transparent;
+  margin-top: 10rem;
+}
+
+/* Mobile */
+@media screen and (max-width: 992px) {
+  .continent-content::-webkit-scrollbar-track-piece:end {
+    margin-bottom: 0;
+  }
+
+  .continent-content::-webkit-scrollbar-track-piece:start {
+    margin-top: 0;
+  }
 }

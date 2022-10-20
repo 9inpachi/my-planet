@@ -6,18 +6,18 @@ import continentStyles from './continent-info.css?raw';
 @template(continentTemplate)
 @styles(continentStyles)
 class ContinentInfo extends Component {
-  onScroll() {
-    const continentHeader = this.getElement('continentHeader');
-    if (!continentHeader) {
-      return;
-    }
+  onWrapperScroll() {
+    // Apply the class `scrolled-top` with a minimal scroll.
+    // This class will disable scroll (`overflow: hidden;`) through css.
+    this.getElement('continent')?.classList.add('scrolled-top');
+  }
 
-    const { y } = continentHeader.getBoundingClientRect();
+  onContentScroll(event: Event) {
+    event.stopPropagation();
+    const scrollTop = this.getElement('continentContent')?.scrollTop;
 
-    if (y === 0) {
-      continentHeader.classList.add('scrolled');
-    } else {
-      continentHeader.classList.remove('scrolled');
+    if (scrollTop === 0) {
+      this.getElement('continent')?.classList.remove('scrolled-top');
     }
   }
 }

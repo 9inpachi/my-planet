@@ -11,10 +11,9 @@
   color: var(--primary);
   padding-left: 2rem;
   padding-right: 4rem;
-  padding-bottom: var(---continent-vertical-spacing);
   margin-left: 2rem;
-  overflow: auto;
   direction: rtl;
+  overflow: auto;
 }
 
 .continent > * {
@@ -22,16 +21,10 @@
 }
 
 .continent-header {
-  position: sticky;
-  top: 0;
   margin-top: var(---continent-vertical-spacing);
   padding-top: 1.5rem;
   padding-bottom: 2.5rem;
-  transition: background-image 0.5s;
-}
-
-.continent-header.scrolled {
-  background-image: linear-gradient(black, transparent);
+  transition: margin-top 0.5s;
 }
 
 .continent-title {
@@ -76,29 +69,44 @@
 
 .continent-content {
   font-size: 1.25rem;
+  padding-bottom: var(---continent-vertical-spacing);
+}
+
+/* Handling Scroll */
+
+.continent.scrolled-top {
+  overflow: hidden;
+}
+
+.continent.scrolled-top > .continent-header {
+  margin-top: 0;
+}
+
+.continent.scrolled-top > .continent-content {
+  overflow: auto;
 }
 
 /* Scrollbar Styles */
 
-.continent::-webkit-scrollbar {
+.continent-content::-webkit-scrollbar {
   width: 0.5rem;
 }
 
-.continent::-webkit-scrollbar-track {
+.continent-content::-webkit-scrollbar-track {
   background: transparent;
 }
 
-.continent::-webkit-scrollbar-thumb {
+.continent-content::-webkit-scrollbar-thumb {
   background: var(--primary);
   border-radius: 1rem;
 }
 
-.continent::-webkit-scrollbar-track-piece:end {
+.continent-content::-webkit-scrollbar-track-piece:end {
   background: transparent;
   margin-bottom: 40vh;
 }
 
-.continent::-webkit-scrollbar-track-piece:start {
+.continent-content::-webkit-scrollbar-track-piece:start {
   background: transparent;
   margin-top: 40vh;
 }

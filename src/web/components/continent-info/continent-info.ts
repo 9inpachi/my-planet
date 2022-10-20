@@ -17,6 +17,9 @@ class ContinentInfo extends Component {
 
   // Mouse Wheel Events
 
+  // Ugh. Scroll events aren't always triggered so we have to use mouse
+  // wheel events.
+
   onWrapperMouseWheel(event: WheelEvent) {
     // Don't propogate to `scroll` event.
     event.preventDefault();
@@ -49,10 +52,13 @@ class ContinentInfo extends Component {
     return event.deltaY > 0;
   }
 
-  // Other Devices Scroll Events
+  // Scroll Events for Other Devices
 
   onWrapperScroll() {
     this.continent.classList.add('continent-active');
+    // Setting to `scrollTop = 1` so the content can be scrolled up. Because the
+    // `scroll` event isn't triggered with `scrollTop = 0` when deactivating the content.
+    this.continentContent.scrollTop = 1;
     this.continentActive = true;
   }
 

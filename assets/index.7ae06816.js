@@ -2,8 +2,8 @@ var Na=Object.defineProperty;var Jh=(r,e,t)=>e in r?Na(r,e,{enumerable:!0,config
 `,id=`.title {
   font-size: 2rem;
 }
-`;var sd=Object.defineProperty,rd=Object.getOwnPropertyDescriptor,od=c((r,e,t,n)=>{for(var i=n>1?void 0:n?rd(e,t):e,s=r.length-1,o;s>=0;s--)(o=r[s])&&(i=(n?o(e,t,i):o(i))||i);return n&&i&&sd(e,t,i),i},"__decorateClass$2");let Ro=c(class extends wr{},"Title");Ro=od([na(nd),ia(id)],Ro);sa(Ro);const ad=`<article class="continent">
-  <header class="continent-header">
+`;var sd=Object.defineProperty,rd=Object.getOwnPropertyDescriptor,od=c((r,e,t,n)=>{for(var i=n>1?void 0:n?rd(e,t):e,s=r.length-1,o;s>=0;s--)(o=r[s])&&(i=(n?o(e,t,i):o(i))||i);return n&&i&&sd(e,t,i),i},"__decorateClass$2");let Ro=c(class extends wr{},"Title");Ro=od([na(nd),ia(id)],Ro);sa(Ro);const ad=`<article on:scroll="this.onScroll" class="continent">
+  <header :continentHeader class="continent-header">
     <nav>
       <button class="arrow-back-icon" title="Go back">
         <span class="bar top"></span>
@@ -90,6 +90,11 @@ var Na=Object.defineProperty;var Jh=(r,e,t)=>e in r?Na(r,e,{enumerable:!0,config
   margin-top: var(---continent-vertical-spacing);
   padding-top: 1.5rem;
   padding-bottom: 2.5rem;
+  transition: background-image 0.5s;
+}
+
+.continent-header.scrolled {
+  background-image: linear-gradient(black, transparent);
 }
 
 .continent-title {
@@ -152,15 +157,15 @@ var Na=Object.defineProperty;var Jh=(r,e,t)=>e in r?Na(r,e,{enumerable:!0,config
 }
 
 .continent::-webkit-scrollbar-track-piece:end {
-    background: transparent;
-    margin-bottom: 40vh; 
+  background: transparent;
+  margin-bottom: 40vh;
 }
 
 .continent::-webkit-scrollbar-track-piece:start {
-    background: transparent;
-    margin-top: 40vh;
+  background: transparent;
+  margin-top: 40vh;
 }
-`;var cd=Object.defineProperty,ud=Object.getOwnPropertyDescriptor,hd=c((r,e,t,n)=>{for(var i=n>1?void 0:n?ud(e,t):e,s=r.length-1,o;s>=0;s--)(o=r[s])&&(i=(n?o(e,t,i):o(i))||i);return n&&i&&cd(e,t,i),i},"__decorateClass$1");let Po=c(class extends wr{},"ContinentInfo");Po=hd([na(ad),ia(ld)],Po);sa(Po);/**
+`;var cd=Object.defineProperty,ud=Object.getOwnPropertyDescriptor,hd=c((r,e,t,n)=>{for(var i=n>1?void 0:n?ud(e,t):e,s=r.length-1,o;s>=0;s--)(o=r[s])&&(i=(n?o(e,t,i):o(i))||i);return n&&i&&cd(e,t,i),i},"__decorateClass$1");let Po=c(class extends wr{onScroll(){const r=this.getElement("continentHeader");if(!r)return;const{y:e}=r.getBoundingClientRect();e===0?r.classList.add("scrolled"):r.classList.remove("scrolled")}},"ContinentInfo");Po=hd([na(ad),ia(ld)],Po);sa(Po);/**
  * @license
  * Copyright 2010-2022 Three.js Authors
  * SPDX-License-Identifier: MIT

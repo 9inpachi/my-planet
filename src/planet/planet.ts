@@ -49,6 +49,7 @@ export class Planet {
     const globe = new Globe({ size: 100 });
     globe.addTo(planet);
     const globeRadius = globe.getRadius();
+    this.three.getSelector().intersectButIgnoreObject(globe.getObject());
 
     // Galaxy
 
@@ -66,7 +67,12 @@ export class Planet {
       new WorkContinent({ globeRadius }),
       new LifeContinent({ globeRadius }),
       new PlaceholderContinent({ globeRadius }),
-    ].forEach((continent) => continent.addTo(globe.getObject()));
+    ].forEach((continent) => {
+      continent.addTo(planet);
+      this.three.getSelector().onIntersectObject(continent.getObject(), () => {
+        console.log('Object intersected:', continent.getObject().name);
+      });
+    });
 
     // Continents - Land Geometries
 

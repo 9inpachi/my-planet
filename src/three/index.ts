@@ -2,7 +2,7 @@ import { update as tweenUpdate } from '@tweenjs/tween.js';
 import { ThreeControls } from './controls';
 import { ThreeRenderer } from './renderer';
 import { ThreeScene } from './scene';
-import { ThreeSelection } from './selection';
+import { ThreeSelector } from './selector';
 
 export type ThreeConfiguration = {
   canvasElement: HTMLCanvasElement;
@@ -12,13 +12,13 @@ export class Three {
   private threeScene: ThreeScene;
   private threeRenderer: ThreeRenderer;
   private threeControls: ThreeControls;
-  private threeSelection: ThreeSelection;
+  private threeSelector: ThreeSelector;
 
   constructor(configuration: ThreeConfiguration) {
     this.threeScene = new ThreeScene();
     this.threeRenderer = new ThreeRenderer(configuration.canvasElement);
     this.threeControls = new ThreeControls(this.threeRenderer);
-    this.threeSelection = new ThreeSelection(
+    this.threeSelector = new ThreeSelector(
       this.threeRenderer,
       this.threeControls,
     );
@@ -46,7 +46,7 @@ export class Three {
     return this.threeControls;
   }
 
-  public getSelection() {
-    return this.threeSelection;
+  public getSelector() {
+    return this.threeSelector;
   }
 }

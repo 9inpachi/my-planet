@@ -31,6 +31,12 @@ export abstract class BaseContinent implements ICustomObject {
     }
 
     this.continent = this.constructContinent();
+
+    if (this.continent.name) {
+      this.continent.traverse((descendant) => {
+        descendant.userData.continent = this.continent.name;
+      });
+    }
   }
 
   public getObject() {

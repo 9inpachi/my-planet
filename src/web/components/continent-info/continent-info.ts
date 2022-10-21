@@ -12,16 +12,7 @@ class ContinentInfo extends Component {
 
   onInit() {
     this.continent = this.getElement('continent') as HTMLElement;
-
-    const continentBodySlot = this.getElement(
-      'continentBodySlot',
-    ) as HTMLSlotElement;
-    this.continentBody = continentBodySlot.assignedElements()[0] as HTMLElement;
-    this.continentBody.addEventListener(
-      'wheel',
-      this.onBodyMouseWheel.bind(this),
-    );
-    this.continentBody.addEventListener('scroll', this.onBodyScroll.bind(this));
+    this.continentBody = this.getElement('continentBody') as HTMLElement;
   }
 
   // Mouse Wheel Events
@@ -32,11 +23,9 @@ class ContinentInfo extends Component {
   onWrapperMouseWheel(event: WheelEvent) {
     // Don't propogate to `scroll` event.
     event.preventDefault();
-    // Apply the class `continent-active` with a minimum down scroll.
-    // This class will disable scroll (`overflow: hidden;`) through css.
+    // Active the continent with a minimum down scroll.
     if (this.isScrollDown(event)) {
-      this.continent.classList.add('continent-active');
-      this.continentActive = true;
+      this.activateContinent();
     }
   }
 
@@ -48,10 +37,34 @@ class ContinentInfo extends Component {
     const scrollTop = this.continentBody.scrollTop;
 
     if (scrollTop === 0 && this.isScrollUp(event)) {
-      this.continent.classList.remove('continent-active');
-      this.continentActive = false;
+      this.deactivateContinent();
     }
   }
+
+  // Scroll Events for Other Devices
+
+  onWrapperScroll() {
+    this.activateContinent();
+  }
+
+  onBodyScroll(event: Event) {
+    this.continentActive && event.stopPropagation();
+    const scrollTop = this.continentBody.scrollTop;
+
+    if (scrollTop === 0) {
+      this.deactivateContinent();
+    }
+  }
+
+  // Other Ways to Activate Continent
+
+  onWrapperClick() {
+    if (!this.continentActive) {
+      this.activateContinent();
+    }
+  }
+
+  // Helper Methods
 
   private isScrollUp(event: WheelEvent) {
     return event.deltaY < 0;
@@ -61,32 +74,20 @@ class ContinentInfo extends Component {
     return event.deltaY > 0;
   }
 
-  // Scroll Events for Other Devices
-
-  onWrapperScroll() {
+  private activateContinent() {
+    // Add the class `continent-active` which will disable scroll
+    // (`overflow: hidden;`) for continent and enable it for continent
+    // body through css.
     this.continent.classList.add('continent-active');
     // Setting to `scrollTop = 1` so the content can be scrolled up. Because the
     // `scroll` event isn't triggered with `scrollTop = 0` when deactivating the content.
-    // this.continentBody.scrollTop = 1;
+    this.continentBody.scrollTop = 1;
     this.continentActive = true;
   }
 
-  onBodyScroll(event: Event) {
-    this.continentActive && event.stopPropagation();
-    const scrollTop = this.continentBody.scrollTop;
-
-    if (scrollTop === 0) {
-      this.continent.classList.remove('continent-active');
-      this.continentActive = false;
-    }
-  }
-
-  // Other Ways to Activate Continent
-
-  onWrapperClick() {
-    if (!this.continentActive) {
-      this.continent.classList.add('continent-active');
-    }
+  private deactivateContinent() {
+    this.continent.classList.remove('continent-active');
+    this.continentActive = false;
   }
 }
 

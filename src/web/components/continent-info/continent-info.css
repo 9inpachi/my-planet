@@ -23,6 +23,20 @@
   scrollbar-width: none;
 }
 
+.continent-body {
+  font-size: 1.25rem;
+  padding-bottom: var(--continent-vertical-spacing);
+  direction: rtl;
+
+  /* Scrollbar Styles */
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) transparent;
+}
+
+.continent-body > * {
+  direction: ltr;
+}
+
 /* Handling Scroll */
 
 .continent.continent-active {
@@ -30,7 +44,7 @@
   padding-top: 0;
 }
 
-.continent.continent-active > .continent-body-slot::slotted(*) {
+.continent.continent-active > .continent-body {
   overflow: auto;
 
   /* Scrollbar */
@@ -43,4 +57,42 @@
 
 .continent::-webkit-scrollbar {
   display: none;
+}
+
+.continent-body::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+.continent-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.continent-body::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 1rem;
+}
+
+.continent-body::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-dim);
+}
+
+.continent-body::-webkit-scrollbar-track-piece:end {
+  background: transparent;
+  margin-bottom: 10rem;
+}
+
+.continent-body::-webkit-scrollbar-track-piece:start {
+  background: transparent;
+  margin-top: 10rem;
+}
+
+/* Mobile */
+@media screen and (max-width: 992px) {
+  .continent-body::-webkit-scrollbar-track-piece:end {
+    margin-bottom: 0;
+  }
+
+  .continent-body::-webkit-scrollbar-track-piece:start {
+    margin-top: 0;
+  }
 }

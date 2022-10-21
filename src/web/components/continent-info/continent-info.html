@@ -6,13 +6,7 @@
   on:click="this.onWrapperClick"
 >
   <slot name="continent-header">Placeholder Continent Header</slot>
-  <div
-    :continentContent
-    class="continent-content"
-    name="continent-content"
-    on:wheel="this.onContentMouseWheel"
-    on:scroll="this.onContentScroll"
-  >
-    <slot name="continent-content"></slot>
-  </div>
+  <slot :continentBodySlot name="continent-body" class="continent-body-slot">
+    Placeholder Continent Body
+  </slot>
 </article>

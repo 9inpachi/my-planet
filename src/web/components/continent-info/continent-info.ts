@@ -7,12 +7,21 @@ import continentStyles from './continent-info.css?raw';
 @styles(continentStyles)
 class ContinentInfo extends Component {
   private continent!: HTMLElement;
-  private continentContent!: HTMLElement;
+  private continentBody!: HTMLElement;
   private continentActive = false;
 
   onInit() {
     this.continent = this.getElement('continent') as HTMLElement;
-    this.continentContent = this.getElement('continentContent') as HTMLElement;
+
+    const continentBodySlot = this.getElement(
+      'continentBodySlot',
+    ) as HTMLSlotElement;
+    this.continentBody = continentBodySlot.assignedElements()[0] as HTMLElement;
+    this.continentBody.addEventListener(
+      'wheel',
+      this.onBodyMouseWheel.bind(this),
+    );
+    this.continentBody.addEventListener('scroll', this.onBodyScroll.bind(this));
   }
 
   // Mouse Wheel Events
@@ -31,12 +40,12 @@ class ContinentInfo extends Component {
     }
   }
 
-  onContentMouseWheel(event: WheelEvent) {
+  onBodyMouseWheel(event: WheelEvent) {
     // We only stop propagation when the continent is active. If we stop
     // it in the start, scrolling on the content won't activate the
     // continent.
     this.continentActive && event.stopPropagation();
-    const scrollTop = this.continentContent.scrollTop;
+    const scrollTop = this.continentBody.scrollTop;
 
     if (scrollTop === 0 && this.isScrollUp(event)) {
       this.continent.classList.remove('continent-active');
@@ -58,13 +67,13 @@ class ContinentInfo extends Component {
     this.continent.classList.add('continent-active');
     // Setting to `scrollTop = 1` so the content can be scrolled up. Because the
     // `scroll` event isn't triggered with `scrollTop = 0` when deactivating the content.
-    this.continentContent.scrollTop = 1;
+    // this.continentBody.scrollTop = 1;
     this.continentActive = true;
   }
 
-  onContentScroll(event: Event) {
+  onBodyScroll(event: Event) {
     this.continentActive && event.stopPropagation();
-    const scrollTop = this.continentContent.scrollTop;
+    const scrollTop = this.continentBody.scrollTop;
 
     if (scrollTop === 0) {
       this.continent.classList.remove('continent-active');

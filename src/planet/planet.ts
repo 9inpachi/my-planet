@@ -28,6 +28,13 @@ export class Planet {
     // Sun
 
     const sun = new Sun({ size: 10 });
+
+    // Move sun with camera.
+    sun.setPosition(this.three.getControls().getCamera().position);
+    this.three.getControls().onControlsChange((controls) => {
+      sun.setPosition(controls.object.position);
+    });
+
     sun.addTo(scene);
 
     // Planet Group

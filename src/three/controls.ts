@@ -52,4 +52,10 @@ export class ThreeControls implements IUpdatable {
   public getOrbitControls() {
     return this.orbitControls;
   }
+
+  public onControlsChange(callback: (controls: OrbitControls) => void) {
+    this.orbitControls.addEventListener('change', (event) => {
+      callback(event.target);
+    });
+  }
 }

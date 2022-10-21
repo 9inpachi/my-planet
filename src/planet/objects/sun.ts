@@ -1,10 +1,4 @@
-import {
-  DirectionalLight,
-  Group,
-  Mesh,
-  MeshLambertMaterial,
-  SphereGeometry,
-} from 'three';
+import { DirectionalLight, Group, Vector3 } from 'three';
 import { colors } from '../../common/lib/colors';
 import { BaseObject } from './base-object';
 
@@ -17,13 +11,11 @@ export class Sun extends BaseObject<SunProperties> {
   protected constructObject() {
     const group = new Group();
     const mainSun = new Group();
-    const auxiliaryLight = this.constructAuxiliaryLight();
     const radius = this.properties.radius ?? 120;
 
     // Not adding sun (sphere) for now.
     mainSun.add(this.constructLight());
     mainSun.position.setScalar(radius);
-    auxiliaryLight.position.setScalar(-radius);
     group.add(mainSun);
     group.name = 'sun';
 
@@ -43,10 +35,10 @@ export class Sun extends BaseObject<SunProperties> {
   // }
 
   private constructLight() {
-    return new DirectionalLight(colors.sun, 1);
+    return new DirectionalLight(colors.sun, 0.8);
   }
 
-  private constructAuxiliaryLight() {
-    return new DirectionalLight(colors.sun, 1);
+  public setPosition(position: Vector3) {
+    this.object.position.copy(position);
   }
 }

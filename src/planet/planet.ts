@@ -73,8 +73,11 @@ export class Planet {
       continentLand.name = continentLand.name + 'Land';
       continent.getObject().add(continentLand);
 
-      this.three.getSelector().onIntersectObject(continent.getObject(), () => {
+      this.three.getSelector().onMouseOver(continent.getObject(), () => {
         console.log('Object intersected:', continent.getObject().name);
+      });
+      this.three.getSelector().onClick(continent.getObject(), () => {
+        console.log('Object clicked:', continent.getObject().name);
       });
 
       continent.addTo(planet);

@@ -20,7 +20,8 @@ export class Sun extends BaseObject<SunProperties> {
     const auxiliaryLight = this.constructAuxiliaryLight();
     const radius = this.properties.radius ?? 120;
 
-    mainSun.add(this.constructLight(), this.constructSphere());
+    // Not adding sun (sphere) for now.
+    mainSun.add(this.constructLight());
     mainSun.position.setScalar(radius);
     auxiliaryLight.position.setScalar(-radius);
     group.add(mainSun);
@@ -29,17 +30,17 @@ export class Sun extends BaseObject<SunProperties> {
     return group;
   }
 
-  private constructSphere() {
-    const { size } = this.properties;
-    const geometry = new SphereGeometry(size, size * 6, size * 3);
-    const material = new MeshLambertMaterial({
-      color: colors.sun,
-      emissive: colors.sun,
-    });
-    const mesh = new Mesh(geometry, material);
+  // private constructSphere() {
+  //   const { size } = this.properties;
+  //   const geometry = new SphereGeometry(size, size * 6, size * 3);
+  //   const material = new MeshLambertMaterial({
+  //     color: colors.sun,
+  //     emissive: colors.sun,
+  //   });
+  //   const mesh = new Mesh(geometry, material);
 
-    return mesh;
-  }
+  //   return mesh;
+  // }
 
   private constructLight() {
     return new DirectionalLight(colors.sun, 1);

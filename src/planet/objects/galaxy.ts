@@ -25,9 +25,10 @@ export class Galaxy extends BaseObject<GalaxyProperties> {
     const galaxy = new Group();
     galaxy.name = 'galaxy';
 
-    // Generating groups of `Points` so that they can be individually rotated in
-    // opposite directions (+y/-y) and make movements appear more random.
-    // They are infinitely animated in the `this.animateGalaxy` function.
+    // Generating groups of `Points` so that they can be individually
+    // rotated in opposite directions (+y/-y) and make movements appear
+    // more random. They can be infinitely animated with the
+    // `this.animateGalaxy` function.
     for (let i = 0; i < groupsCount; i++) {
       const starsGroup = this.constructStarsGroup(
         starsCount / groupsCount,
@@ -94,9 +95,9 @@ export class Galaxy extends BaseObject<GalaxyProperties> {
     const movementFactor = 0.02;
     const singleIntervalDuration = 1000;
 
-    // Rotates the group infinitely along the y-axis.
-    // The animation restarts using recursion every 1000 ms.
-    // `delta` decides if the group rotates to the right (+y) or left (-y).
+    // Rotates the group infinitely along the y-axis. The animation
+    // restarts using recursion every 1000 ms. `delta` decides if the
+    // group rotates to the right (+y) or left (-y).
     const animateStarsGroup = (group: Object3D, delta = 1) => {
       const starsTween = new Tween(group.rotation);
 

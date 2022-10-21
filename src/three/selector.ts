@@ -6,11 +6,11 @@ export class ThreeSelector {
   private rayCaster: Raycaster;
   private rayCasterPoint: Vector2 = new Vector2(0, 0);
   private rendererElement: HTMLCanvasElement;
+  private intersectableObjects: Object3D[] = [];
   private objectsToIgnore: Set<Object3D> = new Set();
   // A map of objects with callbacks called when those objects are hit
   // by the raycaster.
   private intersectMap: Map<Object3D, VoidFunction> = new Map();
-  private intersectableObjects: Object3D[] = [];
 
   constructor(renderer: ThreeRenderer, private controls: ThreeControls) {
     this.rayCaster = new Raycaster();

@@ -1,11 +1,10 @@
-import { Group, PerspectiveCamera } from 'three';
+import { Group, Object3D, PerspectiveCamera } from 'three';
 import { Three, ThreeConfiguration } from '../three';
 import { Globe } from './objects/globe';
 import { Sun } from './objects/sun';
 import { AboutContinent } from './continents/about-continent/about-continent';
 import { ProjectsContinent } from './continents/projects-continent/projects-continent';
 import { GltfLoader } from '../three/loaders/gltf-loader';
-import { SimpleObject } from './objects/simple-object';
 import { WorkContinent } from './continents/work-continent/work-continent';
 import { LifeContinent } from './continents/life-continent/life-continent';
 import { PlaceholderContinent } from './continents/placeholder-continent/placeholder-continent';
@@ -61,6 +60,8 @@ export class Planet {
 
     // Continents
 
+    const continents = await this.loadContinentsLand();
+
     [
       new AboutContinent({ globeRadius }),
       new ProjectsContinent({ globeRadius }),
@@ -68,21 +69,35 @@ export class Planet {
       new LifeContinent({ globeRadius }),
       new PlaceholderContinent({ globeRadius }),
     ].forEach((continent) => {
-      continent.addTo(planet);
+      const continentLand = continents[continent.getObject().name];
+      continentLand.name = continentLand.name + 'Land';
+      continent.getObject().add(continentLand);
+
       this.three.getSelector().onIntersectObject(continent.getObject(), () => {
         console.log('Object intersected:', continent.getObject().name);
       });
+
+      continent.addTo(planet);
     });
-
-    // Continents - Land Geometries
-
-    const gltfLoader = new GltfLoader();
-    const continentsGltf = await gltfLoader.loadFile(continentGeometry);
-    const continentsObject = new SimpleObject({ object: continentsGltf });
-    continentsObject.addTo(globe.getObject());
   }
 
   public static build(configuration: ThreeConfiguration) {
     return new Planet(configuration);
+  }
+
+  // Helpers
+
+  private async loadContinentsLand() {
+    const gltfLoader = new GltfLoader();
+    const continentsGltf = await gltfLoader.loadFile(continentGeometry);
+    const continents: { [key: string]: Object3D } = {};
+
+    // Continent lands are given the same name as continents in the
+    // blender model.
+    for (const continent of continentsGltf.children) {
+      continents[continent.name] = continent;
+    }
+
+    return continents;
   }
 }

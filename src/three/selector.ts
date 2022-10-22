@@ -9,7 +9,10 @@ export class ThreeSelector {
   private rayCasterPoint: Vector2 = new Vector2(0, 0);
   private rendererElement: HTMLCanvasElement;
   private objectsToIgnore: Set<Object3D> = new Set();
-  private intersectableObjects: Set<Object3D> = new Set();
+  // Two different sets to avoid conflict. Otherwise, adding a click
+  // listener to a child makes mouse over of parent unreliable.
+  private intersectableMouseOverObjects: Set<Object3D> = new Set();
+  private intersectableClickObjects: Set<Object3D> = new Set();
   // A map of objects with callbacks called when those objects are hit
   // by the raycaster on mouse over.
   private mouseOverListenersMap: ObjectListenerMap = new Map();
@@ -25,33 +28,46 @@ export class ThreeSelector {
   }
 
   private setupMouseMoveListeners() {
-    let mouseMoveObject: Object3D | undefined;
+    const mouseMoveObjects: Set<Object3D> = new Set();
 
     this.rendererElement.addEventListener('mousemove', (event) => {
-      const intersectedObject = this.listenToObjectIntersection(event);
+      const intersectedObject = this.listenToObjectIntersection(
+        event,
+        this.intersectableMouseOverObjects,
+      );
 
-      if (intersectedObject && !mouseMoveObject) {
-        mouseMoveObject = intersectedObject;
-        this.mouseOverListenersMap.get(intersectedObject)?.();
+      // For `onMouseOut`.
+      for (const mouseMoveObject of mouseMoveObjects) {
+        if (intersectedObject !== mouseMoveObject) {
+          mouseMoveObjects.delete(mouseMoveObject);
+          this.mouseOutListenersMap.get(mouseMoveObject)?.();
+        }
       }
 
-      if (!intersectedObject && mouseMoveObject) {
-        this.mouseOutListenersMap.get(mouseMoveObject)?.();
-        mouseMoveObject = undefined;
+      // For `onMouseOver`.
+      if (intersectedObject && !mouseMoveObjects.has(intersectedObject)) {
+        mouseMoveObjects.add(intersectedObject);
+        this.mouseOverListenersMap.get(intersectedObject)?.();
       }
     });
   }
 
   private setupMouseClickListener() {
     this.rendererElement.addEventListener('click', (event) => {
-      const intersectedObject = this.listenToObjectIntersection(event);
+      const intersectedObject = this.listenToObjectIntersection(
+        event,
+        this.intersectableClickObjects,
+      );
       if (intersectedObject) {
         this.clickableListenersMap.get(intersectedObject)?.();
       }
     });
   }
 
-  private listenToObjectIntersection(event: MouseEvent) {
+  private listenToObjectIntersection(
+    event: MouseEvent,
+    intersectableObjects: Set<Object3D>,
+  ) {
     this.rayCasterPoint.setX(
       (event.clientX / this.rendererElement.clientWidth) * 2 - 1,
     );
@@ -68,28 +84,31 @@ export class ThreeSelector {
 
     // Check if the any of the objects registered have been intersected.
     const intersects = this.rayCaster.intersectObjects([
-      ...this.intersectableObjects,
+      ...intersectableObjects,
     ]);
     if (intersects.length === 0) {
       return;
     }
 
-    return this.findIntersectedObject(intersects[0].object);
+    return this.findIntersectedObject(
+      intersects[0].object,
+      intersectableObjects,
+    );
   }
 
   public onMouseOver(object: Object3D, callback: VoidFunction) {
     this.mouseOverListenersMap.set(object, callback);
-    this.intersectableObjects.add(object);
+    this.intersectableMouseOverObjects.add(object);
   }
 
   public onMouseOut(object: Object3D, callback: VoidFunction) {
     this.mouseOutListenersMap.set(object, callback);
-    this.intersectableObjects.add(object);
+    this.intersectableMouseOverObjects.add(object);
   }
 
   public onClick(object: Object3D, callback: VoidFunction) {
     this.clickableListenersMap.set(object, callback);
-    this.intersectableObjects.add(object);
+    this.intersectableClickObjects.add(object);
   }
 
   /**
@@ -98,7 +117,8 @@ export class ThreeSelector {
    */
   public intersectButIgnoreObject(object: Object3D) {
     this.objectsToIgnore.add(object);
-    this.intersectableObjects.add(object);
+    this.intersectableClickObjects.add(object);
+    this.intersectableMouseOverObjects.add(object);
   }
 
   // Helpers
@@ -108,16 +128,20 @@ export class ThreeSelector {
    * Because the raycaster only hits meshes with geometries and we are
    * mostly using groups without any geometry to listen to the events.
    *
-   * Note: Event bubbling won't work with this method. But it should be
-   * simple to return multiple intersected objects up in the hierarchy.
+   * Note: Event bubbling won't work with this method. But we can
+   * implement it by returning multiple intersected objects up in the
+   * hierarchy.
    */
-  private findIntersectedObject(current: Object3D): Object3D | undefined {
+  private findIntersectedObject(
+    current: Object3D,
+    intersectableObjects: Set<Object3D>,
+  ): Object3D | undefined {
     if (this.objectsToIgnore.has(current)) {
       return undefined;
-    } else if (this.intersectableObjects.has(current)) {
+    } else if (intersectableObjects.has(current)) {
       return current;
     } else if (current.parent) {
-      return this.findIntersectedObject(current.parent);
+      return this.findIntersectedObject(current.parent, intersectableObjects);
     } else {
       return undefined;
     }

@@ -10,6 +10,21 @@ class ContinentInfo extends Component {
   private continentBody!: HTMLElement;
   private continentActive = false;
 
+  // Should move the attribute observation logic to the @property
+  // decorator.
+  static get observedAttributes() {
+    return ['active'];
+  }
+
+  attributeChangedCallback(name: string, _oldVal: string, newVal: string) {
+    if (name === 'active' && newVal !== null) {
+      const { scrollHeight, offsetHeight } = this.continentBody;
+      if (scrollHeight > offsetHeight) {
+        this.continentBody.classList.add('has-scroll');
+      }
+    }
+  }
+
   onInit() {
     this.continent = this.getElement('continent') as HTMLElement;
     this.continentBody = this.getElement('continentBody') as HTMLElement;

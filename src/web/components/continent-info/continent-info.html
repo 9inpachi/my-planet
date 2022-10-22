@@ -13,6 +13,8 @@
     on:wheel="this.onBodyMouseWheel"
     on:scroll="this.onBodyScroll"
   >
-    <slot name="continent-body"></slot>
+    <div class="continent-body-inner">
+      <slot name="continent-body"></slot>
+    </div>
   </div>
 </article>

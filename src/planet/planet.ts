@@ -73,14 +73,8 @@ export class Planet {
       continentLand.name = continentLand.name + 'Land';
       continent.getObject().add(continentLand);
 
-      this.three.getSelector().onMouseOver(continent.getObject(), () => {
-        console.log('Object mouse over:', continent.getObject().name);
-      });
-      this.three.getSelector().onMouseOut(continent.getObject(), () => {
-        console.log('Object mouse out:', continent.getObject().name);
-      });
       this.three.getSelector().onClick(continent.getObject(), () => {
-        console.log('Object click:', continent.getObject().name);
+        this.onContinentClick(continent.getObject());
       });
 
       continent.addTo(planet);
@@ -105,5 +99,14 @@ export class Planet {
     }
 
     return continents;
+  }
+
+  private onContinentClick(continent: Object3D) {
+    document
+      .querySelectorAll('mp-continent-info')
+      .forEach((continent) => continent.removeAttribute('active'));
+    document
+      .querySelector(`mp-continent-info[name="${continent.name}"]`)
+      ?.setAttribute('active', '');
   }
 }

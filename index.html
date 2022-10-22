@@ -13,8 +13,18 @@
 
   <body>
     <mp-planet></mp-planet>
-    <mp-continent-info>
+
+    <!-- Continent names are set in continent classes. -->
+    <mp-continent-info name="aboutContinent">
       <mp-continent-header slot="continent-header">About</mp-continent-header>
+      <mp-continent-body slot="continent-body">
+        Some content to come
+      </mp-continent-body>
+    </mp-continent-info>
+    <mp-continent-info name="projectsContinent">
+      <mp-continent-header slot="continent-header">
+        Projects
+      </mp-continent-header>
       <mp-continent-body slot="continent-body">
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
@@ -64,7 +74,27 @@
           mauris hendrerit neque, sit amet lobortis sem libero lobortis ipsum.
           Etiam varius convallis purus nec iaculis. Nulla pulvinar elit eu erat
           bibendum tempus.
-        </p>
+        </p></mp-continent-body
+      >
+    </mp-continent-info>
+    <mp-continent-info name="workContinent">
+      <mp-continent-header slot="continent-header">Work</mp-continent-header>
+      <mp-continent-body slot="continent-body">
+        Some content to come
+      </mp-continent-body>
+    </mp-continent-info>
+    <mp-continent-info name="lifeContinent">
+      <mp-continent-header slot="continent-header">Life</mp-continent-header>
+      <mp-continent-body slot="continent-body">
+        Some content to come
+      </mp-continent-body>
+    </mp-continent-info>
+    <mp-continent-info name="placeholderContinent">
+      <mp-continent-header slot="continent-header">
+        Placeholder
+      </mp-continent-header>
+      <mp-continent-body slot="continent-body">
+        Some content to come
       </mp-continent-body>
     </mp-continent-info>
   </body>

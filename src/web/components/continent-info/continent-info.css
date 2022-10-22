@@ -36,13 +36,14 @@
   font-size: 1.25rem;
   padding-bottom: var(--continent-vertical-spacing);
   direction: rtl;
+  overflow: hidden;
 
   /* Scrollbar Styles */
   scrollbar-width: thin;
   scrollbar-color: var(--primary) transparent;
 }
 
-.continent-body > * {
+.continent-body > .continent-body-inner {
   direction: ltr;
 }
 
@@ -53,7 +54,7 @@
   padding-top: 0;
 }
 
-.continent.continent-active > .continent-body {
+.continent.continent-active > .continent-body.has-scroll {
   overflow: auto;
 
   /* Scrollbar */

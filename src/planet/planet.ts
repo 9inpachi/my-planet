@@ -36,12 +36,8 @@ export class Planet {
 
     const sun = new Sun({ size: 10 });
 
-    // Move sun with camera.
+    // Move sun to camera.
     sun.setPosition(this.three.getControls().getCamera().position);
-    this.three.getControls().onControlsChange((controls) => {
-      sun.setPosition(controls.object.position);
-    });
-
     sun.addTo(scene);
 
     // Planet Group
@@ -57,6 +53,8 @@ export class Planet {
     globe.addTo(planet);
     const globeRadius = globe.getRadius();
     this.three.getSelector().intersectButIgnoreObject(globe.getObject());
+
+    this.three.getControls().initializeSpinControls(planet, globeRadius);
 
     // Galaxy
 
@@ -112,37 +110,37 @@ export class Planet {
 
   private onContinentClick(continent: Object3D) {
     document
-      .querySelectorAll('mp-continent-info')
+      .querySelectorAll('mp-continent-info[active]')
       .forEach((continent) => continent.removeAttribute('active'));
-    document
-      .querySelector(`mp-continent-info[name="${continent.name}"]`)
-      ?.setAttribute('active', '');
+    // document
+    //   .querySelector(`mp-continent-info[name="${continent.name}"]`)
+    //   ?.setAttribute('active', '');
 
     // Position and Direction Calculations
 
-    const controls = this.three.getControls().getOrbitControls();
-    const camera = this.three.getControls().getCamera();
+    // const controls = this.three.getControls().getOrbitControls();
+    // const camera = this.three.getControls().getCamera();
 
-    const continentPosition = new Box3()
-      .setFromObject(continent)
-      .getCenter(new Vector3());
-    const origin = new Vector3(0, 0, 0);
-    const dir = new Vector3().subVectors(continentPosition, origin).normalize();
-    const cameraPosition = continentPosition
-      .clone()
-      .add(dir.clone().multiplyScalar(200));
+    // const continentPosition = new Box3()
+    //   .setFromObject(continent)
+    //   .getCenter(new Vector3());
+    // const origin = new Vector3(0, 0, 0);
+    // const dir = new Vector3().subVectors(continentPosition, origin).normalize();
+    // const cameraPosition = continentPosition
+    //   .clone()
+    //   .add(dir.clone().multiplyScalar(200));
 
-    // Animation
+    // // Animation
 
-    const easing = Easing.Cubic.Out;
-    const duration = 0;
+    // const easing = Easing.Cubic.Out;
+    // const duration = 2000;
 
-    const positionTween = new Tween(controls.target);
-    positionTween.to(continentPosition, duration).easing(easing);
-    const cameraTween = new Tween(camera.position);
-    cameraTween.to(cameraPosition, duration).easing(easing);
+    // const positionTween = new Tween(controls.target);
+    // positionTween.to(continentPosition, duration).easing(easing);
+    // const cameraTween = new Tween(camera.position);
+    // cameraTween.to(cameraPosition, duration).easing(easing);
 
-    positionTween.start();
-    cameraTween.start();
+    // positionTween.start();
+    // cameraTween.start();
   }
 }

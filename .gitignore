@@ -51,6 +51,7 @@ npm-debug.log
 /dist/**
 .webpack.json
 src/**/*.js
+!src/external/**/*.js
 src/**/*.map
 
 # Doc #

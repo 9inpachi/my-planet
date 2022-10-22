@@ -1,16 +1,28 @@
-import { Camera, PerspectiveCamera } from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import {
+  Camera,
+  Clock,
+  Object3D,
+  PerspectiveCamera,
+  Quaternion,
+  Vector3,
+} from 'three';
+import { SpinControls } from '../external/spin-controls';
 import { IUpdatable } from './lib/iupdatable';
 import { ThreeRenderer } from './renderer';
 
 export class ThreeControls implements IUpdatable {
   private camera: Camera;
-  private orbitControls: OrbitControls;
+  private spinControls: SpinControls;
+  // Autorotate
+  private clock: Clock;
+  private autoRotateAxis = new Vector3(0, 1, 0);
+  private autoRotateQuaternion = new Quaternion();
 
   constructor(renderer: ThreeRenderer) {
     const domElement = renderer.getRenderer().domElement;
     this.camera = this.buildPerspectiveCamera(domElement);
-    this.orbitControls = this.buildOrbitControls(domElement);
+    this.spinControls = this.buildSpinControls(domElement);
+    this.clock = new Clock();
   }
 
   private buildPerspectiveCamera(domElement: HTMLCanvasElement) {
@@ -19,7 +31,7 @@ export class ThreeControls implements IUpdatable {
       wrapperElement.offsetWidth / wrapperElement.offsetHeight;
     const perspectiveCamera = new PerspectiveCamera(36, aspectRatio(), 1, 3000);
 
-    perspectiveCamera.position.set(0, 0, 400);
+    perspectiveCamera.position.set(0, 0, 450);
 
     window.addEventListener('resize', () => {
       perspectiveCamera.aspect = aspectRatio();
@@ -29,33 +41,52 @@ export class ThreeControls implements IUpdatable {
     return perspectiveCamera;
   }
 
-  private buildOrbitControls(domElement: HTMLCanvasElement) {
-    const orbitControls = new OrbitControls(this.getCamera(), domElement);
-    orbitControls.maxDistance = 700;
-    orbitControls.minDistance = 150;
-    orbitControls.zoomSpeed = 0.5;
-    orbitControls.enableDamping = true;
-    orbitControls.dampingFactor = 0.05;
-    orbitControls.rotateSpeed = 0.2;
+  private buildSpinControls(domElement: HTMLCanvasElement) {
+    const spinControls = new SpinControls(
+      new Object3D(),
+      0,
+      this.getCamera(),
+      domElement,
+    );
+    spinControls.rotateSensitivity = 0.5;
+    spinControls.dampingFactor = 1;
 
-    return orbitControls;
+    return spinControls;
+  }
+
+  private autoRotate() {
+    const autoRotateFactor = -0.1;
+    this.autoRotateQuaternion.setFromAxisAngle(
+      this.autoRotateAxis,
+      this.clock.getDelta() * autoRotateFactor,
+    );
+    this.spinControls.object.quaternion.premultiply(this.autoRotateQuaternion);
   }
 
   public update() {
-    this.orbitControls.update();
+    this.spinControls.update();
+    this.autoRotate();
   }
 
   public getCamera() {
     return this.camera;
   }
 
-  public getOrbitControls() {
-    return this.orbitControls;
-  }
-
-  public onControlsChange(callback: (controls: OrbitControls) => void) {
-    this.orbitControls.addEventListener('change', (event) => {
+  public onControlsChange(callback: (controls: SpinControls) => void) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (this.spinControls as any).addEventListener('change', (event: any) => {
       callback(event.target);
     });
+  }
+
+  public initializeSpinControls(
+    object: Object3D,
+    radius: number,
+    constraintAxis?: Vector3,
+  ) {
+    this.spinControls.object = object;
+    this.spinControls.trackballRadius = radius;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (this.spinControls as any).spinAxisConstraint = constraintAxis;
   }
 }

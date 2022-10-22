@@ -1,4 +1,11 @@
-import { Group, Object3D, PerspectiveCamera } from 'three';
+import {
+  AxesHelper,
+  Box3,
+  Group,
+  Object3D,
+  PerspectiveCamera,
+  Vector3,
+} from 'three';
 import { Three, ThreeConfiguration } from '../three';
 import { Globe } from './objects/globe';
 import { Sun } from './objects/sun';
@@ -12,6 +19,7 @@ import { Galaxy } from './objects/galaxy';
 import { enableParallax } from './common/util/parallax';
 
 import continentGeometry from '../assets/geometries/continents.gltf';
+import { Easing, Tween } from '@tweenjs/tween.js';
 
 export class Planet {
   private three: Three;
@@ -39,7 +47,7 @@ export class Planet {
     // Planet Group
 
     const planet = new Group();
-    enableParallax(planet, 0.005);
+    enableParallax(planet, 0.002);
     planet.name = 'planet';
     scene.add(planet);
 
@@ -55,7 +63,7 @@ export class Planet {
     const far = (this.three.getControls().getCamera() as PerspectiveCamera).far;
     const galaxy = new Galaxy({ starsCount: 1000, far });
     galaxy.animateGalaxy();
-    enableParallax(galaxy.getObject(), 0.1);
+    enableParallax(galaxy.getObject(), 0.05);
     galaxy.addTo(scene);
 
     // Continents
@@ -79,6 +87,7 @@ export class Planet {
 
       continent.addTo(planet);
     });
+    this.three.getScene().add(new AxesHelper(200));
   }
 
   public static build(configuration: ThreeConfiguration) {
@@ -108,5 +117,32 @@ export class Planet {
     document
       .querySelector(`mp-continent-info[name="${continent.name}"]`)
       ?.setAttribute('active', '');
+
+    // Position and Direction Calculations
+
+    const controls = this.three.getControls().getOrbitControls();
+    const camera = this.three.getControls().getCamera();
+
+    const continentPosition = new Box3()
+      .setFromObject(continent)
+      .getCenter(new Vector3());
+    const origin = new Vector3(0, 0, 0);
+    const dir = new Vector3().subVectors(continentPosition, origin).normalize();
+    const cameraPosition = continentPosition
+      .clone()
+      .add(dir.clone().multiplyScalar(200));
+
+    // Animation
+
+    const easing = Easing.Cubic.Out;
+    const duration = 0;
+
+    const positionTween = new Tween(controls.target);
+    positionTween.to(continentPosition, duration).easing(easing);
+    const cameraTween = new Tween(camera.position);
+    cameraTween.to(cameraPosition, duration).easing(easing);
+
+    positionTween.start();
+    cameraTween.start();
   }
 }

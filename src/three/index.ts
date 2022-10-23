@@ -1,4 +1,5 @@
 import { update as tweenUpdate } from '@tweenjs/tween.js';
+import { Clock } from 'three';
 import { ThreeControls } from './controls';
 import { ThreeRenderer } from './renderer';
 import { ThreeScene } from './scene';
@@ -30,9 +31,12 @@ export class Three {
     const scene = this.threeScene.getScene();
     const camera = this.threeControls.getCamera();
     const renderer = this.threeRenderer.getRenderer();
+    const clock = new Clock();
 
     renderer.setAnimationLoop(() => {
-      this.threeControls.update();
+      const deltaTime = clock.getDelta();
+
+      this.threeControls.update(deltaTime);
       renderer.render(scene, camera);
       tweenUpdate();
     });

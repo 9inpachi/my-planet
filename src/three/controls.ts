@@ -7,12 +7,14 @@ import {
   Vector3,
 } from 'three';
 import { SpinControls } from '../external/spin-controls';
-import { IUpdatable } from './lib/iupdatable';
+import { IUpdatable } from './common/lib/iupdatable';
 import { ThreeRenderer } from './renderer';
 
 export class ThreeControls implements IUpdatable {
   private camera: Camera;
   private spinControls: SpinControls;
+
+  private initialCameraPosition = new Vector3(0, 0, 450);
 
   private autoRotateAxis = new Vector3(0, 1, 0);
   private autoRotateQuaternion = new Quaternion();
@@ -30,7 +32,7 @@ export class ThreeControls implements IUpdatable {
       wrapperElement.offsetWidth / wrapperElement.offsetHeight;
     const perspectiveCamera = new PerspectiveCamera(36, aspectRatio(), 1, 3000);
 
-    perspectiveCamera.position.set(0, 0, 450);
+    perspectiveCamera.position.copy(this.initialCameraPosition);
 
     window.addEventListener('resize', () => {
       perspectiveCamera.aspect = aspectRatio();
@@ -99,5 +101,9 @@ export class ThreeControls implements IUpdatable {
 
   public getSpinControls() {
     return this.spinControls;
+  }
+
+  public getInitialCameraPosition() {
+    return this.initialCameraPosition;
   }
 }

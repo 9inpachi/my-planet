@@ -2,6 +2,7 @@ import {
   AxesHelper,
   Box3,
   Group,
+  MathUtils,
   Object3D,
   PerspectiveCamera,
   Vector3,
@@ -20,6 +21,10 @@ import { enableParallax } from './common/util/parallax';
 
 import continentGeometry from '../assets/geometries/continents.gltf';
 import { Easing, Tween } from '@tweenjs/tween.js';
+import {
+  getDirectionBetweenVectors,
+  getObjectDirection,
+} from '../three/common/util/transform';
 
 export class Planet {
   private three: Three;
@@ -54,7 +59,7 @@ export class Planet {
     const globeRadius = globe.getRadius();
     this.three.getSelector().intersectButIgnoreObject(globe.getObject());
 
-    this.three.getControls().initializeSpinControls(planet, globeRadius);
+    this.three.getControls().setSpinControlsObject(planet, globeRadius);
 
     // Galaxy
 
@@ -116,31 +121,67 @@ export class Planet {
     //   .querySelector(`mp-continent-info[name="${continent.name}"]`)
     //   ?.setAttribute('active', '');
 
+    const cameraDistanceUpContinent = 100;
+    const cameraDisanceToObject = 200;
+
     // Position and Direction Calculations
 
-    // const controls = this.three.getControls().getOrbitControls();
-    // const camera = this.three.getControls().getCamera();
+    const controls = this.three.getControls();
+    const camera = this.three.getControls().getCamera();
 
-    // const continentPosition = new Box3()
-    //   .setFromObject(continent)
-    //   .getCenter(new Vector3());
-    // const origin = new Vector3(0, 0, 0);
-    // const dir = new Vector3().subVectors(continentPosition, origin).normalize();
-    // const cameraPosition = continentPosition
-    //   .clone()
-    //   .add(dir.clone().multiplyScalar(200));
+    const continentPosition = new Box3()
+      .setFromObject(continent)
+      .getCenter(new Vector3());
+    const origin = new Vector3(0, 0, 0);
+    const continentUpDir = getDirectionBetweenVectors(
+      origin,
+      continentPosition,
+    );
+    const oldCameraDir = getObjectDirection(camera);
 
-    // // Animation
+    // Controls Changes
+
+    controls.getSpinControls().rotateSensitivity = 0.5;
+    controls.setRotationAxis(continentUpDir);
+
+    // New Camera Position
+
+    const newObject = new Object3D();
+    newObject.lookAt(continentUpDir);
+    newObject.position.copy(continentPosition);
+    newObject
+      .translateZ(cameraDistanceUpContinent)
+      .translateX(cameraDisanceToObject);
+    newObject.lookAt(continentPosition);
+
+    // New Camera Up
+
+    const newCameraDir = getObjectDirection(newObject);
+    const cameraUp = new Vector3()
+      .copy(continentUpDir)
+      .applyAxisAngle(newCameraDir, MathUtils.degToRad(30));
+
+    // Apply Calculations to Camera
+
+    camera.position.copy(newObject.position);
+    camera.up.copy(cameraUp);
+    // Order matters here. Look at the continent later.
+    camera.lookAt(continentPosition);
+
+    // Animation
 
     // const easing = Easing.Cubic.Out;
-    // const duration = 2000;
+    // const duration = 1000;
 
-    // const positionTween = new Tween(controls.target);
-    // positionTween.to(continentPosition, duration).easing(easing);
     // const cameraTween = new Tween(camera.position);
-    // cameraTween.to(cameraPosition, duration).easing(easing);
+    // cameraTween.to(newObject.position, duration).easing(easing);
+    // const cameraLookAtTween = new Tween(cameraDirection);
+    // cameraLookAtTween.to(continentPosition, duration).easing(easing);
+    // cameraLookAtTween.onUpdate((value) => {
+    //   camera.lookAt(value);
+    // });
 
-    // positionTween.start();
     // cameraTween.start();
+    // cameraLookAtTween.start();
   }
 }

@@ -1,10 +1,11 @@
 import {
-  AxesHelper,
   Box3,
   Group,
   MathUtils,
+  Matrix4,
   Object3D,
   PerspectiveCamera,
+  Quaternion,
   Vector3,
 } from 'three';
 import { Three, ThreeConfiguration } from '../three';
@@ -90,7 +91,6 @@ export class Planet {
 
       continent.addTo(planet);
     });
-    this.three.getScene().add(new AxesHelper(200));
   }
 
   public static build(configuration: ThreeConfiguration) {
@@ -114,15 +114,19 @@ export class Planet {
   }
 
   private onContinentClick(continent: Object3D) {
-    document
-      .querySelectorAll('mp-continent-info[active]')
-      .forEach((continent) => continent.removeAttribute('active'));
+    // document
+    //   .querySelectorAll('mp-continent-info[active]')
+    //   .forEach((continent) => continent.removeAttribute('active'));
     // document
     //   .querySelector(`mp-continent-info[name="${continent.name}"]`)
     //   ?.setAttribute('active', '');
 
+    // Configuration
+
     const cameraDistanceUpContinent = 100;
-    const cameraDisanceToObject = 200;
+    const cameraDisanceToObject = 150;
+    const cameraRotation = 30;
+    const cameraLeftSpace = 50;
 
     // Position and Direction Calculations
 
@@ -137,51 +141,65 @@ export class Planet {
       origin,
       continentPosition,
     );
-    const oldCameraDir = getObjectDirection(camera);
 
     // Controls Changes
 
-    controls.getSpinControls().rotateSensitivity = 0.5;
+    controls.getSpinControls().rotateSensitivity = 1;
     controls.setRotationAxis(continentUpDir);
 
     // New Camera Position
 
-    const newObject = new Object3D();
-    newObject.lookAt(continentUpDir);
-    newObject.position.copy(continentPosition);
-    newObject
+    const targetCameraClone = new Object3D();
+    targetCameraClone.lookAt(continentUpDir);
+    targetCameraClone.position.copy(continentPosition);
+    targetCameraClone
       .translateZ(cameraDistanceUpContinent)
       .translateX(cameraDisanceToObject);
-    newObject.lookAt(continentPosition);
+    targetCameraClone.lookAt(continentPosition);
 
     // New Camera Up
 
-    const newCameraDir = getObjectDirection(newObject);
+    const newCameraDir = getObjectDirection(targetCameraClone);
     const cameraUp = new Vector3()
       .copy(continentUpDir)
-      .applyAxisAngle(newCameraDir, MathUtils.degToRad(30));
+      .applyAxisAngle(newCameraDir, MathUtils.degToRad(cameraRotation));
+
+    // Use the camera up and continent position to look at the continent
+    // with the right camera rotation.
+    const targetCameraQuaternion = new Quaternion().setFromRotationMatrix(
+      new Matrix4().lookAt(
+        targetCameraClone.position,
+        continentPosition,
+        cameraUp,
+      ),
+    );
 
     // Apply Calculations to Camera
 
-    camera.position.copy(newObject.position);
-    camera.up.copy(cameraUp);
-    // Order matters here. Look at the continent later.
-    camera.lookAt(continentPosition);
+    targetCameraClone.quaternion.copy(targetCameraQuaternion);
+    // Move camera to the left to make space for the continent content.
+    // This should only be done after applying the rotation (look at
+    // with quaternion) to avoid making continent the center.
+    targetCameraClone.translateX(-cameraLeftSpace);
+
+    const targetCameraTransform = {
+      position: targetCameraClone.position,
+      quaternion: targetCameraClone.quaternion,
+    };
 
     // Animation
 
-    // const easing = Easing.Cubic.Out;
-    // const duration = 1000;
+    const easing = Easing.Cubic.Out;
+    const duration = 1000;
 
-    // const cameraTween = new Tween(camera.position);
-    // cameraTween.to(newObject.position, duration).easing(easing);
-    // const cameraLookAtTween = new Tween(cameraDirection);
-    // cameraLookAtTween.to(continentPosition, duration).easing(easing);
-    // cameraLookAtTween.onUpdate((value) => {
-    //   camera.lookAt(value);
-    // });
+    const cameraPositionTween = new Tween(camera.position)
+      .to(targetCameraTransform.position, duration)
+      .easing(easing);
+    const cameraLookAtTween = new Tween(camera.quaternion)
+      .to(targetCameraTransform.quaternion, duration)
+      .easing(easing);
 
-    // cameraTween.start();
-    // cameraLookAtTween.start();
+    cameraLookAtTween.start();
+    cameraPositionTween.start();
   }
 }

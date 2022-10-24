@@ -4,12 +4,13 @@
   on:wheel="this.onWrapperMouseWheel"
   on:scroll="this.onWrapperScroll"
   on:click="this.onWrapperClick"
+  on:touchstart="this.onWrapperTouchStart"
+  on:touchend="this.onWrapperTouchEnd"
 >
   <slot name="continent-header">Placeholder Continent Header</slot>
   <div
     :continentBody
     class="continent-body"
-    name="continent-body"
     on:wheel="this.onBodyMouseWheel"
     on:scroll="this.onBodyScroll"
   >

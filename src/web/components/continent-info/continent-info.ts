@@ -10,6 +10,8 @@ class ContinentInfo extends Component {
   private continentBody!: HTMLElement;
   private continentActive = false;
 
+  private touchStartY = 0;
+
   // Should move the attribute observation logic to the @property
   // decorator.
   static get observedAttributes() {
@@ -20,6 +22,9 @@ class ContinentInfo extends Component {
     if (name === 'open' && newVal !== null) {
       const { scrollHeight, offsetHeight } = this.continentBody;
       if (scrollHeight > offsetHeight) {
+        // Add the `has-scroll` class only if content is scrollable. So
+        // the correct padding and margin can be applied to the
+        // continent body to prevent the scroll bar from taking space.
         this.continentBody.classList.add('has-scroll');
       }
     }
@@ -36,7 +41,7 @@ class ContinentInfo extends Component {
   // wheel events.
 
   onWrapperMouseWheel(event: WheelEvent) {
-    // Don't propogate to `scroll` event.
+    // Don't propogate to the `scroll` event.
     event.preventDefault();
     // Active the continent with a minimum down scroll.
     if (this.isScrollDown(event)) {
@@ -75,6 +80,21 @@ class ContinentInfo extends Component {
 
   onWrapperClick() {
     if (!this.continentActive) {
+      this.activateContinent();
+    }
+  }
+
+  onWrapperTouchStart(event: TouchEvent) {
+    this.touchStartY = event.changedTouches[0].clientY;
+  }
+
+  onWrapperTouchEnd(event: TouchEvent) {
+    if (this.continentActive) {
+      return;
+    }
+
+    const touchEndY = event.changedTouches[0].clientY;
+    if (touchEndY < this.touchStartY) {
       this.activateContinent();
     }
   }

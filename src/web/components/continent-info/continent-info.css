@@ -1,6 +1,7 @@
 :host {
   --continent-vertical-spacing: 35vh;
   --continent-open-close-duration: 1s;
+  --continent-scroll-duration: 0.5s;
 }
 
 .continent {
@@ -23,7 +24,8 @@
   visibility: hidden;
   transform: translateY(15rem);
   opacity: 0;
-  transition: all var(--continent-open-close-duration), padding-top 0.5s;
+  transition: all var(--continent-open-close-duration),
+    padding-top var(--continent-scroll-duration);
 
   /* Hide Scrollbar */
   /* IE and Edge */

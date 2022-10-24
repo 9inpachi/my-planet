@@ -1,6 +1,5 @@
 .continent-header {
-  padding-top: 1.5rem;
-  padding-bottom: 2.5rem;
+  padding: 2.5rem 0;
   transition: margin-top 0.5s;
 }
 

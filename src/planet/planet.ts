@@ -8,7 +8,12 @@ import {
   Quaternion,
   Vector3,
 } from 'three';
+import { Easing, Tween } from '@tweenjs/tween.js';
 import { Three, ThreeConfiguration } from '../three';
+import {
+  getDirectionBetweenVectors,
+  getObjectDirection,
+} from '../three/common/util/transform';
 import { Globe } from './objects/globe';
 import { Sun } from './objects/sun';
 import { AboutContinent } from './continents/about-continent/about-continent';
@@ -21,11 +26,6 @@ import { Galaxy } from './objects/galaxy';
 import { enableParallax } from './common/util/parallax';
 
 import continentGeometry from '../assets/geometries/continents.gltf';
-import { Easing, Tween } from '@tweenjs/tween.js';
-import {
-  getDirectionBetweenVectors,
-  getObjectDirection,
-} from '../three/common/util/transform';
 
 export class Planet {
   private three: Three;
@@ -35,13 +35,16 @@ export class Planet {
     this.initializePlanet();
   }
 
+  public static build(configuration: ThreeConfiguration) {
+    return new Planet(configuration);
+  }
+
   private async initializePlanet() {
     const scene = this.three.getScene();
 
     // Sun
 
     const sun = new Sun({ size: 10 });
-
     // Move sun to camera.
     sun.setPosition(this.three.getControls().getCamera().position);
     sun.addTo(scene);
@@ -86,15 +89,11 @@ export class Planet {
       continent.getObject().add(continentLand);
 
       this.three.getSelector().onClick(continent.getObject(), () => {
-        this.onContinentClick(continent.getObject());
+        this.onContinentClick(continent.getObject(), sun.getObject());
       });
 
       continent.addTo(planet);
     });
-  }
-
-  public static build(configuration: ThreeConfiguration) {
-    return new Planet(configuration);
   }
 
   // Helpers
@@ -113,13 +112,10 @@ export class Planet {
     return continents;
   }
 
-  private onContinentClick(continent: Object3D) {
-    // document
-    //   .querySelectorAll('mp-continent-info[active]')
-    //   .forEach((continent) => continent.removeAttribute('active'));
-    // document
-    //   .querySelector(`mp-continent-info[name="${continent.name}"]`)
-    //   ?.setAttribute('active', '');
+  private onContinentClick(continent: Object3D, sun: Object3D) {
+    // Open Continent Info
+
+    this.openContinentInfo(continent.name);
 
     // Configuration
 
@@ -127,6 +123,9 @@ export class Planet {
     const cameraDisanceToObject = 150;
     const cameraRotation = 30;
     const cameraLeftSpace = 50;
+    // Animation Configuration
+    const animationEasing = Easing.Cubic.Out;
+    const animationDuration = 2000;
 
     // Position and Direction Calculations
 
@@ -174,7 +173,7 @@ export class Planet {
       ),
     );
 
-    // Apply Calculations to Camera
+    // Set Camera's Target Transformation
 
     targetCameraClone.quaternion.copy(targetCameraQuaternion);
     // Move camera to the left to make space for the continent content.
@@ -187,19 +186,29 @@ export class Planet {
       quaternion: targetCameraClone.quaternion,
     };
 
-    // Animation
+    // Animate and Apply Changes
 
-    const easing = Easing.Cubic.Out;
-    const duration = 1000;
+    // Apply the same animation to both camera and sun so the sun follows the camera.
+    for (const object of [camera, sun]) {
+      const positionTween = new Tween(object.position)
+        .to(targetCameraTransform.position, animationDuration)
+        .easing(animationEasing);
+      const lookAtTween = new Tween(object.quaternion)
+        .to(targetCameraTransform.quaternion, animationDuration)
+        .easing(animationEasing);
 
-    const cameraPositionTween = new Tween(camera.position)
-      .to(targetCameraTransform.position, duration)
-      .easing(easing);
-    const cameraLookAtTween = new Tween(camera.quaternion)
-      .to(targetCameraTransform.quaternion, duration)
-      .easing(easing);
+      positionTween.start();
+      lookAtTween.start();
+    }
+  }
 
-    cameraLookAtTween.start();
-    cameraPositionTween.start();
+  private openContinentInfo(continentName: string) {
+    // Close any open continent info.
+    document
+      .querySelectorAll('mp-continent-info[active]')
+      .forEach((continent) => continent.removeAttribute('active'));
+    document
+      .querySelector(`mp-continent-info[name="${continentName}"]`)
+      ?.setAttribute('active', '');
   }
 }

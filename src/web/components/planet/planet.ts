@@ -19,6 +19,27 @@ class Planet extends Component {
     ) as HTMLCanvasElement;
 
     window.planet = Planet3D.build({ canvasElement });
+
+    this.closeContinentOnEscape();
+  }
+
+  // This may not be the right place to add keyboard event handers.
+
+  closeContinentOnEscape() {
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        this.deactiveContinentInfo();
+      }
+    });
+  }
+
+  private deactiveContinentInfo() {
+    const openContinentInfo = document.querySelector('mp-continent-info[open]');
+
+    if (openContinentInfo) {
+      openContinentInfo.removeAttribute('open');
+      window.planet.resetControls();
+    }
   }
 }
 

@@ -29,6 +29,11 @@ import continentGeometry from '../assets/geometries/continents.gltf';
 
 export class Planet {
   private three: Three;
+  private sun?: Sun;
+  private cameraAnimationOptions = {
+    duration: 2000,
+    easing: Easing.Cubic.Out,
+  };
 
   constructor(configuration: ThreeConfiguration) {
     this.three = new Three(configuration);
@@ -48,6 +53,7 @@ export class Planet {
     // Move sun to camera.
     sun.setPosition(this.three.getControls().getCamera().position);
     sun.addTo(scene);
+    this.sun = sun;
 
     // Planet Group
 
@@ -89,17 +95,22 @@ export class Planet {
       continent.getObject().add(continentLand);
 
       this.three.getSelector().onClick(continent.getObject(), () => {
-        this.onContinentClick(continent.getObject(), sun.getObject());
+        this.onContinentClick(continent.getObject());
       });
 
       continent.addTo(planet);
     });
   }
 
-  public resetCamera() {
+  public resetControls() {
     const controls = this.three.getControls();
-    controls.getCamera().copy(controls.getInitialCameraState());
+    const defaultCameraState = controls.getDefaultCameraState();
     controls.removeRotationAxis();
+
+    this.animateCameraToTarget(
+      defaultCameraState.position,
+      defaultCameraState.quaternion,
+    );
   }
 
   // Helpers
@@ -118,7 +129,7 @@ export class Planet {
     return continents;
   }
 
-  private onContinentClick(continent: Object3D, sun: Object3D) {
+  private onContinentClick(continent: Object3D) {
     // If continent is already open.
     if (this.isContinentInfoOpen(continent.name)) {
       return;
@@ -130,15 +141,10 @@ export class Planet {
     const cameraDisanceToObject = 150;
     const cameraRotation = 30;
     const cameraLeftSpace = 50;
-    // Animation Configuration
-    const animationEasing = Easing.Cubic.Out;
-    const animationDuration = 2000;
 
     // Position and Direction Calculations
 
     const controls = this.three.getControls();
-    const camera = this.three.getControls().getCamera();
-
     const continentPosition = new Box3()
       .setFromObject(continent)
       .getCenter(new Vector3());
@@ -188,29 +194,41 @@ export class Planet {
     // with quaternion) to avoid making continent the center.
     targetCameraClone.translateX(-cameraLeftSpace);
 
-    const targetCameraTransform = {
-      position: targetCameraClone.position,
-      quaternion: targetCameraClone.quaternion,
-    };
-
     // Animate and Apply Changes
 
+    this.animateCameraToTarget(
+      targetCameraClone.position,
+      targetCameraClone.quaternion,
+    );
+
+    // Open Continent Info
+
+    this.openContinentInfo(
+      continent.name,
+      this.cameraAnimationOptions.duration / 2,
+    );
+  }
+
+  private animateCameraToTarget(position: Vector3, quaternion: Quaternion) {
+    const objectsToAnimate: Object3D[] = [this.three.getControls().getCamera()];
+    this.sun && objectsToAnimate.push(this.sun.getObject());
+
+    const { duration, easing } = this.cameraAnimationOptions;
+
     // Apply the same animation to both camera and sun so the sun follows the camera.
-    for (const object of [camera, sun]) {
+    for (const object of objectsToAnimate) {
       const positionTween = new Tween(object.position)
-        .to(targetCameraTransform.position, animationDuration)
-        .easing(animationEasing);
+        .to(position)
+        .duration(duration)
+        .easing(easing);
       const lookAtTween = new Tween(object.quaternion)
-        .to(targetCameraTransform.quaternion, animationDuration)
-        .easing(animationEasing);
+        .to(quaternion)
+        .duration(duration)
+        .easing(easing);
 
       positionTween.start();
       lookAtTween.start();
     }
-
-    // Open Continent Info
-
-    this.openContinentInfo(continent.name, animationDuration / 2);
   }
 
   private openContinentInfo(continentName: string, openDelay: number) {

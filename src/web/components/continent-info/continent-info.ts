@@ -12,6 +12,11 @@ class ContinentInfo extends Component {
 
   private touchStartY = 0;
 
+  onInit() {
+    this.continent = this.getElement('continent') as HTMLElement;
+    this.continentBody = this.getElement('continentBody') as HTMLElement;
+  }
+
   // Should move the attribute observation logic to the @property
   // decorator.
   static get observedAttributes() {
@@ -19,7 +24,13 @@ class ContinentInfo extends Component {
   }
 
   attributeChangedCallback(name: string, _oldVal: string, newVal: string) {
-    if (name === 'open' && newVal !== null) {
+    if (name !== 'open') {
+      return;
+    }
+
+    const isContinentOpen = newVal !== null;
+
+    if (isContinentOpen) {
       const { scrollHeight, offsetHeight } = this.continentBody;
       if (scrollHeight > offsetHeight) {
         // Add the `has-scroll` class only if content is scrollable. So
@@ -27,12 +38,9 @@ class ContinentInfo extends Component {
         // continent body to prevent the scroll bar from taking space.
         this.continentBody.classList.add('has-scroll');
       }
+    } else {
+      this.deactivateContinent();
     }
-  }
-
-  onInit() {
-    this.continent = this.getElement('continent') as HTMLElement;
-    this.continentBody = this.getElement('continentBody') as HTMLElement;
   }
 
   // Mouse Wheel Events

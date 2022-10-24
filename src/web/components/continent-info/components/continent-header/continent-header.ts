@@ -14,7 +14,7 @@ class ContinentHeader extends Component {
   onBackClick(event: MouseEvent) {
     event.stopPropagation();
 
-    window.planet.resetCamera();
+    window.planet.resetControls();
     document.querySelector('mp-continent-info[open]')?.removeAttribute('open');
   }
 }

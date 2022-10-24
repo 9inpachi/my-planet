@@ -14,7 +14,7 @@ export class ThreeControls implements IUpdatable {
   private camera: Camera;
   private spinControls: SpinControls;
 
-  private initialCameraState: Camera;
+  private defaultCameraState: Camera;
 
   private autoRotateAxis = new Vector3(0, 1, 0);
   private autoRotateQuaternion = new Quaternion();
@@ -25,7 +25,7 @@ export class ThreeControls implements IUpdatable {
 
     this.camera = this.buildPerspectiveCamera(domElement);
     this.spinControls = this.buildSpinControls(domElement);
-    this.initialCameraState = this.camera.clone();
+    this.defaultCameraState = this.camera.clone();
   }
 
   private buildPerspectiveCamera(domElement: HTMLCanvasElement) {
@@ -34,13 +34,13 @@ export class ThreeControls implements IUpdatable {
       wrapperElement.offsetWidth / wrapperElement.offsetHeight;
     const perspectiveCamera = new PerspectiveCamera(36, aspectRatio(), 1, 3000);
 
-    perspectiveCamera.position.set(0, 0, 450);
+    perspectiveCamera.position.set(0, 0, 400);
 
     window.addEventListener('resize', () => {
       perspectiveCamera.aspect = aspectRatio();
       perspectiveCamera.updateProjectionMatrix();
 
-      this.initialCameraState.copy(perspectiveCamera);
+      this.defaultCameraState.copy(perspectiveCamera);
     });
 
     return perspectiveCamera;
@@ -112,7 +112,7 @@ export class ThreeControls implements IUpdatable {
     return this.spinControls;
   }
 
-  public getInitialCameraState() {
-    return this.initialCameraState;
+  public getDefaultCameraState() {
+    return this.defaultCameraState;
   }
 }

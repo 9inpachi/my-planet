@@ -1,5 +1,9 @@
-.continent {
+:host {
   --continent-vertical-spacing: 35vh;
+  --continent-open-close-duration: 1s;
+}
+
+.continent {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -19,7 +23,7 @@
   visibility: hidden;
   transform: translateY(15rem);
   opacity: 0;
-  transition: transform 2s, opacity 2s, padding-top 0.5s;
+  transition: all var(--continent-open-close-duration), padding-top 0.5s;
 
   /* Hide Scrollbar */
   /* IE and Edge */
@@ -28,8 +32,8 @@
   scrollbar-width: none;
 }
 
-/* Open/Close Animation */
-:host([active]) .continent {
+:host([open]) .continent {
+  /* Open/Close Animation */
   visibility: visible;
   transform: translateY(0);
   opacity: 1;

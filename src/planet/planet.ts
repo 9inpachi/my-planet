@@ -113,9 +113,10 @@ export class Planet {
   }
 
   private onContinentClick(continent: Object3D, sun: Object3D) {
-    // Open Continent Info
-
-    this.openContinentInfo(continent.name);
+    // If continent is already open.
+    if (this.isContinentInfoOpen(continent.name)) {
+      return;
+    }
 
     // Configuration
 
@@ -200,15 +201,29 @@ export class Planet {
       positionTween.start();
       lookAtTween.start();
     }
+
+    // Open Continent Info
+
+    this.openContinentInfo(continent.name, animationDuration / 2);
   }
 
-  private openContinentInfo(continentName: string) {
-    // Close any open continent info.
-    document
-      .querySelectorAll('mp-continent-info[active]')
-      .forEach((continent) => continent.removeAttribute('active'));
-    document
-      .querySelector(`mp-continent-info[name="${continentName}"]`)
-      ?.setAttribute('active', '');
+  private openContinentInfo(continentName: string, openDelay: number) {
+    // Close opened continent info.
+    document.querySelector('mp-continent-info[open]')?.removeAttribute('open');
+
+    // Open the continent after a delay for a smoother animation experience.
+    setTimeout(() => {
+      document
+        .querySelector(`mp-continent-info[name="${continentName}"]`)
+        ?.setAttribute('open', '');
+    }, openDelay);
+  }
+
+  private isContinentInfoOpen(continentName: string) {
+    const continentInfoComponent = document.querySelector(
+      `mp-continent-info[name="${continentName}"]`,
+    );
+
+    return continentInfoComponent?.hasAttribute('open') ?? false;
   }
 }

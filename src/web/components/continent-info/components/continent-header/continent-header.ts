@@ -10,6 +10,13 @@ import continentHeaderStyles from './continent-header.css?raw';
 
 @template(continentHeaderTemplate)
 @styles(continentHeaderStyles)
-class ContinentHeader extends Component {}
+class ContinentHeader extends Component {
+  onBackClick(event: MouseEvent) {
+    event.stopPropagation();
+
+    window.planet.resetCamera();
+    document.querySelector('mp-continent-info[open]')?.removeAttribute('open');
+  }
+}
 
 registerComponent(ContinentHeader);

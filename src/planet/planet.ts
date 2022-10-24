@@ -96,6 +96,12 @@ export class Planet {
     });
   }
 
+  public resetCamera() {
+    const controls = this.three.getControls();
+    controls.getCamera().copy(controls.getInitialCameraState());
+    controls.removeRotationAxis();
+  }
+
   // Helpers
 
   private async loadContinentsLand() {
@@ -211,7 +217,9 @@ export class Planet {
     // Close opened continent info.
     document.querySelector('mp-continent-info[open]')?.removeAttribute('open');
 
-    // Open the continent after a delay for a smoother animation experience.
+    // Open the continent after a delay for a smoother animation
+    // experience. We do it here instead of CSS to make it configurable
+    // with `animationDuration` in `onContinentClick`.
     setTimeout(() => {
       document
         .querySelector(`mp-continent-info[name="${continentName}"]`)

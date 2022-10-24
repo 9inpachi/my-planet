@@ -4,6 +4,12 @@ import { Component, template, styles, registerComponent } from '../component';
 import planetTemplate from './planet.html?raw';
 import planetStyles from './planet.css?raw';
 
+declare global {
+  interface Window {
+    planet: Planet3D;
+  }
+}
+
 @template(planetTemplate)
 @styles(planetStyles)
 class Planet extends Component {
@@ -12,7 +18,7 @@ class Planet extends Component {
       '#planet-canvas',
     ) as HTMLCanvasElement;
 
-    Planet3D.build({ canvasElement });
+    window.planet = Planet3D.build({ canvasElement });
   }
 }
 

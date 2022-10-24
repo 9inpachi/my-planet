@@ -43,10 +43,10 @@ export class HTMLParser implements IHTMLParser {
               .bind(this.componentContext),
           );
         }
+      }
 
-        for (const child of node.children) {
-          addEventListenersToNodes(child);
-        }
+      for (const child of node.children) {
+        addEventListenersToNodes(child);
       }
     };
 

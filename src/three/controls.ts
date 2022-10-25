@@ -15,6 +15,11 @@ export class ThreeControls implements IUpdatable {
   private spinControls: SpinControls;
 
   private defaultCameraState: Camera;
+  private defaultSpinControlsState = {
+    autoRotateAxis: new Vector3(0, 1, 0),
+    trackballRadius: 100,
+    spinAxisConstraint: undefined,
+  };
 
   private autoRotateAxis = new Vector3(0, 1, 0);
   private autoRotateQuaternion = new Quaternion();
@@ -77,6 +82,9 @@ export class ThreeControls implements IUpdatable {
     this.spinControls.object = object;
     this.spinControls.trackballRadius = radius;
     (this.spinControls as any).spinAxisConstraint = constraintAxis;
+
+    this.defaultSpinControlsState.trackballRadius = radius;
+    (this.defaultSpinControlsState as any).spinAxisConstraint = constraintAxis;
   }
 
   public setRotationAxis(axis: Vector3) {
@@ -84,9 +92,13 @@ export class ThreeControls implements IUpdatable {
     (this.spinControls as any).spinAxisConstraint = axis;
   }
 
-  public removeRotationAxis() {
-    this.autoRotateAxis.set(0, 1, 0);
-    (this.spinControls as any).spinAxisConstraint = undefined;
+  public resetSpinControls() {
+    const { autoRotateAxis, trackballRadius, spinAxisConstraint } =
+      this.defaultSpinControlsState;
+
+    this.autoRotateAxis.copy(autoRotateAxis);
+    this.spinControls.trackballRadius = trackballRadius;
+    (this.spinControls as any).spinAxisConstraint = spinAxisConstraint;
   }
 
   private autoRotate(deltaTime: number) {

@@ -68,7 +68,6 @@ export class Planet {
     globe.addTo(planet);
     const globeRadius = globe.getRadius();
     this.three.getSelector().intersectButIgnoreObject(globe.getObject());
-
     this.three.getControls().setSpinControlsObject(planet, globeRadius);
 
     // Galaxy
@@ -105,7 +104,7 @@ export class Planet {
   public resetControls() {
     const controls = this.three.getControls();
     const defaultCameraState = controls.getDefaultCameraState();
-    controls.removeRotationAxis();
+    controls.resetSpinControls();
 
     this.animateCameraToTarget(
       defaultCameraState.position,
@@ -144,7 +143,6 @@ export class Planet {
 
     // Position and Direction Calculations
 
-    const controls = this.three.getControls();
     const continentPosition = new Box3()
       .setFromObject(continent)
       .getCenter(new Vector3());
@@ -156,7 +154,9 @@ export class Planet {
 
     // Controls Changes
 
-    controls.getSpinControls().rotateSensitivity = 1;
+    const controls = this.three.getControls();
+    // This affects the rotation sensitivity.
+    controls.getSpinControls().trackballRadius = 50;
     controls.setRotationAxis(continentUpDir);
 
     // New Camera Position

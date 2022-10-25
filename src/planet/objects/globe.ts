@@ -5,7 +5,7 @@ import {
   SphereGeometry,
 } from 'three';
 import { BaseObject } from './base-object';
-import { colors } from '../../common/lib/colors';
+import { colors } from '../common/lib/colors';
 
 export type GlobeProperties = {
   size: number;

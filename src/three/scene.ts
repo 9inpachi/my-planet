@@ -1,5 +1,5 @@
 import { AmbientLight, Group, Scene } from 'three';
-import { colors } from '../common/lib/colors';
+import { colors } from '../planet/common/lib/colors';
 
 export class ThreeScene {
   private scene: Scene;

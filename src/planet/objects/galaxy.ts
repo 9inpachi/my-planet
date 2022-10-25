@@ -10,7 +10,7 @@ import {
   Texture,
   Vector3,
 } from 'three';
-import { colors } from '../../common/lib/colors';
+import { colors } from '../common/lib/colors';
 import { BaseObject } from './base-object';
 
 export type GalaxyProperties = {

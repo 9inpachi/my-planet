@@ -1,5 +1,5 @@
 import { Group, MathUtils, Object3D } from 'three';
-import { ICustomObject } from '../../common/lib/icustom-object';
+import { ICustomObject } from '../../three/common/lib/icustom-object';
 import { Constructor } from '../../common/lib/types';
 import { BaseObject } from '../objects/base-object';
 import { Building, BuildingProperties } from '../objects/building';

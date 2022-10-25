@@ -1,5 +1,5 @@
 import { MathUtils, Object3D } from 'three';
-import { ICustomObject } from '../../common/lib/icustom-object';
+import { ICustomObject } from '../../three/common/lib/icustom-object';
 import { FieldOptional, ParameterOptional } from '../../common/lib/types';
 import { getPositionFromLatLng } from '../common/util/coordinates';
 

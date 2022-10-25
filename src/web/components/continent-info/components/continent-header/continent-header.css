@@ -44,3 +44,15 @@
   width: 1rem;
   height: 0.25rem;
 }
+
+/* Mobile */
+@media screen and (max-width: 768px) {
+  .continent-header {
+    padding: 1.5rem 0;
+  }
+
+  .continent-title {
+    font-size: 2.5rem;
+    margin: 0;
+  }
+}

@@ -5,7 +5,7 @@ export const mobileContinentCameraTransform: ContinentCameraTransformOptions = {
   cameraDistanceToContinent: 250,
   cameraRotation: 0,
   cameraLeftSpace: 0,
-  cameraTopSpace: 40,
+  cameraTopSpace: 60,
 };
 
 export const desktopContinentCameraTransform: ContinentCameraTransformOptions =

@@ -15,9 +15,8 @@
   left: 0;
   color: var(--primary);
   padding-top: var(--continent-vertical-spacing);
-  padding-left: 2rem;
+  padding-left: 4rem;
   padding-right: 4rem;
-  margin-left: 2rem;
   overflow: auto;
 
   /* Open/Close Animation */
@@ -45,9 +44,11 @@
   font-size: 1.25rem;
   padding-bottom: var(--continent-vertical-spacing);
   direction: rtl;
+  -webkit-mask-image: linear-gradient(to top, transparent, #000000 10%);
   overflow: hidden;
 
   /* Scrollbar Styles */
+  /* Firefox has 0.5rem width of scroll for `thin`. */
   scrollbar-width: thin;
   scrollbar-color: var(--primary) transparent;
 }
@@ -105,7 +106,7 @@
   margin-top: 10rem;
 }
 
-/* Mobile */
+/* Tablet */
 @media screen and (max-width: 992px) {
   .continent-body::-webkit-scrollbar-track-piece:end {
     margin-bottom: 0;
@@ -113,5 +114,24 @@
 
   .continent-body::-webkit-scrollbar-track-piece:start {
     margin-top: 0;
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 768px) {
+  :host {
+    --continent-vertical-spacing: 5rem;
+  }
+
+  .continent {
+    width: unset;
+    top: 0;
+    bottom: 42%;
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+
+  .continent-body {
+    font-size: 1rem;
   }
 }

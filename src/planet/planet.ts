@@ -26,6 +26,14 @@ import { Galaxy } from './objects/galaxy';
 import { enableParallax } from './common/util/parallax';
 
 import continentGeometry from '../assets/geometries/continents.gltf';
+import { CameraTargetTransform } from './common/lib/types';
+import {
+  desktopContinentCameraTransform,
+  mobileContinentCameraTransform,
+} from './common/lib/continent-camera-transform';
+import { isScreenPortrait } from '../common/util/responsive';
+
+// TODO: May need to move the continent click logic to somewhere else.
 
 export class Planet {
   private three: Three;
@@ -134,13 +142,6 @@ export class Planet {
       return;
     }
 
-    // Configuration
-
-    const cameraDistanceUpContinent = 100;
-    const cameraDisanceToObject = 150;
-    const cameraRotation = 30;
-    const cameraLeftSpace = 50;
-
     // Position and Direction Calculations
 
     const continentPosition = new Box3()
@@ -159,46 +160,18 @@ export class Planet {
     controls.getSpinControls().trackballRadius = 50;
     controls.setRotationAxis(continentUpDir);
 
-    // New Camera Position
+    // New Camera Transform
 
-    const targetCameraClone = new Object3D();
-    targetCameraClone.lookAt(continentUpDir);
-    targetCameraClone.position.copy(continentPosition);
-    targetCameraClone
-      .translateZ(cameraDistanceUpContinent)
-      .translateX(cameraDisanceToObject);
-    targetCameraClone.lookAt(continentPosition);
-
-    // New Camera Up
-
-    const newCameraDir = getObjectDirection(targetCameraClone);
-    const cameraUp = new Vector3()
-      .copy(continentUpDir)
-      .applyAxisAngle(newCameraDir, MathUtils.degToRad(cameraRotation));
-
-    // Use the camera up and continent position to look at the continent
-    // with the right camera rotation.
-    const targetCameraQuaternion = new Quaternion().setFromRotationMatrix(
-      new Matrix4().lookAt(
-        targetCameraClone.position,
-        continentPosition,
-        cameraUp,
-      ),
+    const targetCameraTransform = this.getContinentCameraTransform(
+      continentUpDir,
+      continentPosition,
     );
-
-    // Set Camera's Target Transformation
-
-    targetCameraClone.quaternion.copy(targetCameraQuaternion);
-    // Move camera to the left to make space for the continent content.
-    // This should only be done after applying the rotation (look at
-    // with quaternion) to avoid making continent the center.
-    targetCameraClone.translateX(-cameraLeftSpace);
 
     // Animate and Apply Changes
 
     this.animateCameraToTarget(
-      targetCameraClone.position,
-      targetCameraClone.quaternion,
+      targetCameraTransform.position,
+      targetCameraTransform.quaternion,
     );
 
     // Open Continent Info
@@ -251,5 +224,63 @@ export class Planet {
     );
 
     return continentInfoComponent?.hasAttribute('open') ?? false;
+  }
+
+  private getContinentCameraTransform(
+    continentUpDir: Vector3,
+    continentPosition: Vector3,
+  ): CameraTargetTransform {
+    // Configuration
+
+    const {
+      cameraDistanceUpContinent,
+      cameraDistanceToContinent,
+      cameraRotation,
+      cameraLeftSpace,
+      cameraTopSpace,
+    } = isScreenPortrait()
+      ? mobileContinentCameraTransform
+      : desktopContinentCameraTransform;
+
+    // New Camera Position
+
+    const targetCameraClone = new Object3D();
+    targetCameraClone.lookAt(continentUpDir);
+    targetCameraClone.position.copy(continentPosition);
+    targetCameraClone
+      .translateZ(cameraDistanceUpContinent)
+      .translateX(cameraDistanceToContinent);
+    targetCameraClone.lookAt(continentPosition);
+
+    // New Camera Up
+
+    const newCameraDir = getObjectDirection(targetCameraClone);
+    const cameraUp = new Vector3()
+      .copy(continentUpDir)
+      .applyAxisAngle(newCameraDir, MathUtils.degToRad(cameraRotation));
+
+    // Use the camera up and continent position to look at the continent
+    // with the right camera rotation.
+    const targetCameraQuaternion = new Quaternion().setFromRotationMatrix(
+      new Matrix4().lookAt(
+        targetCameraClone.position,
+        continentPosition,
+        cameraUp,
+      ),
+    );
+
+    // Set Camera's Target Transformation
+
+    targetCameraClone.quaternion.copy(targetCameraQuaternion);
+    // Move camera to the left and top to make space for the continent
+    // content. This should only be done after applying the rotation
+    // (look at with quaternion) to avoid making continent the center.
+    targetCameraClone.translateX(-cameraLeftSpace);
+    targetCameraClone.translateY(cameraTopSpace);
+
+    return {
+      position: targetCameraClone.position,
+      quaternion: targetCameraClone.quaternion,
+    };
   }
 }

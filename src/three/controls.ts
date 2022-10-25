@@ -45,7 +45,9 @@ export class ThreeControls implements IUpdatable {
       perspectiveCamera.aspect = aspectRatio();
       perspectiveCamera.updateProjectionMatrix();
 
-      this.defaultCameraState.copy(perspectiveCamera);
+      const defaultCameraState = this.defaultCameraState as PerspectiveCamera;
+      defaultCameraState.aspect = aspectRatio();
+      defaultCameraState.updateProjectionMatrix();
     });
 
     return perspectiveCamera;

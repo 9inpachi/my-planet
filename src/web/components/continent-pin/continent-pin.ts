@@ -15,6 +15,9 @@ import continentPinStyles from './continent-pin.css?raw';
 class ContinentPin extends Component {
   @property()
   name!: string;
+  @property()
+  label!: string;
+
   iconSrc: string;
 
   constructor() {

@@ -1,0 +1,76 @@
+.continent-pin {
+  all: unset;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  animation: bounce 6s linear infinite;
+}
+
+.continent-pin-icon {
+  box-sizing: border-box;
+  display: block;
+  width: 4rem;
+  height: 4rem;
+  padding: 0.75rem;
+  border-radius: 50%;
+  border: 0.1825rem solid var(--primary);
+  fill: var(--primary);
+  background-image: radial-gradient(
+    circle farthest-corner at 10% 20%,
+    rgba(255, 209, 67, 1) 0%,
+    rgba(255, 145, 83, 1) 90%
+  );
+  overflow: hidden;
+
+  transform: translateY(0.75rem);
+  transition: transform 0.5s;
+}
+
+.continent-pin-label {
+  font-weight: bold;
+  background: var(--primary);
+  border-radius: 0.5rem;
+  padding: 0.125rem 0.5rem;
+  transform: translateY(0);
+  opacity: 0;
+  transition: transform 0.5s, opacity 0.325s;
+}
+
+.continent-pin-label > span {
+  background-image: radial-gradient(
+    circle farthest-corner at 10% 20%,
+    rgba(255, 209, 67, 1) 0%,
+    rgba(255, 145, 83, 1) 90%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.continent-pin:hover > .continent-pin-label {
+  transform: translateY(-0.5rem);
+  opacity: 1;
+}
+
+.continent-pin:hover > .continent-pin-icon {
+  transform: translateY(0);
+}
+
+@keyframes bounce {
+  0%,
+  10% {
+    transform: scale(1);
+  }
+  4% {
+    transform: scale(1.2);
+  }
+  8% {
+    transform: scale(0.95);
+  }
+}

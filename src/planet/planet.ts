@@ -1,5 +1,4 @@
 import {
-  Box3,
   Group,
   MathUtils,
   Matrix4,
@@ -13,6 +12,8 @@ import { Three, ThreeConfiguration } from '../three';
 import {
   getDirectionBetweenVectors,
   getObjectDirection,
+  getObjectPosition,
+  getObjectPositionOnScreen,
 } from '../three/common/util/transform';
 import { Globe } from './objects/globe';
 import { Sun } from './objects/sun';
@@ -53,6 +54,7 @@ export class Planet {
   }
 
   private async initializePlanet() {
+    const threeSelector = this.three.getSelector();
     const scene = this.three.getScene();
 
     // Sun
@@ -75,7 +77,7 @@ export class Planet {
     const globe = new Globe({ size: 100 });
     globe.addTo(planet);
     const globeRadius = globe.getRadius();
-    this.three.getSelector().intersectButIgnoreObject(globe.getObject());
+    threeSelector.intersectButIgnoreObject(globe.getObject());
     this.three.getControls().setSpinControlsObject(planet, globeRadius);
 
     // Galaxy
@@ -101,8 +103,11 @@ export class Planet {
       continentLand.name = continentLand.name + 'Land';
       continent.getObject().add(continentLand);
 
-      this.three.getSelector().onClick(continent.getObject(), () => {
+      threeSelector.onClick(continent.getObject(), () => {
         this.onContinentClick(continent.getObject());
+      });
+      threeSelector.onMouseOver(continent.getObject(), () => {
+        this.onContinentMouseOver(continent.getObject());
       });
 
       continent.addTo(planet);
@@ -136,6 +141,9 @@ export class Planet {
     return continents;
   }
 
+  // Continent Interaction
+  // TODO: Move this to somewhere else.
+
   private onContinentClick(continent: Object3D) {
     // If continent is already open.
     if (
@@ -147,9 +155,7 @@ export class Planet {
 
     // Position and Direction Calculations
 
-    const continentPosition = new Box3()
-      .setFromObject(continent)
-      .getCenter(new Vector3());
+    const continentPosition = getObjectPosition(continent);
     const origin = new Vector3(0, 0, 0);
     const continentUpDir = getDirectionBetweenVectors(
       origin,
@@ -299,5 +305,24 @@ export class Planet {
       position: targetCameraClone.position,
       quaternion: targetCameraClone.quaternion,
     };
+  }
+
+  // Mouse Over Interactive
+
+  private onContinentMouseOver(continent: Object3D) {
+    const continentPosition = getObjectPosition(continent);
+    const continentPin = document.querySelector(
+      `mp-continent-pin[name=${continent.name}]`,
+    ) as HTMLElement;
+    const continentOnScreenPosition = getObjectPositionOnScreen(
+      continentPosition,
+      this.three.getControls().getCamera(),
+      this.three.getRenderer().getCanvas(),
+    );
+    const { x: left, y: top } = continentOnScreenPosition;
+
+    continentPin.style.setProperty('top', `${top}px`);
+    continentPin.style.setProperty('left', `${left}px`);
+    continentPin.setAttribute('mouseover', '');
   }
 }

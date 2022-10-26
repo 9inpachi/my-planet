@@ -1,9 +1,24 @@
-.continent-pin {
-  all: unset;
+:host {
+  --gradient: linear-gradient(
+    to right,
+    var(--primary-color) 0%,
+    var(--secondary-color) 90%
+  );
+  /* Only displays on hover of continent. */
+  /* TODO: Animate this? */
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
+  transform: translate(-50%, -50%);
+}
 
+:host([mouseover]) {
+  display: block;
+}
+
+.continent-pin {
+  all: unset;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -20,11 +35,7 @@
   border-radius: 50%;
   border: 0.1825rem solid var(--primary);
   fill: var(--primary);
-  background-image: radial-gradient(
-    circle farthest-corner at 10% 20%,
-    rgba(255, 209, 67, 1) 0%,
-    rgba(255, 145, 83, 1) 90%
-  );
+  background-image: var(--gradient);
   overflow: hidden;
 
   transform: translateY(0.75rem);
@@ -42,11 +53,7 @@
 }
 
 .continent-pin-label > span {
-  background-image: radial-gradient(
-    circle farthest-corner at 10% 20%,
-    rgba(255, 209, 67, 1) 0%,
-    rgba(255, 145, 83, 1) 90%
-  );
+  background-image: var(--gradient);
   background-clip: text;
   -webkit-background-clip: text;
   -moz-background-clip: text;

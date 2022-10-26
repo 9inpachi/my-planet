@@ -17,12 +17,19 @@ class ContinentPin extends Component {
   name!: string;
   @property()
   label!: string;
+  @property()
+  primaryColor!: string;
+  @property()
+  secondaryColor!: string;
 
   iconSrc: string;
 
   constructor() {
     super();
+
     this.iconSrc = `./assets/icons/${camelCaseToKebabCase(this.name)}.svg`;
+    this.style.setProperty('--primary-color', this.primaryColor);
+    this.style.setProperty('--secondary-color', this.secondaryColor);
   }
 }
 

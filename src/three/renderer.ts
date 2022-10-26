@@ -30,10 +30,6 @@ export class ThreeRenderer {
     return webglRenderer;
   }
 
-  public getRenderer() {
-    return this.renderer;
-  }
-
   private rendererWidth(wrapperElement: HTMLElement) {
     return wrapperElement.offsetWidth > 0
       ? wrapperElement.offsetWidth
@@ -44,5 +40,13 @@ export class ThreeRenderer {
     return wrapperElement.offsetHeight > 0
       ? wrapperElement.offsetHeight
       : window.innerWidth;
+  }
+
+  public getRenderer() {
+    return this.renderer;
+  }
+
+  public getCanvas() {
+    return this.renderer.domElement;
   }
 }

@@ -53,4 +53,8 @@ export class Three {
   public getSelector() {
     return this.threeSelector;
   }
+
+  public getRenderer() {
+    return this.threeRenderer;
+  }
 }

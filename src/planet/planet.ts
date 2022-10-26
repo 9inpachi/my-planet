@@ -39,7 +39,7 @@ export class Planet {
   private three: Three;
   private sun?: Sun;
   private cameraAnimationOptions = {
-    duration: 2000,
+    duration: 5000,
     easing: Easing.Cubic.Out,
   };
 
@@ -138,7 +138,10 @@ export class Planet {
 
   private onContinentClick(continent: Object3D) {
     // If continent is already open.
-    if (this.isContinentInfoOpen(continent.name)) {
+    if (
+      this.isContinentInfoOpen(continent.name) ||
+      this.isAnyContinentInfoOpening()
+    ) {
       return;
     }
 
@@ -208,22 +211,36 @@ export class Planet {
     // Close opened continent info.
     document.querySelector('mp-continent-info[open]')?.removeAttribute('open');
 
+    const continentInfo = document.querySelector(
+      `mp-continent-info[name="${continentName}"]`,
+    );
+    // This is to avoid problems caused by clicking another continent
+    // in this timeout.
+    continentInfo?.setAttribute('opening', '');
+
     // Open the continent after a delay for a smoother animation
     // experience. We do it here instead of CSS to make it configurable
-    // with `animationDuration` in `onContinentClick`.
+    // with `cameraAnimationOptions.duration`.
     setTimeout(() => {
-      document
-        .querySelector(`mp-continent-info[name="${continentName}"]`)
-        ?.setAttribute('open', '');
+      continentInfo?.setAttribute('open', '');
+      continentInfo?.removeAttribute('opening');
     }, openDelay);
   }
 
   private isContinentInfoOpen(continentName: string) {
-    const continentInfoComponent = document.querySelector(
+    const continentInfo = document.querySelector(
       `mp-continent-info[name="${continentName}"]`,
     );
 
-    return continentInfoComponent?.hasAttribute('open') ?? false;
+    return continentInfo?.hasAttribute('open') ?? false;
+  }
+
+  private isAnyContinentInfoOpening() {
+    const openingContinentInfo = document.querySelector(
+      'mp-continent-info[opening]',
+    );
+
+    return !!openingContinentInfo;
   }
 
   private getContinentCameraTransform(

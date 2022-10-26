@@ -41,7 +41,7 @@ export class ThreeSelector {
         return;
       }
 
-      const intersectedObject = this.listenToObjectIntersection(
+      const intersectedObject = this.getIntersectedObject(
         cursorPosition,
         this.intersectableMouseMoveObjects,
       );
@@ -75,7 +75,7 @@ export class ThreeSelector {
         return;
       }
 
-      const intersectedObject = this.listenToObjectIntersection(
+      const intersectedObject = this.getIntersectedObject(
         cursorPosition,
         this.intersectableClickObjects,
       );
@@ -90,7 +90,7 @@ export class ThreeSelector {
     });
   }
 
-  private listenToObjectIntersection(
+  private getIntersectedObject(
     cursorPosition: CursorPosition,
     intersectableObjects: Set<Object3D>,
   ) {

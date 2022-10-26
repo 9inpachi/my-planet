@@ -15,20 +15,11 @@ import continentPinStyles from './continent-pin.css?raw';
 class ContinentPin extends Component {
   @property()
   name!: string;
+  iconSrc: string;
 
-  protected onInit() {
-    this.loadIcon();
-  }
-
-  private async loadIcon() {
-    const iconName = camelCaseToKebabCase(this.name);
-    const svg = (await import(`../../../assets/icons/${iconName}.svg?raw`))
-      .default;
-
-    this.getElement('continentPinButton')?.insertAdjacentHTML(
-      'afterbegin',
-      svg,
-    );
+  constructor() {
+    super();
+    this.iconSrc = `./assets/icons/${camelCaseToKebabCase(this.name)}.svg`;
   }
 }
 

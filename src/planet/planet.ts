@@ -24,8 +24,6 @@ import { LifeContinent } from './continents/life-continent/life-continent';
 import { PlaceholderContinent } from './continents/placeholder-continent/placeholder-continent';
 import { Galaxy } from './objects/galaxy';
 import { enableParallax } from './common/util/parallax';
-
-import continentGeometry from '../assets/geometries/continents.gltf';
 import { CameraTargetTransform } from './common/lib/types';
 import {
   desktopContinentCameraTransform,
@@ -33,13 +31,15 @@ import {
 } from './common/lib/continent-camera-transform';
 import { isScreenPortrait } from '../common/util/responsive';
 
+import continentGeometry from '../assets/geometries/continents.gltf';
+
 // TODO: May need to move the continent click logic to somewhere else.
 
 export class Planet {
   private three: Three;
   private sun?: Sun;
   private cameraAnimationOptions = {
-    duration: 5000,
+    duration: 2000,
     easing: Easing.Cubic.Out,
   };
 

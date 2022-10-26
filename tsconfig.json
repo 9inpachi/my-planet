@@ -12,6 +12,8 @@
     "resolveJsonModule": true,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
+    // Very important for property decorator.
+    "useDefineForClassFields": false,
     "allowJs": true
   },
   "include": ["src"]

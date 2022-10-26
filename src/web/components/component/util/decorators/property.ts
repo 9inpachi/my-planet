@@ -10,10 +10,7 @@ export const property = (definedName?: string): PropertyDecorator => {
         return this.getAttribute(propertyName);
       },
       set(this: HTMLElement, value: string) {
-        // Only allow setting the value of property if there is no attribute.
-        if (!this.getAttribute(propertyName)) {
-          this.setAttribute(propertyName, value);
-        }
+        this.setAttribute(propertyName, value);
       },
     };
 

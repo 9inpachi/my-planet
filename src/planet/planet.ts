@@ -114,6 +114,10 @@ export class Planet {
         this.onContinentClick(object);
       });
       threeSelector.onMouseOver(object, () => {
+        // Update position once on mouse over because `onObject`
+        // triggers after the globe rotates which leads to a small lag.
+        updateContinentPinPosition();
+
         this.onContinentMouseOver(object);
         this.three
           .getEventHandler()
@@ -356,7 +360,7 @@ export class Planet {
   }
 
   private updateContinentPinPosition(continent: Object3D) {
-    const distanceUpContinent = 30;
+    const distanceDowmContinent = -20;
     const canvas = this.three.getRenderer().getCanvas();
     const camera = this.three.getControls().getCamera();
     const continentPosition = getObjectCenter(continent);
@@ -367,7 +371,7 @@ export class Planet {
     );
     // Move the position a bit up the continent.
     continentPosition.add(
-      continentUpDir.clone().multiplyScalar(distanceUpContinent),
+      continentUpDir.clone().multiplyScalar(distanceDowmContinent),
     );
 
     const continentOnScreenPosition = getObjectPositionOnScreen(
@@ -382,7 +386,7 @@ export class Planet {
 
     continentPin.style.setProperty(
       'transform',
-      `translate(${left}px, ${top}px)`,
+      `translate(-50%, -50%) translate(${left}px, ${top}px)`,
     );
   }
 }

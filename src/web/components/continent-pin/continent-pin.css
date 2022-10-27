@@ -9,8 +9,8 @@
   visibility: hidden;
   position: fixed;
   /* Center the object. An alternate to `translate(-50%, -50%)` */
-  top: -2.75rem;
-  left: -2rem;
+  top: 0;
+  left: 0;
 }
 
 :host([mouseover]) {
@@ -18,48 +18,27 @@
 }
 
 .continent-pin {
-  all: unset;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-}
-
-.continent-pin-icon {
-  box-sizing: border-box;
-  display: block;
-  width: 4rem;
-  height: 4rem;
-  padding: 0.75rem;
-  border-radius: 50%;
-  border: 0.1825rem solid var(--primary);
-  fill: var(--primary);
-  background-image: var(--gradient);
-  overflow: hidden;
-
-  transform: translateY(0.75rem);
-  opacity: 0;
-  transition: transform 0.25s, opacity 0.25s;
-}
-
-.continent-pin-label {
-  color: var(--primary-color);
+  padding: 0.75rem 1rem;
   background: var(--primary);
   border-radius: 0.5rem;
-  padding: 0.125rem 0.5rem;
-
-  transform: translateY(0);
-  opacity: 0;
-  transition: transform 0.5s, opacity 0.5s;
-  transition-delay: 0.5s;
+  text-align: left;
+  min-width: 10rem;
+  box-shadow: 0 1rem 3rem rgba(var(--bg-primary-rgb), 0.425);
 }
 
-:host([mouseover]) > .continent-pin > .continent-pin-label {
-  transform: translateY(-0.5rem);
-  opacity: 1;
+.continent-pin-title {
+  margin: 0;
 }
 
-:host([mouseover]) > .continent-pin > .continent-pin-icon {
-  transform: translateY(0);
-  opacity: 1;
+.continent-pin-title > span {
+  background-image: var(--gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.continent-pin-subtitle {
+  font-size: 0.75rem;
+  opacity: 0.5;
 }

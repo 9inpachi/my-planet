@@ -16,20 +16,25 @@
 
     <!-- Continent names are set in continent classes. -->
 
-    <div style="--primary-color: #7bd860; --secondary-color: #b3e9a4">
-      <mp-continent-pin name="aboutContinent" label="About"></mp-continent-pin>
+    <mp-continent style="--primary-color: #d45c2a; --secondary-color: #d28564">
+      <mp-continent-pin
+        name="aboutContinent"
+        title="About"
+        subtitle="Click to land"
+      ></mp-continent-pin>
       <mp-continent-info name="aboutContinent">
         <mp-continent-header slot="continent-header">About</mp-continent-header>
         <mp-continent-body slot="continent-body">
           Some content to come
         </mp-continent-body>
       </mp-continent-info>
-    </div>
+    </mp-continent>
 
-    <div style="--primary-color: #ff9153; --secondary-color: #ffd143">
+    <mp-continent style="--primary-color: #6eb844; --secondary-color: #96d075">
       <mp-continent-pin
         name="projectsContinent"
-        label="Projects"
+        title="Projects"
+        subtitle="Click to land"
       ></mp-continent-pin>
       <mp-continent-info name="projectsContinent">
         <mp-continent-header slot="continent-header">
@@ -87,10 +92,14 @@
           </p>
         </mp-continent-body>
       </mp-continent-info>
-    </div>
+    </mp-continent>
 
-    <div style="--primary-color: #478bd6; --secondary-color: #2cc9d4">
-      <mp-continent-pin name="workContinent" label="Work"></mp-continent-pin>
+    <mp-continent style="--primary-color: #4289c9; --secondary-color: #65b6ff">
+      <mp-continent-pin
+        name="workContinent"
+        title="Work"
+        subtitle="Click to land"
+      ></mp-continent-pin>
       <mp-continent-info name="workContinent">
         <mp-continent-header slot="continent-header">Work</mp-continent-header>
         <mp-continent-body slot="continent-body">
@@ -145,22 +154,27 @@
           </p>
         </mp-continent-body>
       </mp-continent-info>
-    </div>
+    </mp-continent>
 
-    <div style="--primary-color: #ff4e4e; --secondary-color: #ff9d81">
-      <mp-continent-pin name="lifeContinent" label="Life"></mp-continent-pin>
+    <mp-continent style="--primary-color: #ff4e4e; --secondary-color: #ff9d81">
+      <mp-continent-pin
+        name="lifeContinent"
+        title="Life"
+        subtitle="Click to land"
+      ></mp-continent-pin>
       <mp-continent-info name="lifeContinent">
         <mp-continent-header slot="continent-header">Life</mp-continent-header>
         <mp-continent-body slot="continent-body">
           Some content to come
         </mp-continent-body>
       </mp-continent-info>
-    </div>
+    </mp-continent>
 
-    <div style="--primary-color: #446280; --secondary-color: #5b75a3">
+    <mp-continent style="--primary-color: #e40900; --secondary-color: #cf5651">
       <mp-continent-pin
         name="placeholderContinent"
-        label="Placeholder"
+        title="Placeholder"
+        subtitle="Click to land"
       ></mp-continent-pin>
       <mp-continent-info name="placeholderContinent">
         <mp-continent-header slot="continent-header">
@@ -170,6 +184,6 @@
           Some content to come
         </mp-continent-body>
       </mp-continent-info>
-    </div>
+    </mp-continent>
   </body>
 </html>

@@ -482,7 +482,6 @@ var SpinControls = function (object, trackBallRadius, camera, domElement) {
 
   this.handlePointerDown = function (event) {
     event.preventDefault(); // Prevent the browser from scrolling.
-    event.stopImmediatePropagation(); // Stop other controls working.
 
     // Manually set the focus since calling preventDefault above
     // prevents the browser from setting it automatically.

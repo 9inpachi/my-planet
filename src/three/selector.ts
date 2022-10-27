@@ -4,6 +4,7 @@ import { ThreeRenderer } from './renderer';
 
 type ObjectListenerMap = Map<Object3D, VoidFunction>;
 
+// A subset of `MousEvent`.
 type CursorPosition = {
   clientX: number;
   clientY: number;
@@ -69,7 +70,22 @@ export class ThreeSelector {
   }
 
   private setupMouseClickListener() {
-    const mouseClickEventHandler = (cursorPosition: CursorPosition) => {
+    let mouseStartX = 0;
+    let mouseStartY = 0;
+
+    const mouseDownEventHandler = (cursorPosition: CursorPosition) => {
+      mouseStartX = cursorPosition.clientX;
+      mouseStartY = cursorPosition.clientY;
+    };
+
+    const mouseUpEventHandler = (cursorPosition: CursorPosition) => {
+      // Make sure it's a click/tap and the mouse was not dragged.
+      const diffX = Math.abs(cursorPosition.clientX - mouseStartX);
+      const diffY = Math.abs(cursorPosition.clientY - mouseStartY);
+      if (diffX !== 0 && diffY !== 0) {
+        return;
+      }
+
       // No need to run the event handler if no one is listening.
       if (!this.hasClickListeners()) {
         return;
@@ -84,9 +100,13 @@ export class ThreeSelector {
       }
     };
 
-    this.rendererElement.addEventListener('click', mouseClickEventHandler);
+    this.rendererElement.addEventListener('mousedown', mouseDownEventHandler);
+    this.rendererElement.addEventListener('mouseup', mouseUpEventHandler);
+    this.rendererElement.addEventListener('touchstart', (event) => {
+      mouseDownEventHandler(event.changedTouches[0]);
+    });
     this.rendererElement.addEventListener('touchend', (event) => {
-      mouseClickEventHandler(event.changedTouches[0]);
+      mouseUpEventHandler(event.changedTouches[0]);
     });
   }
 

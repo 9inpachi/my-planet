@@ -8,17 +8,20 @@
   position: fixed;
   top: 1rem;
   left: 0;
+  pointer-events: none;
   /* Only displays on hover of continent. */
-  /* TODO: Animate this? */
   visibility: hidden;
   opacity: 0;
-  transition: opacity 0.5s, top 0.5s;
+  transition: opacity 0.25s, top 0.25s, visibility 0s;
+  /* Delay is applied to not immediately hide pin on mouse out. */
+  transition-delay: 0s, 0s, 0.25s;
 }
 
 :host([mouseover]) {
   visibility: visible;
   opacity: 1;
   top: 0;
+  transition-delay: 0s;
 }
 
 .continent-pin {
@@ -59,5 +62,5 @@
   width: 100%;
   height: 100%;
   position: absolute;
-  top: -1.75rem;
+  top: -2rem;
 }

@@ -254,17 +254,21 @@ var id=Object.defineProperty;var u=(s,e)=>id(s,"name",{value:e,configurable:!0})
     var(--primary-color) 0%,
     var(--secondary-color) 90%
   );
+
+  position: fixed;
+  top: 1rem;
+  left: 0;
   /* Only displays on hover of continent. */
   /* TODO: Animate this? */
-  /* visibility: hidden; */
-  position: fixed;
-  /* Center the object. An alternate to \`translate(-50%, -50%)\` */
-  top: 0;
-  left: 0;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.5s, top 0.5s;
 }
 
 :host([mouseover]) {
   visibility: visible;
+  opacity: 1;
+  top: 0;
 }
 
 .continent-pin {

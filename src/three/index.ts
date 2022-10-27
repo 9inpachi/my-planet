@@ -15,6 +15,8 @@ export class Three {
   private threeControls: ThreeControls;
   private threeSelector: ThreeSelector;
 
+  private updateListeners: Set<VoidFunction> = new Set();
+
   constructor(configuration: ThreeConfiguration) {
     this.threeScene = new ThreeScene();
     this.threeRenderer = new ThreeRenderer(configuration.canvasElement);
@@ -39,6 +41,7 @@ export class Three {
       this.threeControls.update(deltaTime);
       renderer.render(scene, camera);
       tweenUpdate();
+      this.updateListeners.forEach((callback) => callback());
     });
   }
 
@@ -56,5 +59,13 @@ export class Three {
 
   public getRenderer() {
     return this.threeRenderer;
+  }
+
+  public onUpdate(callback: VoidFunction) {
+    this.updateListeners.add(callback);
+  }
+
+  public removeUpdateListener(callback: VoidFunction) {
+    this.updateListeners.delete(callback);
   }
 }

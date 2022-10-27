@@ -9,3 +9,7 @@
   height: 100%;
   display: block;
 }
+
+#planet-canvas.has-pointer {
+  cursor: pointer;
+}

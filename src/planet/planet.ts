@@ -103,11 +103,19 @@ export class Planet {
       continentLand.name = continentLand.name + 'Land';
       continent.getObject().add(continentLand);
 
+      const updateContinentPinPosition = () =>
+        this.updateContinentPinPosition(continent.getObject());
+
       threeSelector.onClick(continent.getObject(), () => {
         this.onContinentClick(continent.getObject());
       });
       threeSelector.onMouseOver(continent.getObject(), () => {
         this.onContinentMouseOver(continent.getObject());
+        this.three.onUpdate(updateContinentPinPosition);
+      });
+      threeSelector.onMouseOut(continent.getObject(), () => {
+        this.onContinentMouseOut(continent.getObject());
+        this.three.removeUpdateListener(updateContinentPinPosition);
       });
 
       continent.addTo(planet);
@@ -268,6 +276,8 @@ export class Planet {
     // New Camera Position
 
     const targetCameraClone = new Object3D();
+    // This will set the right direction by looking at the continent
+    // from origin.
     targetCameraClone.lookAt(continentUpDir);
     targetCameraClone.position.copy(continentPosition);
     targetCameraClone
@@ -310,19 +320,56 @@ export class Planet {
   // Mouse Over Interactive
 
   private onContinentMouseOver(continent: Object3D) {
-    const continentPosition = getObjectPosition(continent);
+    // If continent is already open.
+    if (
+      this.isContinentInfoOpen(continent.name) ||
+      this.isAnyContinentInfoOpening()
+    ) {
+      return;
+    }
+
+    const canvas = this.three.getRenderer().getCanvas();
     const continentPin = document.querySelector(
       `mp-continent-pin[name=${continent.name}]`,
     ) as HTMLElement;
+
+    canvas.classList.add('has-pointer');
+    continentPin.setAttribute('mouseover', '');
+  }
+
+  private onContinentMouseOut(continent: Object3D) {
+    const continentPin = document.querySelector(
+      `mp-continent-pin[name=${continent.name}]`,
+    ) as HTMLElement;
+    const canvas = this.three.getRenderer().getCanvas();
+
+    continentPin.removeAttribute('mouseover');
+    canvas.classList.remove('has-pointer');
+  }
+
+  private updateContinentPinPosition(continent: Object3D) {
+    const canvas = this.three.getRenderer().getCanvas();
+    const camera = this.three.getControls().getCamera();
+    const continentPosition = getObjectPosition(continent);
+    const origin = new Vector3(0, 0, 0);
+    const continentUpDir = getDirectionBetweenVectors(
+      origin,
+      continentPosition,
+    );
+    // Move the position a bit up the continent.
+    continentPosition.add(continentUpDir.clone().multiplyScalar(20));
+
     const continentOnScreenPosition = getObjectPositionOnScreen(
       continentPosition,
-      this.three.getControls().getCamera(),
-      this.three.getRenderer().getCanvas(),
+      camera,
+      canvas,
     );
     const { x: left, y: top } = continentOnScreenPosition;
+    const continentPin = document.querySelector(
+      `mp-continent-pin[name=${continent.name}]`,
+    ) as HTMLElement;
 
     continentPin.style.setProperty('top', `${top}px`);
     continentPin.style.setProperty('left', `${left}px`);
-    continentPin.setAttribute('mouseover', '');
   }
 }

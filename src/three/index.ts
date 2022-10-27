@@ -1,6 +1,7 @@
 import { update as tweenUpdate } from '@tweenjs/tween.js';
 import { Clock } from 'three';
 import { ThreeControls } from './controls';
+import { ThreeEventHandler } from './event-handler';
 import { ThreeRenderer } from './renderer';
 import { ThreeScene } from './scene';
 import { ThreeSelector } from './selector';
@@ -14,6 +15,7 @@ export class Three {
   private threeRenderer: ThreeRenderer;
   private threeControls: ThreeControls;
   private threeSelector: ThreeSelector;
+  private threeEventHandler: ThreeEventHandler;
 
   private updateListeners: Set<VoidFunction> = new Set();
 
@@ -25,6 +27,7 @@ export class Three {
       this.threeRenderer,
       this.threeControls,
     );
+    this.threeEventHandler = new ThreeEventHandler();
 
     this.animate();
   }
@@ -42,6 +45,7 @@ export class Three {
       renderer.render(scene, camera);
       tweenUpdate();
       this.updateListeners.forEach((callback) => callback());
+      this.threeEventHandler.update();
     });
   }
 
@@ -59,6 +63,10 @@ export class Three {
 
   public getRenderer() {
     return this.threeRenderer;
+  }
+
+  public getEventHandler() {
+    return this.threeEventHandler;
   }
 
   public onUpdate(callback: VoidFunction) {

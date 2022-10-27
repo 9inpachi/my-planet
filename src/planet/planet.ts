@@ -12,7 +12,7 @@ import { Three, ThreeConfiguration } from '../three';
 import {
   getDirectionBetweenVectors,
   getObjectDirection,
-  getObjectPosition,
+  getObjectCenter,
   getObjectPositionOnScreen,
 } from '../three/common/util/transform';
 import { Globe } from './objects/globe';
@@ -92,13 +92,15 @@ export class Planet {
 
     const continents = await this.loadContinentsLand();
 
-    [
+    const allContinents = [
       new AboutContinent({ globeRadius }),
       new ProjectsContinent({ globeRadius }),
       new WorkContinent({ globeRadius }),
       new LifeContinent({ globeRadius }),
       new PlaceholderContinent({ globeRadius }),
-    ].forEach((continent) => {
+    ];
+
+    allContinents.forEach((continent) => {
       const continentLand = continents[continent.getObject().name];
       continentLand.name = continentLand.name + 'Land';
       continent.getObject().add(continentLand);
@@ -163,7 +165,7 @@ export class Planet {
 
     // Position and Direction Calculations
 
-    const continentPosition = getObjectPosition(continent);
+    const continentPosition = getObjectCenter(continent);
     const origin = new Vector3(0, 0, 0);
     const continentUpDir = getDirectionBetweenVectors(
       origin,
@@ -350,7 +352,7 @@ export class Planet {
   private updateContinentPinPosition(continent: Object3D) {
     const canvas = this.three.getRenderer().getCanvas();
     const camera = this.three.getControls().getCamera();
-    const continentPosition = getObjectPosition(continent);
+    const continentPosition = getObjectCenter(continent);
     const origin = new Vector3(0, 0, 0);
     const continentUpDir = getDirectionBetweenVectors(
       origin,

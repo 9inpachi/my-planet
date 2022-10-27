@@ -10,7 +10,7 @@ export const getObjectDirection = (object: Object3D) => {
   return direction;
 };
 
-export const getObjectPosition = (object: Object3D) => {
+export const getObjectCenter = (object: Object3D) => {
   const position = new Vector3();
   const box = new Box3();
 

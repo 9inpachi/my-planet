@@ -2,7 +2,7 @@ import { ContinentCameraTransformOptions } from './types';
 
 export const mobileContinentCameraTransform: ContinentCameraTransformOptions = {
   cameraDistanceUpContinent: 100,
-  cameraDistanceToContinent: 250,
+  cameraDistanceToContinent: 300,
   cameraRotation: 0,
   cameraLeftSpace: 0,
   cameraTopSpace: 60,

@@ -80,7 +80,7 @@ var SpinControls = function (object, trackBallRadius, camera, domElement) {
       deltaTime = currentTime - lastTime;
       lastTime = currentTime;
 
-      if (!_isPointerDown && _this.enableDamping) {
+      if (_this.enableDamping) {
         _angularVelocity.multiplyScalar(
           1 / (deltaTime * _this.dampingFactor + 1),
         );
@@ -335,7 +335,6 @@ var SpinControls = function (object, trackBallRadius, camera, domElement) {
 
     _pointerScreen.set(pointerScreenX, pointerScreenY);
     _lastPointerEventTime = time;
-    _angularVelocity.set(0, 0, 0);
     _isPointerDown = true;
   };
 
@@ -381,7 +380,6 @@ var SpinControls = function (object, trackBallRadius, camera, domElement) {
           }
         } else {
           // Moved onto sphere
-          _angularVelocity.set(0, 0, 0);
           _lastVelTime = time;
         }
 
@@ -392,7 +390,6 @@ var SpinControls = function (object, trackBallRadius, camera, domElement) {
         if (_wasLastPointerEventOnSphere) {
           // Just moved off trackball
 
-          _angularVelocity.set(0, 0, 0);
           _lastVelTime = time;
         } else {
           // Pointer still off trackball this frame

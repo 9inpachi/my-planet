@@ -6,6 +6,7 @@ import {
   Quaternion,
   Vector3,
 } from 'three';
+import { isScreenPortrait } from '../common/util/responsive';
 import { SpinControls } from '../external/spin-controls';
 import { IUpdatable } from './common/lib/iupdatable';
 import { ThreeRenderer } from './renderer';
@@ -39,7 +40,8 @@ export class ThreeControls implements IUpdatable {
       wrapperElement.offsetWidth / wrapperElement.offsetHeight;
     const perspectiveCamera = new PerspectiveCamera(36, aspectRatio(), 1, 3000);
 
-    perspectiveCamera.position.set(0, 0, 400);
+    const cameraDistance = isScreenPortrait() ? 800 : 400;
+    perspectiveCamera.position.set(0, 0, cameraDistance);
 
     window.addEventListener('resize', () => {
       perspectiveCamera.aspect = aspectRatio();
@@ -62,8 +64,9 @@ export class ThreeControls implements IUpdatable {
       domElement,
     );
 
-    spinControls.rotateSensitivity = 0.25;
+    spinControls.rotateSensitivity = 0.4;
     spinControls.dampingFactor = 10;
+    spinControls.relativelySpinOffTrackball = true;
 
     window.addEventListener('resize', () => spinControls.onWindowResize());
     (spinControls as any).addEventListener('start', () => {

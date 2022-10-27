@@ -1,4 +1,9 @@
 .continent-header {
+  --gradient: linear-gradient(
+    to right,
+    var(--primary-color) 0%,
+    var(--secondary-color) 90%
+  );
   padding: 2.5rem 0;
   transition: margin-top 0.5s;
 }
@@ -6,6 +11,14 @@
 .continent-title {
   font-size: 3.5rem;
   margin: 0;
+}
+
+.continent-title > span {
+  background-image: var(--gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* Back Icon */

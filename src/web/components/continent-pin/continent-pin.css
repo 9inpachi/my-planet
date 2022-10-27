@@ -8,9 +8,9 @@
   /* TODO: Animate this? */
   visibility: hidden;
   position: fixed;
-  top: 0;
-  left: 0;
-  transform: translate(-50%, -50%);
+  /* Center the object. An alternate to `translate(-50%, -50%)` */
+  top: -2.75rem;
+  left: -2rem;
 }
 
 :host([mouseover]) {
@@ -43,7 +43,7 @@
 }
 
 .continent-pin-label {
-  font-weight: bold;
+  color: var(--primary-color);
   background: var(--primary);
   border-radius: 0.5rem;
   padding: 0.125rem 0.5rem;
@@ -52,14 +52,6 @@
   opacity: 0;
   transition: transform 0.5s, opacity 0.5s;
   transition-delay: 0.5s;
-}
-
-.continent-pin-label > span {
-  background-image: var(--gradient);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 
 :host([mouseover]) > .continent-pin > .continent-pin-label {

@@ -86,12 +86,6 @@ class ContinentInfo extends Component {
 
   // Other Ways to Activate Continent
 
-  onWrapperClick() {
-    if (!this.continentActive) {
-      this.activateContinent();
-    }
-  }
-
   onWrapperTouchStart(event: TouchEvent) {
     this.touchStartY = event.changedTouches[0].clientY;
   }

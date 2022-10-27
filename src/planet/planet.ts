@@ -101,23 +101,29 @@ export class Planet {
     ];
 
     allContinents.forEach((continent) => {
-      const continentLand = continents[continent.getObject().name];
+      const object = continent.getObject();
+      const continentLand = continents[object.name];
       continentLand.name = continentLand.name + 'Land';
-      continent.getObject().add(continentLand);
+
+      object.add(continentLand);
 
       const updateContinentPinPosition = () =>
-        this.updateContinentPinPosition(continent.getObject());
+        this.updateContinentPinPosition(object);
 
-      threeSelector.onClick(continent.getObject(), () => {
-        this.onContinentClick(continent.getObject());
+      threeSelector.onClick(object, () => {
+        this.onContinentClick(object);
       });
-      threeSelector.onMouseOver(continent.getObject(), () => {
-        this.onContinentMouseOver(continent.getObject());
-        this.three.onUpdate(updateContinentPinPosition);
+      threeSelector.onMouseOver(object, () => {
+        this.onContinentMouseOver(object);
+        this.three
+          .getEventHandler()
+          .onObjectMove(object, updateContinentPinPosition);
       });
-      threeSelector.onMouseOut(continent.getObject(), () => {
-        this.onContinentMouseOut(continent.getObject());
-        this.three.removeUpdateListener(updateContinentPinPosition);
+      threeSelector.onMouseOut(object, () => {
+        this.onContinentMouseOut(object);
+        this.three
+          .getEventHandler()
+          .removeObjectMoveListener(object, updateContinentPinPosition);
       });
 
       continent.addTo(planet);
@@ -350,6 +356,7 @@ export class Planet {
   }
 
   private updateContinentPinPosition(continent: Object3D) {
+    const distanceUpContinent = 30;
     const canvas = this.three.getRenderer().getCanvas();
     const camera = this.three.getControls().getCamera();
     const continentPosition = getObjectCenter(continent);
@@ -359,7 +366,9 @@ export class Planet {
       continentPosition,
     );
     // Move the position a bit up the continent.
-    continentPosition.add(continentUpDir.clone().multiplyScalar(20));
+    continentPosition.add(
+      continentUpDir.clone().multiplyScalar(distanceUpContinent),
+    );
 
     const continentOnScreenPosition = getObjectPositionOnScreen(
       continentPosition,
@@ -371,7 +380,9 @@ export class Planet {
       `mp-continent-pin[name=${continent.name}]`,
     ) as HTMLElement;
 
-    continentPin.style.setProperty('top', `${top}px`);
-    continentPin.style.setProperty('left', `${left}px`);
+    continentPin.style.setProperty(
+      'transform',
+      `translate(${left}px, ${top}px)`,
+    );
   }
 }

@@ -12,6 +12,7 @@ class Icon extends Component {
     const svg = (await import(/* @vite-ignore */ `../../../${this.src}?raw`))
       .default;
     this.shadowDOM.innerHTML = svg;
+    this.shadowDOM.firstElementChild?.setAttribute('part', 'svg');
   }
 }
 

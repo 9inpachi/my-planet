@@ -54,11 +54,22 @@
 /* Tablet */
 @media screen and (max-width: 992px) {
   .continent-header {
+    padding: 1.5rem 0;
+  }
+
+  .continent-title {
+    font-size: 3rem;
+    margin: 0;
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 768px) {
+  .continent-header {
     padding: 1rem 0;
   }
 
   .continent-title {
-    font-size: 2rem;
-    margin: 0;
+    font-size: 2.5rem;
   }
 }

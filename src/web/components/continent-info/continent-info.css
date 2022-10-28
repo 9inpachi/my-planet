@@ -122,14 +122,28 @@
   .continent {
     width: 50%;
   }
-
-  .continent-body {
-    font-size: 1rem;
-  }
 }
 
 /* Mobile */
 @media screen and (max-width: 768px) {
+  .continent-body {
+    font-size: 1rem;
+  }
+
+  /* Hide Scrollbar for Mobile */
+
+  .continent-body::-webkit-scrollbar {
+    display: none;
+  }
+
+  .continent.continent-active > .continent-body.has-scroll {
+    padding-left: 0;
+    margin-left: 0;
+  }
+}
+
+/* Portrait */
+@media screen and (orientation: portrait) {
   :host {
     --continent-vertical-spacing: 5rem;
   }
@@ -140,16 +154,5 @@
     bottom: 42%;
     padding-left: 3rem;
     padding-right: 3rem;
-  }
-
-  /* Hide Scrollbar */
-
-  .continent-body::-webkit-scrollbar {
-    display: none;
-  }
-
-  .continent.continent-active > .continent-body.has-scroll {
-    padding-left: 0;
-    margin-left: 0;
   }
 }

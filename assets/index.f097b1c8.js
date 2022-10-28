@@ -6,9 +6,7 @@ var sd=Object.defineProperty;var u=(s,e)=>sd(s,"name",{value:e,configurable:!0})
       <span class="bar bottom"></span>
     </button>
   </nav>
-  <h1 class="continent-title">
-    <span><slot></slot></span>
-  </h1>
+  <h1 class="continent-title"><slot></slot></h1>
 </header>
 `,gd=`.continent-header {
   --gradient: linear-gradient(
@@ -23,14 +21,7 @@ var sd=Object.defineProperty;var u=(s,e)=>sd(s,"name",{value:e,configurable:!0})
 .continent-title {
   font-size: 3.5rem;
   margin: 0;
-}
-
-.continent-title > span {
-  background-image: var(--gradient);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--primary);
 }
 
 /* Back Icon */
@@ -276,6 +267,9 @@ var sd=Object.defineProperty;var u=(s,e)=>sd(s,"name",{value:e,configurable:!0})
 
 .continent-pin {
   display: flex;
+  align-items: center;
+  /* This gap should be the same as horizontal padding. */
+  gap: 1rem;
   padding: 0.75rem 1rem;
   background: var(--primary);
   border-radius: 0.5rem;
@@ -303,10 +297,10 @@ var sd=Object.defineProperty;var u=(s,e)=>sd(s,"name",{value:e,configurable:!0})
 .continent-pin-icon {
   box-sizing: border-box;
   position: relative;
-  width: 3rem;
-  height: 3rem;
-  margin-left: 1rem;
-  padding: 0.25rem;
+  /* Height should change if the font size of \`.continent-pin-content\`
+  changes. */
+  height: 2.825rem;
+  padding: 0.125rem;
 }
 
 .continent-pin-icon::part(svg) {

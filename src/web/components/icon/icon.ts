@@ -9,8 +9,7 @@ class Icon extends Component {
   }
 
   private async loadIcon() {
-    const svg = (await import(/* @vite-ignore */ `../../../${this.src}?raw`))
-      .default;
+    const svg = await (await fetch(this.src)).text();
     this.shadowDOM.innerHTML = svg;
     this.shadowDOM.firstElementChild?.setAttribute('part', 'svg');
   }

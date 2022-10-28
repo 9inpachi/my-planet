@@ -21,7 +21,7 @@ jobs:
       - name: Build
         run: |
           yarn install --silent
-          yarn build --base /my-planet/
+          yarn build
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3

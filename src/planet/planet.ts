@@ -68,7 +68,7 @@ export class Planet {
     // Planet Group
 
     const planet = new Group();
-    enableParallax(planet, 0.002);
+    enableParallax(planet, 0.0075);
     planet.name = 'planet';
     scene.add(planet);
 
@@ -85,7 +85,7 @@ export class Planet {
     const far = (this.three.getControls().getCamera() as PerspectiveCamera).far;
     const galaxy = new Galaxy({ starsCount: 1000, far });
     galaxy.animateGalaxy();
-    enableParallax(galaxy.getObject(), 0.05);
+    enableParallax(galaxy.getObject(), 0.075);
     galaxy.addTo(scene);
 
     // Continents

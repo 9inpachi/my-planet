@@ -11,6 +11,18 @@ import { SpinControls } from '../external/spin-controls';
 import { IUpdatable } from './common/lib/iupdatable';
 import { ThreeRenderer } from './renderer';
 
+type CameraConfig = {
+  distance: number;
+};
+
+const mobileConfig: CameraConfig = {
+  distance: 800,
+};
+
+const desktopConfig: CameraConfig = {
+  distance: 400,
+};
+
 export class ThreeControls implements IUpdatable {
   private camera: Camera;
   private spinControls: SpinControls;
@@ -40,8 +52,8 @@ export class ThreeControls implements IUpdatable {
       wrapperElement.offsetWidth / wrapperElement.offsetHeight;
     const perspectiveCamera = new PerspectiveCamera(36, aspectRatio(), 1, 3000);
 
-    const cameraDistance = isScreenPortrait() ? 800 : 400;
-    perspectiveCamera.position.set(0, 0, cameraDistance);
+    const { distance } = isScreenPortrait() ? mobileConfig : desktopConfig;
+    perspectiveCamera.position.set(0, 0, distance);
 
     window.addEventListener('resize', () => {
       perspectiveCamera.aspect = aspectRatio();
@@ -50,6 +62,9 @@ export class ThreeControls implements IUpdatable {
       const defaultCameraState = this.defaultCameraState as PerspectiveCamera;
       defaultCameraState.aspect = aspectRatio();
       defaultCameraState.updateProjectionMatrix();
+
+      const { distance } = isScreenPortrait() ? mobileConfig : desktopConfig;
+      defaultCameraState.position.set(0, 0, distance);
     });
 
     return perspectiveCamera;

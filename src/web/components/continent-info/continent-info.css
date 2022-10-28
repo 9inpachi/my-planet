@@ -117,6 +117,17 @@
   }
 }
 
+/* Tablet */
+@media screen and (max-width: 992px) {
+  .continent {
+    width: 50%;
+  }
+
+  .continent-body {
+    font-size: 1rem;
+  }
+}
+
 /* Mobile */
 @media screen and (max-width: 768px) {
   :host {
@@ -131,7 +142,14 @@
     padding-right: 3rem;
   }
 
-  .continent-body {
-    font-size: 1rem;
+  /* Hide Scrollbar */
+
+  .continent-body::-webkit-scrollbar {
+    display: none;
+  }
+
+  .continent.continent-active > .continent-body.has-scroll {
+    padding-left: 0;
+    margin-left: 0;
   }
 }

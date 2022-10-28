@@ -11,14 +11,7 @@
 .continent-title {
   font-size: 3.5rem;
   margin: 0;
-}
-
-.continent-title > span {
-  background-image: var(--gradient);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--primary);
 }
 
 /* Back Icon */

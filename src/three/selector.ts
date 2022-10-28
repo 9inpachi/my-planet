@@ -1,16 +1,17 @@
 import { Object3D, Raycaster, Vector2 } from 'three';
+import { IUpdatable } from './common/lib/iupdatable';
 import { ThreeControls } from './controls';
 import { ThreeRenderer } from './renderer';
 
 type ObjectListenerMap = Map<Object3D, VoidFunction>;
 
-// A subset of `MousEvent`.
-type CursorPosition = {
+// A subset of `MouseEvent`.
+type PointerPosition = {
   clientX: number;
   clientY: number;
 };
 
-export class ThreeSelector {
+export class ThreeSelector implements IUpdatable {
   private rayCaster: Raycaster;
   private rayCasterPoint: Vector2 = new Vector2(0, 0);
   private rendererElement: HTMLCanvasElement;
@@ -25,6 +26,8 @@ export class ThreeSelector {
   private mouseOutListenersMap: ObjectListenerMap = new Map();
   private clickableListenersMap: ObjectListenerMap = new Map();
 
+  private onAnimationFrame?: VoidFunction;
+
   constructor(renderer: ThreeRenderer, private controls: ThreeControls) {
     this.rayCaster = new Raycaster();
     this.rendererElement = renderer.getRenderer().domElement;
@@ -33,17 +36,33 @@ export class ThreeSelector {
     this.setupMouseClickListener();
   }
 
+  /**
+   * This checks on each frame if any of the objects have moved out of
+   * or over pointer's position. For example, because of auto rotation.
+   * DOM events don't work then because the mouse is idle.
+   */
+  public update() {
+    this.onAnimationFrame?.();
+  }
+
+  // Mouse Over and Mouse Out Listener
+
   private setupMouseMoveListeners() {
+    let lastPointerPosition: PointerPosition;
     const mouseMoveObjects: Set<Object3D> = new Set();
 
-    const mouseMoveEventHandler = (cursorPosition: CursorPosition) => {
+    const updatePointerPosition = (mouseOrTouchEvent: PointerPosition) => {
+      lastPointerPosition = mouseOrTouchEvent;
+    };
+
+    const mouseMoveEventHandler = (pointerPosition: PointerPosition) => {
       // No need to run the event handler if no one is listening.
-      if (!this.hasMouseMoveListeners()) {
+      if (!lastPointerPosition || !this.hasMouseMoveListeners()) {
         return;
       }
 
       const intersectedObject = this.getIntersectedObject(
-        cursorPosition,
+        pointerPosition,
         this.intersectableMouseMoveObjects,
       );
 
@@ -60,28 +79,37 @@ export class ThreeSelector {
         mouseMoveObjects.add(intersectedObject);
         this.mouseOverListenersMap.get(intersectedObject)?.();
       }
+
+      lastPointerPosition = pointerPosition;
     };
 
-    this.rendererElement.addEventListener('mousemove', mouseMoveEventHandler);
+    this.onAnimationFrame = () => mouseMoveEventHandler(lastPointerPosition);
+
+    // Just update the pointer position in DOM listeners and check in
+    // the animation loop if the objects have been mouse overed/out.
+    // This is to avoid duplication.
+    this.rendererElement.addEventListener('mousemove', updatePointerPosition);
     // TODO: Doesn't seem to be working on Chrome DevTools.
     this.rendererElement.addEventListener('touchmove', (event) => {
-      mouseMoveEventHandler(event.changedTouches[0]);
+      updatePointerPosition(event.changedTouches[0]);
     });
   }
+
+  // Click Listener
 
   private setupMouseClickListener() {
     let mouseStartX = 0;
     let mouseStartY = 0;
 
-    const mouseDownEventHandler = (cursorPosition: CursorPosition) => {
-      mouseStartX = cursorPosition.clientX;
-      mouseStartY = cursorPosition.clientY;
+    const mouseDownEventHandler = (pointerPosition: PointerPosition) => {
+      mouseStartX = pointerPosition.clientX;
+      mouseStartY = pointerPosition.clientY;
     };
 
-    const mouseUpEventHandler = (cursorPosition: CursorPosition) => {
+    const mouseUpEventHandler = (pointerPosition: PointerPosition) => {
       // Make sure it's a click/tap and the mouse was not dragged.
-      const diffX = Math.abs(cursorPosition.clientX - mouseStartX);
-      const diffY = Math.abs(cursorPosition.clientY - mouseStartY);
+      const diffX = Math.abs(pointerPosition.clientX - mouseStartX);
+      const diffY = Math.abs(pointerPosition.clientY - mouseStartY);
       if (diffX !== 0 && diffY !== 0) {
         return;
       }
@@ -92,7 +120,7 @@ export class ThreeSelector {
       }
 
       const intersectedObject = this.getIntersectedObject(
-        cursorPosition,
+        pointerPosition,
         this.intersectableClickObjects,
       );
       if (intersectedObject) {
@@ -111,14 +139,14 @@ export class ThreeSelector {
   }
 
   private getIntersectedObject(
-    cursorPosition: CursorPosition,
+    pointerPosition: PointerPosition,
     intersectableObjects: Set<Object3D>,
   ) {
     this.rayCasterPoint.setX(
-      (cursorPosition.clientX / this.rendererElement.clientWidth) * 2 - 1,
+      (pointerPosition.clientX / this.rendererElement.clientWidth) * 2 - 1,
     );
     this.rayCasterPoint.setY(
-      -(cursorPosition.clientY / this.rendererElement.clientHeight) * 2 + 1,
+      -(pointerPosition.clientY / this.rendererElement.clientHeight) * 2 + 1,
     );
 
     this.rayCaster.setFromCamera(

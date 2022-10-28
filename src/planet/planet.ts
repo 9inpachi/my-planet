@@ -360,7 +360,7 @@ export class Planet {
   }
 
   private updateContinentPinPosition(continent: Object3D) {
-    const distanceDownContinent = 20;
+    const distanceDownContinent = 5;
     const canvas = this.three.getRenderer().getCanvas();
     const camera = this.three.getControls().getCamera();
     const continentPosition = getObjectCenter(continent);

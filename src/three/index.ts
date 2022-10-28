@@ -40,6 +40,7 @@ export class Three {
       const deltaTime = clock.getDelta();
 
       this.threeControls.update(deltaTime);
+      this.threeSelector.update();
       this.threeEventHandler.update();
       renderer.render(scene, camera);
       tweenUpdate();

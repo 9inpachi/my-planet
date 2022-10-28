@@ -61,14 +61,14 @@ var ld=Object.defineProperty;var u=(s,e)=>ld(s,"name",{value:e,configurable:!0})
   height: 0.25rem;
 }
 
-/* Mobile */
-@media screen and (max-width: 768px) {
+/* Tablet */
+@media screen and (max-width: 992px) {
   .continent-header {
-    padding: 1.5rem 0;
+    padding: 1rem 0;
   }
 
   .continent-title {
-    font-size: 2.5rem;
+    font-size: 2rem;
     margin: 0;
   }
 }
@@ -212,6 +212,17 @@ var ld=Object.defineProperty;var u=(s,e)=>ld(s,"name",{value:e,configurable:!0})
   }
 }
 
+/* Tablet */
+@media screen and (max-width: 992px) {
+  .continent {
+    width: 50%;
+  }
+
+  .continent-body {
+    font-size: 1rem;
+  }
+}
+
 /* Mobile */
 @media screen and (max-width: 768px) {
   :host {
@@ -226,8 +237,15 @@ var ld=Object.defineProperty;var u=(s,e)=>ld(s,"name",{value:e,configurable:!0})
     padding-right: 3rem;
   }
 
-  .continent-body {
-    font-size: 1rem;
+  /* Hide Scrollbar */
+
+  .continent-body::-webkit-scrollbar {
+    display: none;
+  }
+
+  .continent.continent-active > .continent-body.has-scroll {
+    padding-left: 0;
+    margin-left: 0;
   }
 }
 `;var Rd=Object.defineProperty,Pd=Object.getOwnPropertyDescriptor,Dd=u((s,e,t,n)=>{for(var i=n>1?void 0:n?Pd(e,t):e,r=s.length-1,o;r>=0;r--)(o=s[r])&&(i=(n?o(e,t,i):o(i))||i);return n&&i&&Rd(e,t,i),i},"__decorateClass$2");let Io=u(class extends ai{constructor(){super(...arguments),this.continentActive=!1,this.touchStartY=0}onInit(){this.continent=this.getElement("continent"),this.continentBody=this.getElement("continentBody")}static get observedAttributes(){return["open"]}attributeChangedCallback(s,e,t){if(s!=="open")return;if(t!==null){const{scrollHeight:i,offsetHeight:r}=this.continentBody;i>r&&this.continentBody.classList.add("has-scroll")}else this.deactivateContinent()}onWrapperMouseWheel(s){s.preventDefault(),this.isScrollDown(s)&&this.activateContinent()}onBodyMouseWheel(s){this.continentActive&&s.stopPropagation(),this.continentBody.scrollTop===0&&this.isScrollUp(s)&&this.deactivateContinent()}onWrapperScroll(){this.activateContinent()}onBodyScroll(s){this.continentActive&&s.stopPropagation(),this.continentBody.scrollTop===0&&this.deactivateContinent()}onWrapperTouchStart(s){this.touchStartY=s.changedTouches[0].clientY}onWrapperTouchEnd(s){if(this.continentActive)return;s.changedTouches[0].clientY<this.touchStartY&&this.activateContinent()}isScrollUp(s){return s.deltaY<0}isScrollDown(s){return s.deltaY>0}activateContinent(){this.continent.classList.add("continent-active"),this.continentBody.scrollTop=1,this.continentActive=!0}deactivateContinent(){this.continent.classList.remove("continent-active"),this.continentActive=!1}},"ContinentInfo");Io=Dd([Ns(Cd),Sr(Ld)],Io);$i(Io);const Id=`<div class="continent-pin">

@@ -1,5 +1,5 @@
-import { update as tweenUpdate } from '@tweenjs/tween.js';
 import { Clock } from 'three';
+import { ThreeAnimator } from './animator';
 import { ThreeControls } from './controls';
 import { ThreeEventHandler } from './event-handler';
 import { ThreeRenderer } from './renderer';
@@ -16,6 +16,7 @@ export class Three {
   private threeControls: ThreeControls;
   private threeSelector: ThreeSelector;
   private threeEventHandler: ThreeEventHandler;
+  private threeAnimator: ThreeAnimator;
 
   constructor(configuration: ThreeConfiguration) {
     this.threeScene = new ThreeScene();
@@ -26,6 +27,7 @@ export class Three {
       this.threeControls,
     );
     this.threeEventHandler = new ThreeEventHandler();
+    this.threeAnimator = new ThreeAnimator();
 
     this.animate();
   }
@@ -42,8 +44,9 @@ export class Three {
       this.threeControls.update(deltaTime);
       this.threeSelector.update();
       this.threeEventHandler.update();
+      this.threeAnimator.update();
+
       renderer.render(scene, camera);
-      tweenUpdate();
     });
   }
 
@@ -65,5 +68,9 @@ export class Three {
 
   public getEventHandler() {
     return this.threeEventHandler;
+  }
+
+  public getAnimator() {
+    return this.threeAnimator;
   }
 }

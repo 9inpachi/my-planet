@@ -1,20 +1,6 @@
-import {
-  Group,
-  MathUtils,
-  Matrix4,
-  Object3D,
-  PerspectiveCamera,
-  Quaternion,
-  Vector3,
-} from 'three';
-import { Easing, Tween } from '@tweenjs/tween.js';
+import { Group, Object3D, PerspectiveCamera } from 'three';
+import { Easing } from '@tweenjs/tween.js';
 import { Three, ThreeConfiguration } from '../three';
-import {
-  getDirectionBetweenVectors,
-  getObjectDirection,
-  getObjectCenter,
-  getObjectPositionOnScreen,
-} from '../three/common/util/transform';
 import { Globe } from './objects/globe';
 import { Sun } from './objects/sun';
 import { AboutContinent } from './continents/about-continent/about-continent';
@@ -25,20 +11,14 @@ import { LifeContinent } from './continents/life-continent/life-continent';
 import { PlaceholderContinent } from './continents/placeholder-continent/placeholder-continent';
 import { Galaxy } from './objects/galaxy';
 import { enableParallax } from './common/util/parallax';
-import { CameraTargetTransform } from './common/lib/types';
-import {
-  desktopContinentCameraTransform,
-  mobileContinentCameraTransform,
-} from './common/lib/continent-camera-transform';
-import { isScreenPortrait } from '../common/util/responsive';
+import { ContinentInteractor } from './continents/continent-interactor';
 
 import continentGeometry from '../assets/geometries/continents.gltf';
 
-// TODO: May need to move the continent click logic to somewhere else.
-
 export class Planet {
   private three: Three;
-  private sun?: Sun;
+  // This gets set when initializing the planet.
+  private sun!: Sun;
   private cameraAnimationOptions = {
     duration: 2000,
     easing: Easing.Cubic.Out,
@@ -101,48 +81,38 @@ export class Planet {
     ];
 
     allContinents.forEach((continent) => {
-      const object = continent.getObject();
-      const continentLand = continents[object.name];
+      const continentObject = continent.getObject();
+      const continentLand = continents[continentObject.name];
+
       continentLand.name = continentLand.name + 'Land';
-
-      object.add(continentLand);
-
-      const updateContinentPinPosition = () =>
-        this.updateContinentPinPosition(object);
-
-      threeSelector.onClick(object, () => {
-        this.onContinentClick(object);
-      });
-      threeSelector.onMouseOver(object, () => {
-        // Update position once on mouse over because `onObject`
-        // triggers after the globe rotates which leads to a small lag.
-        updateContinentPinPosition();
-
-        this.onContinentMouseOver(object);
-        this.three
-          .getEventHandler()
-          .onObjectMove(object, updateContinentPinPosition);
-      });
-      threeSelector.onMouseOut(object, () => {
-        this.onContinentMouseOut(object);
-        this.three
-          .getEventHandler()
-          .removeObjectMoveListener(object, updateContinentPinPosition);
-      });
-
+      continentObject.add(continentLand);
       continent.addTo(planet);
+
+      const continentInteractor = new ContinentInteractor(
+        this.three,
+        continent,
+        this.sun.getObject(),
+      );
+      continentInteractor.setupEventHandlers();
     });
   }
 
   public resetControls() {
-    const controls = this.three.getControls();
-    const defaultCameraState = controls.getDefaultCameraState();
-    controls.resetSpinControls();
+    const threeControls = this.three.getControls();
+    const threeAnimations = this.three.getAnimator();
+    const defaultCameraState = threeControls.getDefaultCameraState();
 
-    this.animateCameraToTarget(
-      defaultCameraState.position,
-      defaultCameraState.quaternion,
-    );
+    threeControls.resetSpinControls();
+
+    // Move the camera and sun to their default positions.
+    [threeControls.getCamera(), this.sun.getObject()].forEach((object) => {
+      threeAnimations.animateObjectToTarget(
+        object,
+        defaultCameraState.position,
+        defaultCameraState.quaternion,
+        this.cameraAnimationOptions,
+      );
+    });
   }
 
   // Helpers
@@ -159,234 +129,5 @@ export class Planet {
     }
 
     return continents;
-  }
-
-  // Continent Interaction
-  // TODO: Move this to somewhere else.
-
-  private onContinentClick(continent: Object3D) {
-    // If continent is already open.
-    if (
-      this.isContinentInfoOpen(continent.name) ||
-      this.isAnyContinentInfoOpening()
-    ) {
-      return;
-    }
-
-    // Position and Direction Calculations
-
-    const continentPosition = getObjectCenter(continent);
-    const origin = new Vector3(0, 0, 0);
-    const continentUpDir = getDirectionBetweenVectors(
-      origin,
-      continentPosition,
-    );
-
-    // Controls Changes
-
-    const controls = this.three.getControls();
-    // This affects the rotation sensitivity.
-    controls.getSpinControls().trackballRadius = 50;
-    controls.setRotationAxis(continentUpDir);
-
-    // New Camera Transform
-
-    const targetCameraTransform = this.getContinentCameraTransform(
-      continentUpDir,
-      continentPosition,
-    );
-
-    // Animate and Apply Changes
-
-    this.animateCameraToTarget(
-      targetCameraTransform.position,
-      targetCameraTransform.quaternion,
-    );
-
-    // Open Continent Info
-
-    this.openContinentInfo(
-      continent.name,
-      this.cameraAnimationOptions.duration / 2,
-    );
-  }
-
-  private animateCameraToTarget(position: Vector3, quaternion: Quaternion) {
-    const objectsToAnimate: Object3D[] = [this.three.getControls().getCamera()];
-    this.sun && objectsToAnimate.push(this.sun.getObject());
-
-    const { duration, easing } = this.cameraAnimationOptions;
-
-    // Apply the same animation to both camera and sun so the sun follows the camera.
-    for (const object of objectsToAnimate) {
-      const positionTween = new Tween(object.position)
-        .to(position)
-        .duration(duration)
-        .easing(easing);
-      const lookAtTween = new Tween(object.quaternion)
-        .to(quaternion)
-        .duration(duration)
-        .easing(easing);
-
-      positionTween.start();
-      lookAtTween.start();
-    }
-  }
-
-  private openContinentInfo(continentName: string, openDelay: number) {
-    // Close opened continent info.
-    document.querySelector('mp-continent-info[open]')?.removeAttribute('open');
-
-    const continentInfo = document.querySelector(
-      `mp-continent-info[name="${continentName}"]`,
-    );
-    // This is to avoid problems caused by clicking another continent
-    // in this timeout.
-    continentInfo?.setAttribute('opening', '');
-
-    // Open the continent after a delay for a smoother animation
-    // experience. We do it here instead of CSS to make it configurable
-    // with `cameraAnimationOptions.duration`.
-    setTimeout(() => {
-      continentInfo?.setAttribute('open', '');
-      continentInfo?.removeAttribute('opening');
-    }, openDelay);
-  }
-
-  private isContinentInfoOpen(continentName: string) {
-    const continentInfo = document.querySelector(
-      `mp-continent-info[name="${continentName}"]`,
-    );
-
-    return continentInfo?.hasAttribute('open') ?? false;
-  }
-
-  private isAnyContinentInfoOpening() {
-    const openingContinentInfo = document.querySelector(
-      'mp-continent-info[opening]',
-    );
-
-    return !!openingContinentInfo;
-  }
-
-  private getContinentCameraTransform(
-    continentUpDir: Vector3,
-    continentPosition: Vector3,
-  ): CameraTargetTransform {
-    // Configuration
-
-    const {
-      cameraDistanceUpContinent,
-      cameraDistanceToContinent,
-      cameraRotation,
-      cameraLeftSpace,
-      cameraTopSpace,
-    } = isScreenPortrait()
-      ? mobileContinentCameraTransform
-      : desktopContinentCameraTransform;
-
-    // New Camera Position
-
-    const targetCameraClone = new Object3D();
-    // This will set the right direction by looking at the continent
-    // from origin.
-    targetCameraClone.lookAt(continentUpDir);
-    targetCameraClone.position.copy(continentPosition);
-    targetCameraClone
-      .translateZ(cameraDistanceUpContinent)
-      .translateX(cameraDistanceToContinent);
-    targetCameraClone.lookAt(continentPosition);
-
-    // New Camera Up
-
-    const newCameraDir = getObjectDirection(targetCameraClone);
-    const cameraUp = new Vector3()
-      .copy(continentUpDir)
-      .applyAxisAngle(newCameraDir, MathUtils.degToRad(cameraRotation));
-
-    // Use the camera up and continent position to look at the continent
-    // with the right camera rotation.
-    const targetCameraQuaternion = new Quaternion().setFromRotationMatrix(
-      new Matrix4().lookAt(
-        targetCameraClone.position,
-        continentPosition,
-        cameraUp,
-      ),
-    );
-
-    // Set Camera's Target Transformation
-
-    targetCameraClone.quaternion.copy(targetCameraQuaternion);
-    // Move camera to the left and top to make space for the continent
-    // content. This should only be done after applying the rotation
-    // (look at with quaternion) to avoid making continent the center.
-    targetCameraClone.translateX(-cameraLeftSpace);
-    targetCameraClone.translateY(cameraTopSpace);
-
-    return {
-      position: targetCameraClone.position,
-      quaternion: targetCameraClone.quaternion,
-    };
-  }
-
-  // Mouse Over Interactive
-
-  private onContinentMouseOver(continent: Object3D) {
-    // If continent is already open.
-    if (
-      this.isContinentInfoOpen(continent.name) ||
-      this.isAnyContinentInfoOpening()
-    ) {
-      return;
-    }
-
-    const canvas = this.three.getRenderer().getCanvas();
-    const continentPin = document.querySelector(
-      `mp-continent-pin[name=${continent.name}]`,
-    ) as HTMLElement;
-
-    canvas.classList.add('has-pointer');
-    continentPin.setAttribute('mouseover', '');
-  }
-
-  private onContinentMouseOut(continent: Object3D) {
-    const continentPin = document.querySelector(
-      `mp-continent-pin[name=${continent.name}]`,
-    ) as HTMLElement;
-    const canvas = this.three.getRenderer().getCanvas();
-
-    continentPin.removeAttribute('mouseover');
-    canvas.classList.remove('has-pointer');
-  }
-
-  private updateContinentPinPosition(continent: Object3D) {
-    const distanceDownContinent = 5;
-    const canvas = this.three.getRenderer().getCanvas();
-    const camera = this.three.getControls().getCamera();
-    const continentPosition = getObjectCenter(continent);
-    const origin = new Vector3(0, 0, 0);
-    const continentUpDir = getDirectionBetweenVectors(
-      origin,
-      continentPosition,
-    );
-    // Move the position a bit up the continent.
-    continentPosition.add(
-      continentUpDir.clone().multiplyScalar(-distanceDownContinent),
-    );
-
-    const continentOnScreenPosition = getObjectPositionOnScreen(
-      continentPosition,
-      camera,
-      canvas,
-    );
-    const { x: left, y: top } = continentOnScreenPosition;
-    const continentPin = document.querySelector(
-      `mp-continent-pin[name=${continent.name}]`,
-    ) as HTMLElement;
-
-    continentPin.style.setProperty(
-      'transform',
-      `translate(-50%, -50%) translate(${left}px, ${top}px)`,
-    );
   }
 }

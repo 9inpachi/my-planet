@@ -1,7 +1,7 @@
 import { Component, registerComponent } from '../component';
 
 class PlanetFavicon extends Component {
-  private fraemDelay = 500;
+  private fraemDelay = 800;
   private iconsCount = 7;
 
   protected onInit() {

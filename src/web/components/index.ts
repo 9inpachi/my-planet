@@ -1,3 +1,4 @@
+import './planet-favicon/planet-favicon';
 import './icon/icon';
 import './continent-info';
 import './continent-pin/continent-pin';

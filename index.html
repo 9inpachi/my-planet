@@ -10,23 +10,21 @@
     <link rel="icon" href="./assets/./planet-icon-7.ico" />
     
     
-    <script type="module" crossorigin src="./assets/index.cb60a868.js"></script>
+    <script type="module" crossorigin src="./assets/index.123fd5bb.js"></script>
     <link rel="stylesheet" href="./assets/css/index.css">
   </head>
 
   <body>
     <mp-planet-favicon></mp-planet-favicon>
-
     <mp-planet></mp-planet>
 
     <!-- Continent names are set in continent classes and model. -->
 
     <mp-continent style="--primary-color: #d45c2a; --secondary-color: #ef941c">
-      <mp-continent-pin
-        name="aboutContinent"
-        title="About"
-        subtitle="Click on the continent to land"
-      ></mp-continent-pin>
+      <mp-continent-pin name="aboutContinent">
+        <span slot="title">About</span>
+        <span slot="subtitle">Click on the continent to land</span>
+      </mp-continent-pin>
       <mp-continent-info name="aboutContinent">
         <mp-continent-header slot="continent-header">About</mp-continent-header>
         <mp-continent-body slot="continent-body">
@@ -36,11 +34,10 @@
     </mp-continent>
 
     <mp-continent style="--primary-color: #6eb844; --secondary-color: #9acd7d">
-      <mp-continent-pin
-        name="projectsContinent"
-        title="Projects"
-        subtitle="Click on the continent to land"
-      ></mp-continent-pin>
+      <mp-continent-pin name="projectsContinent">
+        <span slot="title">Projects</span>
+        <span slot="subtitle">Click on the continent to land</span>
+      </mp-continent-pin>
       <mp-continent-info name="projectsContinent">
         <mp-continent-header slot="continent-header">
           Projects
@@ -100,11 +97,10 @@
     </mp-continent>
 
     <mp-continent style="--primary-color: #4289c9; --secondary-color: #65b6ff">
-      <mp-continent-pin
-        name="workContinent"
-        title="Work"
-        subtitle="Click on the continent to land"
-      ></mp-continent-pin>
+      <mp-continent-pin name="workContinent">
+        <span slot="title">Work</span>
+        <span slot="subtitle">Click on the continent to land</span>
+      </mp-continent-pin>
       <mp-continent-info name="workContinent">
         <mp-continent-header slot="continent-header">Work</mp-continent-header>
         <mp-continent-body slot="continent-body">
@@ -162,11 +158,10 @@
     </mp-continent>
 
     <mp-continent style="--primary-color: #ff4e4e; --secondary-color: #ff9d81">
-      <mp-continent-pin
-        name="lifeContinent"
-        title="Life"
-        subtitle="Click on the continent to land"
-      ></mp-continent-pin>
+      <mp-continent-pin name="lifeContinent">
+        <span slot="title">Life</span>
+        <span slot="subtitle">Click on the continent to land</span>
+      </mp-continent-pin>
       <mp-continent-info name="lifeContinent">
         <mp-continent-header slot="continent-header">Life</mp-continent-header>
         <mp-continent-body slot="continent-body">
@@ -176,11 +171,10 @@
     </mp-continent>
 
     <mp-continent style="--primary-color: #000000; --secondary-color: #808080">
-      <mp-continent-pin
-        name="placeholderContinent"
-        title="Placeholder"
-        subtitle="Click on the continent to land"
-      ></mp-continent-pin>
+      <mp-continent-pin name="placeholderContinent">
+        <span slot="title">Placeholder</span>
+        <span slot="subtitle">Click on the continent to land</span>
+      </mp-continent-pin>
       <mp-continent-info name="placeholderContinent">
         <mp-continent-header slot="continent-header">
           Placeholder

@@ -32,7 +32,7 @@ export const enableParallax = (
     const centerX = wrapper.clientWidth / 2;
     const centerY = wrapper.clientHeight / 2;
 
-    targetPosition.x = (event.clientX - centerX) * factor;
+    targetPosition.x = -(event.clientX - centerX) * factor;
     targetPosition.y = (event.clientY - centerY) * factor;
 
     frameId = requestAnimationFrame(animate);

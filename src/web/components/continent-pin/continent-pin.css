@@ -40,7 +40,7 @@
   margin: 0;
 }
 
-.continent-pin-title > span {
+.continent-pin-title > slot::slotted(*) {
   background-image: var(--gradient);
   background-clip: text;
   -webkit-background-clip: text;
@@ -48,7 +48,7 @@
   -webkit-text-fill-color: transparent;
 }
 
-.continent-pin-subtitle {
+.continent-pin-subtitle::slotted(*) {
   font-size: 0.75rem;
   opacity: 0.5;
 }

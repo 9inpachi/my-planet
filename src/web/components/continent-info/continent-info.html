@@ -6,12 +6,13 @@
   on:touchstart="this.onWrapperTouchStart"
   on:touchend="this.onWrapperTouchEnd"
 >
-  <slot name="continent-header">Placeholder Continent Header</slot>
+  <slot name="continent-header"></slot>
   <div
     :continentBody
     class="continent-body"
     on:wheel="this.onBodyMouseWheel"
     on:scroll="this.onBodyScroll"
+    on:touchend="this.onBodyTouchEnd"
   >
     <div class="continent-body-inner">
       <slot name="continent-body"></slot>

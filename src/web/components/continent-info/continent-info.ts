@@ -91,13 +91,20 @@ class ContinentInfo extends Component {
   }
 
   onWrapperTouchEnd(event: TouchEvent) {
-    if (this.continentActive) {
-      return;
-    }
-
-    const touchEndY = event.changedTouches[0].clientY;
-    if (touchEndY < this.touchStartY) {
+    if (!this.continentActive && this.isTouchUp(event)) {
       this.activateContinent();
+    } else if (this.continentActive && this.isTouchDown(event)) {
+      this.deactivateContinent();
+    }
+  }
+
+  onBodyTouchEnd(event: TouchEvent) {
+    // Don't call `onWrapperTouchEnd` if the continent is being scrolled.
+    this.continentActive && event.stopPropagation();
+    const scrollTop = this.continentBody.scrollTop;
+
+    if (scrollTop === 0 && this.isTouchDown(event)) {
+      this.deactivateContinent();
     }
   }
 
@@ -109,6 +116,16 @@ class ContinentInfo extends Component {
 
   private isScrollDown(event: WheelEvent) {
     return event.deltaY > 0;
+  }
+
+  private isTouchUp(event: TouchEvent) {
+    const touchEndY = event.changedTouches[0].clientY;
+    return touchEndY < this.touchStartY;
+  }
+
+  private isTouchDown(event: TouchEvent) {
+    const touchEndY = event.changedTouches[0].clientY;
+    return touchEndY > this.touchStartY;
   }
 
   private activateContinent() {

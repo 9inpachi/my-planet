@@ -1,8 +1,8 @@
 import { BuildingProperties } from '../../objects/building';
 import { HutProperties } from '../../objects/hut';
 import { TreeProperties } from '../../objects/tree';
-import { LandHeight } from '../lib/heights';
-import { WithPositionAttributes } from '../lib/types';
+import { LandHeight } from '../common/lib/heights';
+import { WithPositionAttributes } from '../common/lib/types';
 
 export const workTrees: WithPositionAttributes<TreeProperties>[] = [
   {

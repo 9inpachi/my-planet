@@ -45,9 +45,6 @@ export class ThreeEventHandler implements IUpdatable {
     }
   }
 
-  /**
-   * This is more reliable as it also checks for rotation.
-   */
   private hasObjectPositionChanged(object: Object3D, currentPosition: Vector3) {
     const previousPosition = this.previousObjectPositions.get(object);
     if (!previousPosition) {

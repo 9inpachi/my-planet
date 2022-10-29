@@ -1,6 +1,6 @@
 import { GUI } from 'dat.gui';
 import { MathUtils } from 'three';
-import { BaseObject } from '../../objects/base-object';
+import { BaseObject } from '../../../objects/base-object';
 import { WithPositionAttributes } from '../lib/types';
 
 export class ContinentDebugControls {

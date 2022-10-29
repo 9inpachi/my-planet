@@ -1,4 +1,4 @@
-import { BaseObjectProperties } from '../../objects/base-object';
+import { BaseObjectProperties } from '../../../objects/base-object';
 import { LandHeight } from './heights';
 
 export type WithPositionAttributes<T> = BaseObjectProperties &

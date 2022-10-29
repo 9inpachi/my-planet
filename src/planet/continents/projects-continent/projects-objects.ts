@@ -2,8 +2,8 @@ import { HouseProperties } from '../../objects/house';
 import { HutProperties } from '../../objects/hut';
 import { MountainProperties } from '../../objects/mountain';
 import { TreeProperties } from '../../objects/tree';
-import { LandHeight } from '../lib/heights';
-import { WithPositionAttributes } from '../lib/types';
+import { LandHeight } from '../common/lib/heights';
+import { WithPositionAttributes } from '../common/lib/types';
 
 export const projectsMountains: WithPositionAttributes<MountainProperties>[] = [
   {

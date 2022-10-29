@@ -8,9 +8,9 @@ import { Hut, HutProperties } from '../objects/hut';
 import { Land, LandProperties } from '../objects/land';
 import { Mountain, MountainProperties } from '../objects/mountain';
 import { Tree, TreeProperties } from '../objects/tree';
-import { LandHeight } from './lib/heights';
-import { WithPositionAttributes } from './lib/types';
-import { ContinentDebugControls } from './util/continent-debug-controls';
+import { LandHeight } from './common/lib/heights';
+import { WithPositionAttributes } from './common/lib/types';
+import { ContinentDebugControls } from './common/util/continent-debug-controls';
 
 type BaseContinentProperties = {
   globeRadius: number;

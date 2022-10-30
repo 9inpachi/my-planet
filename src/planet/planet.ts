@@ -41,13 +41,14 @@ export class Planet {
 
   private async initializePlanet() {
     const threeSelector = this.three.getSelector();
+    const camera = this.three.getControls().getCamera();
     const scene = this.three.getScene();
 
     // Sun
 
     const sun = new Sun({ size: 10 });
     // Move sun to camera.
-    sun.setPosition(this.three.getControls().getCamera().position);
+    sun.setPosition(camera.position);
     sun.addTo(scene);
     this.sun = sun;
 
@@ -68,8 +69,13 @@ export class Planet {
 
     // Galaxy
 
-    const far = (this.three.getControls().getCamera() as PerspectiveCamera).far;
-    const galaxy = new Galaxy({ starsCount: 1000, far });
+    const starsStartRadius = camera.position.z;
+    const starsEndRadius = (camera as PerspectiveCamera).far;
+    const galaxy = new Galaxy({
+      starsCount: 1000,
+      startRadius: starsStartRadius,
+      endRadius: starsEndRadius,
+    });
     galaxy.animateGalaxy();
     enableParallax(galaxy.getObject(), 0.075);
     galaxy.addTo(scene);
@@ -122,8 +128,8 @@ export class Planet {
   }
 
   private setupDefaultCameraConfig() {
-    const defaultCamera = this.three.getControls().getDefaultCameraState();
     const camera = this.three.getControls().getCamera();
+    const defaultCamera = this.three.getControls().getDefaultCameraState();
 
     const { position } = this.getCameraConfigForScreen();
 

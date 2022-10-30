@@ -15,12 +15,16 @@ import { BaseObject } from './base-object';
 
 export type GalaxyProperties = {
   starsCount: number;
-  far?: number;
+  // Uses camera position's z-axis so stars aren't constructed inside
+  // the camera's radius and don't appear in front of camera.
+  startRadius?: number;
+  // Uses camera's far plane so stars aren't constructed beyond the visible scene.
+  endRadius?: number;
 };
 
 export class Galaxy extends BaseObject<GalaxyProperties> {
   protected constructObject() {
-    const { starsCount, far } = this.properties;
+    const { starsCount, endRadius = 3000 } = this.properties;
     const groupsCount = 4;
     const galaxy = new Group();
     galaxy.name = 'galaxy';
@@ -32,7 +36,7 @@ export class Galaxy extends BaseObject<GalaxyProperties> {
     for (let i = 0; i < groupsCount; i++) {
       const starsGroup = this.constructStarsGroup(
         starsCount / groupsCount,
-        far,
+        endRadius,
       );
       galaxy.add(starsGroup);
     }
@@ -40,9 +44,12 @@ export class Galaxy extends BaseObject<GalaxyProperties> {
     return galaxy;
   }
 
-  private constructStarsGroup(count: number, far = 3000) {
+  private constructStarsGroup(count: number, endRadius: number) {
     const geometry = new BufferGeometry();
-    geometry.setAttribute('position', this.constructStarsPositions(count, far));
+    geometry.setAttribute(
+      'position',
+      this.constructStarsPositions(count, endRadius),
+    );
     const material = new PointsMaterial({
       color: colors.star,
       size: 7,
@@ -56,14 +63,14 @@ export class Galaxy extends BaseObject<GalaxyProperties> {
     return points;
   }
 
-  private constructStarsPositions(count: number, far = 3000) {
-    const radius = 700;
+  private constructStarsPositions(count: number, endRadius = 3000) {
+    const radius = this.properties.startRadius ?? 700;
     const stars: number[] = [];
 
     for (let i = 0; i < count; i++) {
       const vector = new Vector3();
       vector.randomDirection();
-      vector.multiplyScalar(MathUtils.randFloat(radius, far / 2));
+      vector.multiplyScalar(MathUtils.randFloat(radius, endRadius / 2));
 
       stars.push(vector.x, vector.y, vector.z);
     }

@@ -47,15 +47,19 @@ export class ContinentInteractor<T extends BaseContinent> {
     const threeSelector = this.three.getSelector();
     const threeEventHandler = this.three.getEventHandler();
 
+    // Using a reference so it can be removed with
+    // `removeObjectMoveListener`.
+    const updateContinentPinPosition = () => this.updateContinentPinPosition();
+
     threeSelector.onMouseOver(this.continentObject, () => {
       // Update position once on mouse over because `onObject`
       // triggers after the globe rotates which leads to a small lag.
-      this.updateContinentPinPosition();
+      updateContinentPinPosition();
 
       this.onContinentMouseOver();
       threeEventHandler.onObjectMove(
         this.continentObject,
-        this.updateContinentPinPosition.bind(this),
+        updateContinentPinPosition,
       );
     });
 
@@ -63,7 +67,7 @@ export class ContinentInteractor<T extends BaseContinent> {
       this.onContinentMouseOut();
       threeEventHandler.removeObjectMoveListener(
         this.continentObject,
-        this.updateContinentPinPosition.bind(this),
+        updateContinentPinPosition,
       );
     });
   }

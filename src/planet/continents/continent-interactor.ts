@@ -52,7 +52,7 @@ export class ContinentInteractor<T extends BaseContinent> {
     const updateContinentPinPosition = () => this.updateContinentPinPosition();
 
     threeSelector.onMouseOver(this.continentObject, () => {
-      // Update position once on mouse over because `onObject`
+      // Update position once on mouse over because `onObjectMove`
       // triggers after the globe rotates which leads to a small lag.
       updateContinentPinPosition();
 

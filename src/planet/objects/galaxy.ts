@@ -64,7 +64,7 @@ export class Galaxy extends BaseObject<GalaxyProperties> {
   }
 
   private constructStarsPositions(count: number, endRadius = 3000) {
-    const radius = this.properties.startRadius ?? 700;
+    const radius = (this.properties.startRadius ?? 700) + 50;
     const stars: number[] = [];
 
     for (let i = 0; i < count; i++) {

@@ -1,5 +1,8 @@
-import { Component, property, registerComponent } from '../component';
+import { Component, property, registerComponent, styles } from '../component';
 
+import iconStyles from './icon.css?raw';
+
+@styles(iconStyles)
 class Icon extends Component {
   @property()
   src!: string;

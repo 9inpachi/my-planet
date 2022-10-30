@@ -61,8 +61,3 @@
   height: 2.825rem;
   padding: 0.125rem;
 }
-
-.continent-pin-icon::part(svg) {
-  width: 100%;
-  height: 100%;
-}

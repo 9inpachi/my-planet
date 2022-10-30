@@ -42,6 +42,8 @@ export class HTMLParser implements IHTMLParser {
               .apply(this.componentContext)
               .bind(this.componentContext),
           );
+
+          node.removeAttribute(attribute);
         }
       }
 

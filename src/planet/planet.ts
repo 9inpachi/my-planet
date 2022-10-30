@@ -14,6 +14,11 @@ import { enableParallax } from './common/util/parallax';
 import { ContinentInteractor } from './continents/continent-interactor';
 
 import continentGeometry from '../assets/geometries/continents.gltf';
+import { isScreenPortrait } from '../common/util/responsive';
+import {
+  defaultCameraConfigDesktop,
+  defaultCameraConfigMobile,
+} from './common/lib/camera-config';
 
 export class Planet {
   private three: Three;
@@ -26,6 +31,7 @@ export class Planet {
 
   constructor(configuration: ThreeConfiguration) {
     this.three = new Three(configuration);
+    this.setupDefaultCameraConfig();
     this.initializePlanet();
   }
 
@@ -115,6 +121,20 @@ export class Planet {
     });
   }
 
+  private setupDefaultCameraConfig() {
+    const defaultCamera = this.three.getControls().getDefaultCameraState();
+    const camera = this.three.getControls().getCamera();
+
+    const { position } = this.getCameraConfigForScreen();
+
+    camera.position.copy(position);
+    defaultCamera.position.copy(position);
+
+    window.addEventListener('resize', () => {
+      defaultCamera.position.copy(this.getCameraConfigForScreen().position);
+    });
+  }
+
   // Helpers
 
   private async loadContinentsLand() {
@@ -129,5 +149,11 @@ export class Planet {
     }
 
     return continents;
+  }
+
+  private getCameraConfigForScreen() {
+    return isScreenPortrait()
+      ? defaultCameraConfigMobile
+      : defaultCameraConfigDesktop;
   }
 }

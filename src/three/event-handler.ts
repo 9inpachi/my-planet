@@ -55,8 +55,8 @@ export class ThreeEventHandler implements IUpdatable {
   }
 
   /**
-   * Either get the object's position or if that's not set, then get the
-   * center of object's bounding box with `getObjectCenter`.
+   * Try to get the object's position and if that's not set, then get
+   * the center of object's bounding box with `getObjectCenter`.
    */
   private getObjectPosition(object: Object3D) {
     if (!object.position.equals(this.defaultObjectPosition)) {

@@ -9,11 +9,17 @@ import {
   getObjectPositionOnScreen,
 } from '../../three/common/util/transform';
 import {
-  mobileContinentCameraTransform,
-  desktopContinentCameraTransform,
-} from '../common/lib/continent-camera-transform';
+  continentCameraTransformMobile,
+  continentCameraTransformDesktop,
+} from '../common/lib/camera-config';
 import { CameraTargetTransform } from '../common/lib/types';
 import { BaseContinent } from './base-continent';
+
+// If we want to remove dependency to `src/web` and avoid accessing DOM
+// elements from here, we can add callbacks with methods like
+// `onContinentClick`, `onContinentMove`, `onContinentMouseOver`,
+// `onContinentMouseOut` etc. and add event listeners from `src/web` to
+// mutate DOM elements there instead of here.
 
 export class ContinentInteractor<T extends BaseContinent> {
   private continentObject: Object3D;
@@ -165,8 +171,8 @@ export class ContinentInteractor<T extends BaseContinent> {
       cameraLeftSpace,
       cameraTopSpace,
     } = isScreenPortrait()
-      ? mobileContinentCameraTransform
-      : desktopContinentCameraTransform;
+      ? continentCameraTransformMobile
+      : continentCameraTransformDesktop;
 
     // New Camera Position
 

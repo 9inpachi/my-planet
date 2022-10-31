@@ -11,7 +11,7 @@ import { LifeContinent } from './continents/life-continent/life-continent';
 import { PlaceholderContinent } from './continents/placeholder-continent/placeholder-continent';
 import { Galaxy } from './objects/galaxy';
 import { enableParallax } from './common/util/parallax';
-import { ContinentInteractor } from './continents/continent-interactor';
+import { ContinentInteractor } from './continents/continent-interactor/continent-interactor';
 
 import continentGeometry from '../assets/geometries/continents.gltf';
 import { isScreenPortrait } from '../common/util/responsive';
@@ -58,6 +58,7 @@ export class Planet {
     enableParallax(planet, 0.0075);
     planet.name = 'planet';
     scene.add(planet);
+    planet.scale.setScalar(0.2);
 
     // Globe
 
@@ -131,13 +132,13 @@ export class Planet {
     const camera = this.three.getControls().getCamera();
     const defaultCamera = this.three.getControls().getDefaultCameraState();
 
-    const { position } = this.getCameraConfigForScreen();
+    const cameraPosition = this.getCameraConfigForScreen();
 
-    camera.position.copy(position);
-    defaultCamera.position.copy(position);
+    camera.position.copy(cameraPosition);
+    defaultCamera.position.copy(cameraPosition);
 
     window.addEventListener('resize', () => {
-      defaultCamera.position.copy(this.getCameraConfigForScreen().position);
+      defaultCamera.position.copy(this.getCameraConfigForScreen());
     });
   }
 

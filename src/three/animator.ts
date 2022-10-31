@@ -2,6 +2,11 @@ import { Easing, Tween, update as tweenUpdate } from '@tweenjs/tween.js';
 import { Object3D, Quaternion, Vector3 } from 'three';
 import { IUpdatable } from './common/lib/iupdatable';
 
+export type TweenOptions = {
+  duration?: number;
+  easing?: typeof Easing.Linear.None;
+};
+
 export class ThreeAnimator implements IUpdatable {
   public update() {
     tweenUpdate();
@@ -11,9 +16,7 @@ export class ThreeAnimator implements IUpdatable {
     object: Object3D,
     position?: Vector3,
     quaternion?: Quaternion,
-    options: { duration?: number; easing?: typeof Easing.Linear.None } = {
-      duration: 1000,
-    },
+    tweenOptions: TweenOptions = { duration: 1000 },
   ) {
     const tweens: Tween<Vector3 | Quaternion>[] = [];
 
@@ -27,8 +30,8 @@ export class ThreeAnimator implements IUpdatable {
     }
 
     tweens.forEach((tween) => {
-      options?.duration && tween.duration(options?.duration);
-      options?.easing && tween.easing(options?.easing);
+      tweenOptions?.duration && tween.duration(tweenOptions?.duration);
+      tweenOptions?.easing && tween.easing(tweenOptions?.easing);
 
       tween.start();
     });

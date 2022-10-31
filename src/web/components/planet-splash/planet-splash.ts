@@ -13,7 +13,7 @@ class PlanetSplash extends Component {
   protected onInit() {
     window.planet.onLoad(() => {
       this.planetObject = window.planet.getScene().getObjectByName('planet');
-      this.planetObject?.scale.setScalar(0.25);
+      this.planetObject?.scale.setScalar(0.5);
     });
   }
 
@@ -22,7 +22,7 @@ class PlanetSplash extends Component {
       return;
     }
 
-    const newScale = new Vector3(1, 1, 1);
+    const newScale = new Vector3().setScalar(1);
     const tween = window.planet
       .getAnimator()
       .createTween(this.planetObject.scale, newScale, {
@@ -32,6 +32,13 @@ class PlanetSplash extends Component {
 
     this.setAttribute('closed', '');
     tween.start();
+  }
+
+  onKeyPress(event: KeyboardEvent) {
+    if (['Enter', ' ', 'SpaceBar'].includes(event.key)) {
+      event.preventDefault();
+      this.onHeaderClick();
+    }
   }
 }
 

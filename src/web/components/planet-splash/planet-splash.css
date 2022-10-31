@@ -5,10 +5,16 @@
   width: 100%;
   height: 100%;
   backdrop-filter: blur(0.25rem);
+  transform: scale(1);
+  opacity: 1;
+  visibility: visible;
+  transition: all 0.5s ease-out;
 }
 
 :host([closed]) {
-  display: none;
+  visibility: hidden;
+  transform: scale(8);
+  opacity: 0;
 }
 
 .planet-splash {
@@ -35,12 +41,6 @@
 
 /* Portrait */
 @media screen and (orientation: portrait) {
-  .planet-splash {
-    left: 50%;
-    top: 10%;
-    transform: translateX(-50%);
-  }
-
   .planet-splash > h1 {
     font-size: 4rem;
   }

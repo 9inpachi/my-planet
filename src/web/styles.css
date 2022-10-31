@@ -2,6 +2,7 @@
 
 /* Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
 
 :root {
   /* Variables */
@@ -11,6 +12,10 @@
   --bg-primary-rgb: 0, 0, 0;
   --primary: #ffffff;
   --primary-dim: #e6e6e6;
+
+  /* Fonts */
+  --font-family-text: 'Varela Round', sans-serif;
+  --font-family-heading: 'Josefin Sans', sans-serif;
 }
 
 html,
@@ -21,8 +26,7 @@ body {
 body {
   margin: 0;
   padding: 0;
-  /* TODO: Set up 'Varela Round' font. */
-  font-family: 'Varela Round', sans-serif;
-  /* Base font size relative units (`rem`) are calculated from. */
+  font-family: var(--font-family-text);
+  /* Base font size from which relative units (`rem`) are calculated. */
   font-size: 16px;
 }

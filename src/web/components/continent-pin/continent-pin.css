@@ -37,6 +37,7 @@
 }
 
 .continent-pin-title {
+  font-family: var(--font-family-heading);
   margin: 0;
 }
 

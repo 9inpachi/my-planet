@@ -1,5 +1,4 @@
-import { Vector3 } from 'three';
-import { ContinentCameraTransformOptions, DefaultCameraConfig } from './types';
+import { ContinentCameraTransformOptions } from './types';
 
 export const continentCameraTransformMobile: ContinentCameraTransformOptions = {
   cameraDistanceUpContinent: 100,
@@ -17,11 +16,3 @@ export const continentCameraTransformDesktop: ContinentCameraTransformOptions =
     cameraLeftSpace: 50,
     cameraTopSpace: 0,
   };
-
-export const defaultCameraConfigMobile: DefaultCameraConfig = {
-  position: new Vector3(0, 100, 800),
-};
-
-export const defaultCameraConfigDesktop: DefaultCameraConfig = {
-  position: new Vector3(-100, 0, 400),
-};

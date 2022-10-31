@@ -12,7 +12,3 @@ export type ContinentCameraTransformOptions = {
   cameraLeftSpace: number;
   cameraTopSpace: number;
 };
-
-export type DefaultCameraConfig = {
-  position: Vector3;
-};

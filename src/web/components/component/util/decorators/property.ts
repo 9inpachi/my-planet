@@ -10,7 +10,12 @@ export const property = (definedName?: string): PropertyDecorator => {
         return this.getAttribute(propertyName);
       },
       set(this: HTMLElement, value: string) {
-        this.setAttribute(propertyName, value);
+        // Only allow setting the value of property if there is no
+        // attribute. This will prevent default value from component
+        // class prevailing over attribute value.
+        if (!this.getAttribute(propertyName)) {
+          this.setAttribute(propertyName, value);
+        }
       },
     };
 

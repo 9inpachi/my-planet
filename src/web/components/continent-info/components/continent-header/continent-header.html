@@ -1,10 +1,10 @@
 <header :continentHeader class="continent-header">
   <nav>
-    <button class="arrow-back-icon" title="Go back" on:click="this.onBackClick">
-      <span class="bar top"></span>
-      <span class="bar mid"></span>
-      <span class="bar bottom"></span>
-    </button>
+    <mp-arrow-button
+      direction="left"
+      title="Go back"
+      on:click="this.onBackClick"
+    ></mp-arrow-button>
   </nav>
   <h1 class="continent-title"><slot></slot></h1>
 </header>

@@ -24,8 +24,14 @@
   top: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  filter: drop-shadow(0 0 1rem rgba(var(--bg-primary-rgb), 0.425));
+  filter: drop-shadow(
+    0.25rem 0.25rem 0.25rem rgba(var(--bg-primary-rgb), 0.25)
+  );
   cursor: pointer;
+}
+
+.planet-splash:focus-visible {
+  outline: 0.0625rem solid var(--primary-dim);
 }
 
 .planet-splash > span {

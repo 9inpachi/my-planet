@@ -1,0 +1,51 @@
+:host {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(0.25rem);
+}
+
+:host([closed]) {
+  display: none;
+}
+
+.planet-splash {
+  color: var(--primary);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  filter: drop-shadow(0 0 1rem rgba(var(--bg-primary-rgb), 0.425));
+  cursor: pointer;
+}
+
+.planet-splash > span {
+  font-size: 1.5rem;
+}
+
+.planet-splash > h1 {
+  font-family: var(--font-family-heading);
+  font-size: 5rem;
+  margin: 0;
+  margin-top: 1rem;
+}
+
+/* Portrait */
+@media screen and (orientation: portrait) {
+  .planet-splash {
+    left: 50%;
+    top: 10%;
+    transform: translateX(-50%);
+  }
+
+  .planet-splash > h1 {
+    font-size: 4rem;
+  }
+
+  .planet-splash > span {
+    font-size: 1rem;
+  }
+}

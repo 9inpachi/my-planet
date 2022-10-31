@@ -36,4 +36,17 @@ export class ThreeAnimator implements IUpdatable {
       tween.start();
     });
   }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  public createTween<T extends Record<string, any>>(
+    from: T,
+    to: T,
+    tweenOptions?: TweenOptions,
+  ) {
+    const tween = new Tween(from).to(to);
+    tweenOptions?.duration && tween.duration(tweenOptions.duration);
+    tweenOptions?.easing && tween.easing(tweenOptions.easing);
+
+    return tween;
+  }
 }

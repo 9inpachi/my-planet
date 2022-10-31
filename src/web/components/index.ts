@@ -1,6 +1,6 @@
+import './planet/planet';
 import './planet-favicon/planet-favicon';
 import './icon/icon';
-import './planet-title/planet-title';
+import './planet-splash/planet-splash';
 import './continent-info';
 import './continent-pin/continent-pin';
-import './planet/planet';

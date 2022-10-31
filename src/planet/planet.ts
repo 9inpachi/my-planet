@@ -22,6 +22,7 @@ import {
 
 export class Planet {
   private three: Three;
+  private onLoadCallbacks: ((planet: Planet) => void)[] = [];
   // This gets set when initializing the planet.
   private sun!: Sun;
   private cameraAnimationOptions = {
@@ -32,7 +33,9 @@ export class Planet {
   constructor(configuration: ThreeConfiguration) {
     this.three = new Three(configuration);
     this.setupDefaultCameraConfig();
-    this.initializePlanet();
+    this.initializePlanet().then(() => {
+      this.onLoadCallbacks.forEach((callback) => callback(this));
+    });
   }
 
   public static build(configuration: ThreeConfiguration) {
@@ -58,7 +61,6 @@ export class Planet {
     enableParallax(planet, 0.0075);
     planet.name = 'planet';
     scene.add(planet);
-    planet.scale.setScalar(0.2);
 
     // Globe
 
@@ -140,6 +142,18 @@ export class Planet {
     window.addEventListener('resize', () => {
       defaultCamera.position.copy(this.getCameraConfigForScreen());
     });
+  }
+
+  public onLoad(callback: (planet: Planet) => void) {
+    this.onLoadCallbacks.push(callback);
+  }
+
+  public getScene() {
+    return this.three.getScene();
+  }
+
+  public getAnimator() {
+    return this.three.getAnimator();
   }
 
   // Helpers

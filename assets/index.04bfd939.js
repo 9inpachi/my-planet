@@ -3158,7 +3158,13 @@ void main() {
   width: 100%;
   height: 100%;
 }
-`;var cx=Object.defineProperty,ux=Object.getOwnPropertyDescriptor,od=u((s,e,t,n)=>{for(var i=n>1?void 0:n?ux(e,t):e,r=s.length-1,o;r>=0;r--)(o=s[r])&&(i=(n?o(e,t,i):o(i))||i);return n&&i&&cx(e,t,i),i},"__decorateClass$5");let Tr=u(class extends xn{onInit(){this.loadIcon()}async loadIcon(){var e;const s=await(await fetch(this.src)).text();this.shadowDOM.innerHTML=s,(e=this.shadowDOM.firstElementChild)==null||e.setAttribute("part","svg")}},"Icon");od([id()],Tr.prototype,"src",2);Tr=od([os(lx)],Tr);Yn(Tr);const hx=`<header class="planet-splash" on:click="this.onHeaderClick">
+`;var cx=Object.defineProperty,ux=Object.getOwnPropertyDescriptor,od=u((s,e,t,n)=>{for(var i=n>1?void 0:n?ux(e,t):e,r=s.length-1,o;r>=0;r--)(o=s[r])&&(i=(n?o(e,t,i):o(i))||i);return n&&i&&cx(e,t,i),i},"__decorateClass$5");let Tr=u(class extends xn{onInit(){this.loadIcon()}async loadIcon(){var e;const s=await(await fetch(this.src)).text();this.shadowDOM.innerHTML=s,(e=this.shadowDOM.firstElementChild)==null||e.setAttribute("part","svg")}},"Icon");od([id()],Tr.prototype,"src",2);Tr=od([os(lx)],Tr);Yn(Tr);const hx=`<header
+  class="planet-splash"
+  on:click="this.onHeaderClick"
+  on:keypress="this.onKeyPress"
+  tabindex="0"
+  role="button"
+>
   <h1>My Planet</h1>
   <span>Click anywhere to land</span>
 </header>
@@ -3169,10 +3175,16 @@ void main() {
   width: 100%;
   height: 100%;
   backdrop-filter: blur(0.25rem);
+  transform: scale(1);
+  opacity: 1;
+  visibility: visible;
+  transition: all 0.5s ease-out;
 }
 
 :host([closed]) {
-  display: none;
+  visibility: hidden;
+  transform: scale(8);
+  opacity: 0;
 }
 
 .planet-splash {
@@ -3199,12 +3211,6 @@ void main() {
 
 /* Portrait */
 @media screen and (orientation: portrait) {
-  .planet-splash {
-    left: 50%;
-    top: 10%;
-    transform: translateX(-50%);
-  }
-
   .planet-splash > h1 {
     font-size: 4rem;
   }
@@ -3213,7 +3219,7 @@ void main() {
     font-size: 1rem;
   }
 }
-`;var fx=Object.defineProperty,px=Object.getOwnPropertyDescriptor,mx=u((s,e,t,n)=>{for(var i=n>1?void 0:n?px(e,t):e,r=s.length-1,o;r>=0;r--)(o=s[r])&&(i=(n?o(e,t,i):o(i))||i);return n&&i&&fx(e,t,i),i},"__decorateClass$4");let ia=u(class extends xn{onInit(){window.planet.onLoad(()=>{var s;this.planetObject=window.planet.getScene().getObjectByName("planet"),(s=this.planetObject)==null||s.scale.setScalar(.25)})}onHeaderClick(){if(!this.planetObject)return;const s=new A(1,1,1),e=window.planet.getAnimator().createTween(this.planetObject.scale,s,{duration:3e3,easing:ai.Cubic.Out});this.setAttribute("closed",""),e.start()}},"PlanetSplash");ia=mx([rs(hx),os(dx)],ia);Yn(ia);const gx=`<header :continentHeader class="continent-header">
+`;var fx=Object.defineProperty,px=Object.getOwnPropertyDescriptor,mx=u((s,e,t,n)=>{for(var i=n>1?void 0:n?px(e,t):e,r=s.length-1,o;r>=0;r--)(o=s[r])&&(i=(n?o(e,t,i):o(i))||i);return n&&i&&fx(e,t,i),i},"__decorateClass$4");let ia=u(class extends xn{onInit(){window.planet.onLoad(()=>{var s;this.planetObject=window.planet.getScene().getObjectByName("planet"),(s=this.planetObject)==null||s.scale.setScalar(.5)})}onHeaderClick(){if(!this.planetObject)return;const s=new A().setScalar(1),e=window.planet.getAnimator().createTween(this.planetObject.scale,s,{duration:3e3,easing:ai.Cubic.Out});this.setAttribute("closed",""),e.start()}onKeyPress(s){["Enter"," ","SpaceBar"].includes(s.key)&&(s.preventDefault(),this.onHeaderClick())}},"PlanetSplash");ia=mx([rs(hx),os(dx)],ia);Yn(ia);const gx=`<header :continentHeader class="continent-header">
   <nav>
     <button class="arrow-back-icon" title="Go back" on:click="this.onBackClick">
       <span class="bar top"></span>

@@ -23,6 +23,7 @@ var dd=Object.defineProperty;var u=(s,e)=>dd(s,"name",{value:e,configurable:!0})
 }
 
 .continent-title {
+  font-family: var(--font-family-heading);
   font-size: 3.5rem;
   margin: 0;
   color: var(--primary);
@@ -315,6 +316,7 @@ var dd=Object.defineProperty;var u=(s,e)=>dd(s,"name",{value:e,configurable:!0})
 }
 
 .continent-pin-title {
+  font-family: var(--font-family-heading);
   margin: 0;
 }
 

@@ -15,41 +15,9 @@
   color: var(--primary);
 }
 
-/* Back Icon */
-
-.arrow-back-icon {
-  all: unset;
-  position: relative;
-  height: 2rem;
-  width: 3.5rem;
+.back-button {
+  display: block;
   margin-bottom: 1rem;
-  cursor: pointer;
-}
-
-.arrow-back-icon .bar {
-  position: absolute;
-  top: calc(50% - 0.125rem);
-  left: 0;
-  background: var(--primary);
-  border-radius: 0.25rem;
-  transform-origin: 0.125rem center;
-}
-
-.arrow-back-icon .bar.bottom {
-  transform: rotateZ(45deg);
-  width: 1rem;
-  height: 0.25rem;
-}
-
-.arrow-back-icon .bar.mid {
-  width: 3rem;
-  height: 0.25rem;
-}
-
-.arrow-back-icon .bar.top {
-  transform: rotateZ(-45deg);
-  width: 1rem;
-  height: 0.25rem;
 }
 
 /* Tablet */

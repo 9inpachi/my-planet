@@ -16,6 +16,9 @@
   /* Fonts */
   --font-family-text: 'Varela Round', sans-serif;
   --font-family-heading: 'Josefin Sans', sans-serif;
+
+  /* Look */
+  --focus-outline: 0.0625rem solid var(--primary-dim);
 }
 
 html,

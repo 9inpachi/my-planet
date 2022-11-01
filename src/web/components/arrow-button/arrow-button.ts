@@ -15,8 +15,6 @@ class ArrowButton extends Component {
   @property()
   direction!: string;
   @property()
-  title = '';
-  @property()
   label!: string;
 }
 

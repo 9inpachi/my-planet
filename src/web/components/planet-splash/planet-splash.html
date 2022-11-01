@@ -1,10 +1,7 @@
-<header
-  class="planet-splash"
-  on:click="this.onHeaderClick"
-  on:keypress="this.onKeyPress"
-  tabindex="0"
-  role="button"
->
+<header class="planet-splash">
   <h1>My Planet</h1>
-  <mp-arrow-button label="Enter"></mp-arrow-button>
+  <mp-arrow-button
+    on:click="this.onHeaderClick"
+    label="Enter"
+  ></mp-arrow-button>
 </header>

@@ -20,6 +20,8 @@ clicking this button. -->
   cursor: pointer;
   min-width: var(--arrow-width);
   min-height: var(--arrow-height);
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 
 .arrow-button-label {
@@ -3265,7 +3267,6 @@ void main() {
   left: 0;
   width: 100%;
   height: 100%;
-  /* backdrop-filter: blur(0.25rem); */
   transform: scale(1);
   opacity: 1;
   visibility: visible;
@@ -3274,7 +3275,7 @@ void main() {
 
 :host([closed]) {
   visibility: hidden;
-  transform: scale(8);
+  transform: scale(7);
   opacity: 0;
 }
 

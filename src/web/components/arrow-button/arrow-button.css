@@ -63,23 +63,30 @@
   width: 1rem;
 }
 
+/* On Mouse Hover */
 .arrow-button:hover > .arrow-button-icon,
-.arrow-button:focus-visible > .arrow-button-icon {
+/* On Keyboard Focus */
+.arrow-button:focus-visible > .arrow-button-icon,
+/* When `active` Attribute is Set */
+:host([active]) > .arrow-button > .arrow-button-icon {
   left: calc(100% - var(--arrow-width) + 1.5rem);
 }
 
 .arrow-button:hover > .arrow-button-icon > .bar.mid,
-.arrow-button:focus-visible > .arrow-button-icon > .bar.mid {
+.arrow-button:focus-visible > .arrow-button-icon > .bar.mid,
+:host([active]) > .arrow-button > .arrow-button-icon > .bar.mid {
   width: 0;
 }
 
 .arrow-button:hover > .arrow-button-label,
-.arrow-button:focus-visible > .arrow-button-label {
+.arrow-button:focus-visible > .arrow-button-label,
+:host([active]) > .arrow-button > .arrow-button-label {
   opacity: 1;
 }
 
 :host([direction='left']) > .arrow-button:hover > .arrow-button-icon,
-:host([direction='left']) > .arrow-button:focus-visible > .arrow-button-icon {
+:host([direction='left']) > .arrow-button:focus-visible > .arrow-button-icon,
+:host([direction='left'][active]) > .arrow-button > .arrow-button-icon {
   right: 100%;
   left: -1.5rem;
 }

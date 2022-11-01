@@ -26,6 +26,7 @@
   filter: drop-shadow(
     0.25rem 0.25rem 0.25rem rgba(var(--bg-primary-rgb), 0.25)
   );
+  cursor: pointer;
 }
 
 .planet-splash > h1 {
@@ -33,6 +34,11 @@
   font-size: 5rem;
   margin: 0;
   margin-top: 1rem;
+  transition: letter-spacing 0.5s;
+}
+
+.planet-splash:hover > h1 {
+  letter-spacing: 0.125rem;
 }
 
 /* Portrait */

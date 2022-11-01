@@ -1,9 +1,9 @@
 import { Object3D, Vector3 } from 'three';
+import { Easing } from '@tweenjs/tween.js';
 import { Component, registerComponent, styles, template } from '../component';
 
 import planetSplashTemplate from './planet-splash.html?raw';
 import planetSplashStyles from './planet-splash.css?raw';
-import { Easing } from '@tweenjs/tween.js';
 
 @template(planetSplashTemplate)
 @styles(planetSplashStyles)
@@ -34,11 +34,12 @@ class PlanetSplash extends Component {
     tween.start();
   }
 
-  onKeyPress(event: KeyboardEvent) {
-    if (['Enter', ' ', 'SpaceBar'].includes(event.key)) {
-      event.preventDefault();
-      this.onHeaderClick();
-    }
+  onMouseOver() {
+    this.getElement('enterButton')?.setAttribute('active', '');
+  }
+
+  onMouseOut() {
+    this.getElement('enterButton')?.removeAttribute('active');
   }
 }
 

@@ -74,23 +74,30 @@ clicking this button. -->
   width: 1rem;
 }
 
+/* On Mouse Hover */
 .arrow-button:hover > .arrow-button-icon,
-.arrow-button:focus-visible > .arrow-button-icon {
+/* On Keyboard Focus */
+.arrow-button:focus-visible > .arrow-button-icon,
+/* When \`active\` Attribute is Set */
+:host([active]) > .arrow-button > .arrow-button-icon {
   left: calc(100% - var(--arrow-width) + 1.5rem);
 }
 
 .arrow-button:hover > .arrow-button-icon > .bar.mid,
-.arrow-button:focus-visible > .arrow-button-icon > .bar.mid {
+.arrow-button:focus-visible > .arrow-button-icon > .bar.mid,
+:host([active]) > .arrow-button > .arrow-button-icon > .bar.mid {
   width: 0;
 }
 
 .arrow-button:hover > .arrow-button-label,
-.arrow-button:focus-visible > .arrow-button-label {
+.arrow-button:focus-visible > .arrow-button-label,
+:host([active]) > .arrow-button > .arrow-button-label {
   opacity: 1;
 }
 
 :host([direction='left']) > .arrow-button:hover > .arrow-button-icon,
-:host([direction='left']) > .arrow-button:focus-visible > .arrow-button-icon {
+:host([direction='left']) > .arrow-button:focus-visible > .arrow-button-icon,
+:host([direction='left'][active]) > .arrow-button > .arrow-button-icon {
   right: 100%;
   left: -1.5rem;
 }
@@ -3254,12 +3261,14 @@ void main() {
 #planet-canvas.has-pointer {
   cursor: pointer;
 }
-`;var dx=Object.defineProperty,fx=Object.getOwnPropertyDescriptor,px=u((s,e,t,n)=>{for(var i=n>1?void 0:n?fx(e,t):e,r=s.length-1,o;r>=0;r--)(o=s[r])&&(i=(n?o(e,t,i):o(i))||i);return n&&i&&dx(e,t,i),i},"__decorateClass$5");let sa=u(class extends an{onInit(){const s=this.shadowDOM.querySelector("#planet-canvas");window.planet=Xr.build({canvasElement:s}),this.closeContinentOnEscape()}closeContinentOnEscape(){document.addEventListener("keydown",s=>{s.key==="Escape"&&this.deactiveContinentInfo()})}deactiveContinentInfo(){const s=document.querySelector("mp-continent-info[open]");s&&(s.removeAttribute("open"),window.planet.resetControls())}},"Planet");sa=px([hi(ux),di(hx)],sa);yn(sa);const mx="modulepreload",gx=u(function(s,e){return new URL(s,e).href},"assetsURL"),Gc={},Ut=u(function(e,t,n){return!t||t.length===0?e():Promise.all(t.map(i=>{if(i=gx(i,n),i in Gc)return;Gc[i]=!0;const r=i.endsWith(".css"),o=r?'[rel="stylesheet"]':"";if(document.querySelector(`link[href="${i}"]${o}`))return;const a=document.createElement("link");if(a.rel=r?"stylesheet":mx,r||(a.as="script",a.crossOrigin=""),a.href=i,document.head.appendChild(a),r)return new Promise((l,c)=>{a.addEventListener("load",l),a.addEventListener("error",()=>c(new Error(`Unable to preload CSS for ${i}`)))})})).then(()=>e())},"preload"),ad=u((s,e)=>{const t=s[e];return t?typeof t=="function"?t():Promise.resolve(t):new Promise((n,i)=>{(typeof queueMicrotask=="function"?queueMicrotask:setTimeout)(i.bind(null,new Error("Unknown variable dynamic import: "+e)))})},"__variableDynamicImportRuntimeHelper");class ld extends an{constructor(){super(...arguments),this.fraemDelay=800,this.iconsCount=7}onInit(){this.animateFavicon()}async animateFavicon(){const e=document.head.querySelector('link[rel="icon"]'),t=await this.loadIcons();let n=1;setInterval(()=>{e.href=t[n++],n>this.iconsCount&&(n=1)},this.fraemDelay)}async loadIcons(){const e=[];for(let t=1;t<=this.iconsCount;t++)e[t]=(await ad(Object.assign({"../../../assets/icons/favicon/planet-icon-1.ico":()=>Ut(()=>import("./planet-icon-1.c2986837.js"),[],import.meta.url),"../../../assets/icons/favicon/planet-icon-2.ico":()=>Ut(()=>import("./planet-icon-2.299b72f7.js"),[],import.meta.url),"../../../assets/icons/favicon/planet-icon-3.ico":()=>Ut(()=>import("./planet-icon-3.a0352c02.js"),[],import.meta.url),"../../../assets/icons/favicon/planet-icon-4.ico":()=>Ut(()=>import("./planet-icon-4.a53cfa5b.js"),[],import.meta.url),"../../../assets/icons/favicon/planet-icon-5.ico":()=>Ut(()=>import("./planet-icon-5.f664f73c.js"),[],import.meta.url),"../../../assets/icons/favicon/planet-icon-6.ico":()=>Ut(()=>import("./planet-icon-6.55d8faf2.js"),[],import.meta.url),"../../../assets/icons/favicon/planet-icon-7.ico":()=>Ut(()=>import("./planet-icon-7.8f338bb5.js"),[],import.meta.url)}),`../../../assets/icons/favicon/planet-icon-${t}.ico`)).default;return e}}u(ld,"PlanetFavicon");yn(ld);const _x=`<header class="planet-splash">
+`;var dx=Object.defineProperty,fx=Object.getOwnPropertyDescriptor,px=u((s,e,t,n)=>{for(var i=n>1?void 0:n?fx(e,t):e,r=s.length-1,o;r>=0;r--)(o=s[r])&&(i=(n?o(e,t,i):o(i))||i);return n&&i&&dx(e,t,i),i},"__decorateClass$5");let sa=u(class extends an{onInit(){const s=this.shadowDOM.querySelector("#planet-canvas");window.planet=Xr.build({canvasElement:s}),this.closeContinentOnEscape()}closeContinentOnEscape(){document.addEventListener("keydown",s=>{s.key==="Escape"&&this.deactiveContinentInfo()})}deactiveContinentInfo(){const s=document.querySelector("mp-continent-info[open]");s&&(s.removeAttribute("open"),window.planet.resetControls())}},"Planet");sa=px([hi(ux),di(hx)],sa);yn(sa);const mx="modulepreload",gx=u(function(s,e){return new URL(s,e).href},"assetsURL"),Gc={},Ut=u(function(e,t,n){return!t||t.length===0?e():Promise.all(t.map(i=>{if(i=gx(i,n),i in Gc)return;Gc[i]=!0;const r=i.endsWith(".css"),o=r?'[rel="stylesheet"]':"";if(document.querySelector(`link[href="${i}"]${o}`))return;const a=document.createElement("link");if(a.rel=r?"stylesheet":mx,r||(a.as="script",a.crossOrigin=""),a.href=i,document.head.appendChild(a),r)return new Promise((l,c)=>{a.addEventListener("load",l),a.addEventListener("error",()=>c(new Error(`Unable to preload CSS for ${i}`)))})})).then(()=>e())},"preload"),ad=u((s,e)=>{const t=s[e];return t?typeof t=="function"?t():Promise.resolve(t):new Promise((n,i)=>{(typeof queueMicrotask=="function"?queueMicrotask:setTimeout)(i.bind(null,new Error("Unknown variable dynamic import: "+e)))})},"__variableDynamicImportRuntimeHelper");class ld extends an{constructor(){super(...arguments),this.fraemDelay=800,this.iconsCount=7}onInit(){this.animateFavicon()}async animateFavicon(){const e=document.head.querySelector('link[rel="icon"]'),t=await this.loadIcons();let n=1;setInterval(()=>{e.href=t[n++],n>this.iconsCount&&(n=1)},this.fraemDelay)}async loadIcons(){const e=[];for(let t=1;t<=this.iconsCount;t++)e[t]=(await ad(Object.assign({"../../../assets/icons/favicon/planet-icon-1.ico":()=>Ut(()=>import("./planet-icon-1.c2986837.js"),[],import.meta.url),"../../../assets/icons/favicon/planet-icon-2.ico":()=>Ut(()=>import("./planet-icon-2.299b72f7.js"),[],import.meta.url),"../../../assets/icons/favicon/planet-icon-3.ico":()=>Ut(()=>import("./planet-icon-3.a0352c02.js"),[],import.meta.url),"../../../assets/icons/favicon/planet-icon-4.ico":()=>Ut(()=>import("./planet-icon-4.a53cfa5b.js"),[],import.meta.url),"../../../assets/icons/favicon/planet-icon-5.ico":()=>Ut(()=>import("./planet-icon-5.f664f73c.js"),[],import.meta.url),"../../../assets/icons/favicon/planet-icon-6.ico":()=>Ut(()=>import("./planet-icon-6.55d8faf2.js"),[],import.meta.url),"../../../assets/icons/favicon/planet-icon-7.ico":()=>Ut(()=>import("./planet-icon-7.8f338bb5.js"),[],import.meta.url)}),`../../../assets/icons/favicon/planet-icon-${t}.ico`)).default;return e}}u(ld,"PlanetFavicon");yn(ld);const _x=`<header
+  class="planet-splash"
+  on:click="this.onHeaderClick"
+  on:mouseover="this.onMouseOver"
+  on:mouseout="this.onMouseOut"
+>
   <h1>My Planet</h1>
-  <mp-arrow-button
-    on:click="this.onHeaderClick"
-    label="Enter"
-  ></mp-arrow-button>
+  <mp-arrow-button :enterButton label="Enter"></mp-arrow-button>
 </header>
 `,vx=`:host {
   position: fixed;
@@ -3289,6 +3298,7 @@ void main() {
   filter: drop-shadow(
     0.25rem 0.25rem 0.25rem rgba(var(--bg-primary-rgb), 0.25)
   );
+  cursor: pointer;
 }
 
 .planet-splash > h1 {
@@ -3296,6 +3306,11 @@ void main() {
   font-size: 5rem;
   margin: 0;
   margin-top: 1rem;
+  transition: letter-spacing 0.5s;
+}
+
+.planet-splash:hover > h1 {
+  letter-spacing: 0.125rem;
 }
 
 /* Portrait */
@@ -3304,7 +3319,7 @@ void main() {
     font-size: 4rem;
   }
 }
-`;var xx=Object.defineProperty,yx=Object.getOwnPropertyDescriptor,bx=u((s,e,t,n)=>{for(var i=n>1?void 0:n?yx(e,t):e,r=s.length-1,o;r>=0;r--)(o=s[r])&&(i=(n?o(e,t,i):o(i))||i);return n&&i&&xx(e,t,i),i},"__decorateClass$4");let ra=u(class extends an{onInit(){window.planet.onLoad(()=>{var s;this.planetObject=window.planet.getScene().getObjectByName("planet"),(s=this.planetObject)==null||s.scale.setScalar(.5)})}onHeaderClick(){if(!this.planetObject)return;const s=new A().setScalar(1),e=window.planet.getAnimator().createTween(this.planetObject.scale,s,{duration:3e3,easing:ai.Quintic.Out});this.setAttribute("closed",""),e.start()}onKeyPress(s){["Enter"," ","SpaceBar"].includes(s.key)&&(s.preventDefault(),this.onHeaderClick())}},"PlanetSplash");ra=bx([hi(_x),di(vx)],ra);yn(ra);const Mx=`<header :continentHeader class="continent-header">
+`;var xx=Object.defineProperty,yx=Object.getOwnPropertyDescriptor,bx=u((s,e,t,n)=>{for(var i=n>1?void 0:n?yx(e,t):e,r=s.length-1,o;r>=0;r--)(o=s[r])&&(i=(n?o(e,t,i):o(i))||i);return n&&i&&xx(e,t,i),i},"__decorateClass$4");let ra=u(class extends an{onInit(){window.planet.onLoad(()=>{var s;this.planetObject=window.planet.getScene().getObjectByName("planet"),(s=this.planetObject)==null||s.scale.setScalar(.5)})}onHeaderClick(){if(!this.planetObject)return;const s=new A().setScalar(1),e=window.planet.getAnimator().createTween(this.planetObject.scale,s,{duration:3e3,easing:ai.Quintic.Out});this.setAttribute("closed",""),e.start()}onMouseOver(){var s;(s=this.getElement("enterButton"))==null||s.setAttribute("active","")}onMouseOut(){var s;(s=this.getElement("enterButton"))==null||s.removeAttribute("active")}},"PlanetSplash");ra=bx([hi(_x),di(vx)],ra);yn(ra);const Mx=`<header :continentHeader class="continent-header">
   <nav>
     <mp-arrow-button
       class="back-button"

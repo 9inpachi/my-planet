@@ -34,10 +34,6 @@
   outline: 0.0625rem solid var(--primary-dim);
 }
 
-.planet-splash > span {
-  font-size: 1.5rem;
-}
-
 .planet-splash > h1 {
   font-family: var(--font-family-heading);
   font-size: 5rem;
@@ -50,39 +46,4 @@
   .planet-splash > h1 {
     font-size: 4rem;
   }
-
-  .planet-splash > span {
-    font-size: 1rem;
-  }
-}
-
-.enter-button {
-  display: inline-block;
-  position: relative;
-  font-size: 2rem;
-  overflow: hidden;
-}
-
-.enter-button > .button-text {
-  transform: translateX(-100%);
-  transition: all 0.5s;
-}
-
-.enter-button > mp-arrow-button {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  transition: all 0.5s;
-}
-
-.planet-splash:hover > .enter-button > mp-arrow-button,
-.planet-splash:focus-visible > .enter-button > mp-arrow-button {
-  left: 110%;
-  transform: translate(0, -50%);
-}
-
-.planet-splash:hover > .enter-button > .button-text,
-.planet-splash:focus-visible > .enter-button > .button-text {
-  transform: translateX(0);
 }

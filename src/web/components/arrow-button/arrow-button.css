@@ -9,6 +9,8 @@
   cursor: pointer;
   min-width: var(--arrow-width);
   min-height: var(--arrow-height);
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 
 .arrow-button-label {

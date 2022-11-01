@@ -2,7 +2,7 @@
 
 /* Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Viga&display=swap');
 
 :root {
   /* Variables */
@@ -15,7 +15,7 @@
 
   /* Fonts */
   --font-family-text: 'Varela Round', sans-serif;
-  --font-family-heading: 'Josefin Sans', sans-serif;
+  --font-family-heading: 'Viga', sans-serif;
 
   /* Look */
   --focus-outline: 0.0625rem solid var(--primary-dim);

@@ -9,12 +9,22 @@ clicking this button. -->
     <div class="bar bottom"></div>
   </div>
 </button>
-`,bd=`.arrow-button {
+`,bd=`:host {
+  --arrow-width: 3.5rem;
+  --arrow-height: 1.4125rem;
+}
+
+.arrow-button {
   all: unset;
   position: relative;
   cursor: pointer;
-  min-height: 1.4125rem;
-  min-width: 3.5rem;
+  min-width: var(--arrow-width);
+  min-height: var(--arrow-height);
+}
+
+.arrow-button-label {
+  opacity: 0;
+  transition: all 0.5s;
 }
 
 .arrow-button:focus-visible {
@@ -27,6 +37,7 @@ clicking this button. -->
   left: calc(50% - 3.5rem / 2);
   height: 1.4125rem;
   width: 3.5rem;
+  transition: all 0.5s;
 }
 
 .arrow-button-icon > .bar {
@@ -35,6 +46,7 @@ clicking this button. -->
   background: var(--primary);
   border-radius: 0.25rem;
   height: 0.25rem;
+  transition: all 0.5s;
 
   /* Assume right direction by default. */
   right: 0;
@@ -52,12 +64,29 @@ clicking this button. -->
 }
 
 .arrow-button-icon > .bar.mid {
-  width: 3.5rem;
+  width: var(--arrow-width);
 }
 
 .arrow-button-icon > .bar.top {
   transform: rotateZ(-45deg);
   width: 1rem;
+}
+
+.arrow-button:hover > .arrow-button-icon {
+  left: calc(100% - var(--arrow-width) + 1.5rem);
+}
+
+.arrow-button:hover > .arrow-button-icon > .bar.mid {
+  width: 0;
+}
+
+.arrow-button:hover > .arrow-button-label {
+  opacity: 1;
+}
+
+:host([direction='left']) > .arrow-button:hover > .arrow-button-icon {
+  right: 100%;
+  left: -1.5rem;
 }
 `;var Md=Object.defineProperty,Sd=Object.getOwnPropertyDescriptor,Lr=u((s,e,t,n)=>{for(var i=n>1?void 0:n?Sd(e,t):e,r=s.length-1,o;r>=0;r--)(o=s[r])&&(i=(n?o(e,t,i):o(i))||i);return n&&i&&Md(e,t,i),i},"__decorateClass$7");let Wi=u(class extends an{constructor(){super(...arguments),this.title=""}},"ArrowButton");Lr([zs()],Wi.prototype,"direction",2);Lr([zs()],Wi.prototype,"title",2);Lr([zs()],Wi.prototype,"label",2);Wi=Lr([hi(yd),di(bd)],Wi);yn(Wi);const wd=`svg {
   width: 100%;
@@ -3227,10 +3256,7 @@ void main() {
   role="button"
 >
   <h1>My Planet</h1>
-  <div class="enter-button">
-    <div class="button-text">Enter</div>
-    <mp-arrow-button></mp-arrow-button>
-  </div>
+  <mp-arrow-button label="Enter"></mp-arrow-button>
 </header>
 `,vx=`:host {
   position: fixed;
@@ -3268,10 +3294,6 @@ void main() {
   outline: 0.0625rem solid var(--primary-dim);
 }
 
-.planet-splash > span {
-  font-size: 1.5rem;
-}
-
 .planet-splash > h1 {
   font-family: var(--font-family-heading);
   font-size: 5rem;
@@ -3284,41 +3306,6 @@ void main() {
   .planet-splash > h1 {
     font-size: 4rem;
   }
-
-  .planet-splash > span {
-    font-size: 1rem;
-  }
-}
-
-.enter-button {
-  display: inline-block;
-  position: relative;
-  font-size: 2rem;
-  overflow: hidden;
-}
-
-.enter-button > .button-text {
-  transform: translateX(-100%);
-  transition: all 0.5s;
-}
-
-.enter-button > mp-arrow-button {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  transition: all 0.5s;
-}
-
-.planet-splash:hover > .enter-button > mp-arrow-button,
-.planet-splash:focus-visible > .enter-button > mp-arrow-button {
-  left: 110%;
-  transform: translate(0, -50%);
-}
-
-.planet-splash:hover > .enter-button > .button-text,
-.planet-splash:focus-visible > .enter-button > .button-text {
-  transform: translateX(0);
 }
 `;var xx=Object.defineProperty,yx=Object.getOwnPropertyDescriptor,bx=u((s,e,t,n)=>{for(var i=n>1?void 0:n?yx(e,t):e,r=s.length-1,o;r>=0;r--)(o=s[r])&&(i=(n?o(e,t,i):o(i))||i);return n&&i&&xx(e,t,i),i},"__decorateClass$4");let oa=u(class extends an{onInit(){window.planet.onLoad(()=>{var s;this.planetObject=window.planet.getScene().getObjectByName("planet"),(s=this.planetObject)==null||s.scale.setScalar(.5)})}onHeaderClick(){if(!this.planetObject)return;const s=new A().setScalar(1),e=window.planet.getAnimator().createTween(this.planetObject.scale,s,{duration:3e3,easing:ai.Quintic.Out});this.setAttribute("closed",""),e.start()}onKeyPress(s){["Enter"," ","SpaceBar"].includes(s.key)&&(s.preventDefault(),this.onHeaderClick())}},"PlanetSplash");oa=bx([hi(_x),di(vx)],oa);yn(oa);const Mx=`<header :continentHeader class="continent-header">
   <nav>

@@ -27,7 +27,7 @@ class PlanetSplash extends Component {
       .getAnimator()
       .createTween(this.planetObject.scale, newScale, {
         duration: 3000,
-        easing: Easing.Cubic.Out,
+        easing: Easing.Quintic.Out,
       });
 
     this.setAttribute('closed', '');

@@ -2,7 +2,10 @@
 host element and event bubbling will make that "on:click" run on
 clicking this button. -->
 <button class="arrow-button" title="${this.title}">
-  <span class="bar top"></span>
-  <span class="bar mid"></span>
-  <span class="bar bottom"></span>
+  <span class="arrow-button-label">${this.label}</span>
+  <div class="arrow-button-icon">
+    <div class="bar top"></div>
+    <div class="bar mid"></div>
+    <div class="bar bottom"></div>
+  </div>
 </button>

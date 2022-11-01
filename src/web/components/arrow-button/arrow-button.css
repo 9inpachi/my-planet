@@ -1,48 +1,50 @@
 .arrow-button {
   all: unset;
   position: relative;
-  height: 2rem;
-  width: 3.5rem;
-  margin-bottom: 1rem;
   cursor: pointer;
-  outline: initial;
+  min-height: 1.4125rem;
+  min-width: 3.5rem;
 }
 
 .arrow-button:focus-visible {
   outline: 0.0625rem solid var(--primary-dim);
 }
 
-.arrow-button > .bar {
+.arrow-button-icon {
+  position: absolute;
+  top: calc(50% - 1.4125rem / 2);
+  left: calc(50% - 3.5rem / 2);
+  height: 1.4125rem;
+  width: 3.5rem;
+}
+
+.arrow-button-icon > .bar {
   position: absolute;
   top: calc(50% - 0.125rem);
   background: var(--primary);
   border-radius: 0.25rem;
-}
+  height: 0.25rem;
 
-/* Assume right direction by default. */
-.arrow-button > .bar {
+  /* Assume right direction by default. */
   right: 0;
   transform-origin: calc(1rem - 0.1rem) center;
 }
 
-:host([direction='left']) > .arrow-button > .bar {
+:host([direction='left']) > .arrow-button > .arrow-button-icon > .bar {
   left: 0;
   transform-origin: 0.1rem center;
 }
 
-.arrow-button > .bar.bottom {
+.arrow-button-icon > .bar.bottom {
   transform: rotateZ(45deg);
   width: 1rem;
-  height: 0.25rem;
 }
 
-.arrow-button > .bar.mid {
-  width: 100%;
-  height: 0.25rem;
+.arrow-button-icon > .bar.mid {
+  width: 3.5rem;
 }
 
-.arrow-button > .bar.top {
+.arrow-button-icon > .bar.top {
   transform: rotateZ(-45deg);
   width: 1rem;
-  height: 0.25rem;
 }

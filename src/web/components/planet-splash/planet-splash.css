@@ -4,7 +4,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  backdrop-filter: blur(0.25rem);
+  /* backdrop-filter: blur(0.25rem); */
   transform: scale(1);
   opacity: 1;
   visibility: visible;
@@ -54,4 +54,35 @@
   .planet-splash > span {
     font-size: 1rem;
   }
+}
+
+.enter-button {
+  display: inline-block;
+  position: relative;
+  font-size: 2rem;
+  overflow: hidden;
+}
+
+.enter-button > .button-text {
+  transform: translateX(-100%);
+  transition: all 0.5s;
+}
+
+.enter-button > mp-arrow-button {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.5s;
+}
+
+.planet-splash:hover > .enter-button > mp-arrow-button,
+.planet-splash:focus-visible > .enter-button > mp-arrow-button {
+  left: 110%;
+  transform: translate(0, -50%);
+}
+
+.planet-splash:hover > .enter-button > .button-text,
+.planet-splash:focus-visible > .enter-button > .button-text {
+  transform: translateX(0);
 }

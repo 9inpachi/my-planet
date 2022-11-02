@@ -3325,7 +3325,7 @@ void main() {
     font-size: 3rem;
   }
 }
-`;var kx=Object.defineProperty,Bx=Object.getOwnPropertyDescriptor,Hx=u((s,e,t,n)=>{for(var i=n>1?void 0:n?Bx(e,t):e,r=s.length-1,o;r>=0;r--)(o=s[r])&&(i=(n?o(e,t,i):o(i))||i);return n&&i&&kx(e,t,i),i},"__decorateClass$4");let ra=u(class extends on{onInit(){window.planet.onLoad(()=>{var s;this.planetObject=window.planet.getScene().getObjectByName("planet"),(s=this.planetObject)==null||s.scale.setScalar(.5),document.body.removeAttribute("loading")})}onHeaderClick(){if(!this.planetObject)return;const s=new A().setScalar(1),e=window.planet.getAnimator().createTween(this.planetObject.scale,s,{duration:3e3,easing:oi.Quintic.Out});this.setAttribute("closed",""),e.start()}onMouseOver(){var s;(s=this.getElement("enterButton"))==null||s.setAttribute("active","")}onMouseOut(){var s;(s=this.getElement("enterButton"))==null||s.removeAttribute("active")}},"PlanetSplash");ra=Hx([ui(Ux),hi(zx)],ra);xn(ra);const Vx=`<header :continentHeader class="continent-header">
+`;var kx=Object.defineProperty,Bx=Object.getOwnPropertyDescriptor,Hx=u((s,e,t,n)=>{for(var i=n>1?void 0:n?Bx(e,t):e,r=s.length-1,o;r>=0;r--)(o=s[r])&&(i=(n?o(e,t,i):o(i))||i);return n&&i&&kx(e,t,i),i},"__decorateClass$4");let ra=u(class extends on{onInit(){window.planet.onLoad(()=>{var s;this.planetObject=window.planet.getScene().getObjectByName("planet"),(s=this.planetObject)==null||s.scale.setScalar(.5),document.body.removeAttribute("loading")})}onHeaderClick(){if(!this.planetObject)return;const s=new A().setScalar(1),e=window.planet.getAnimator().createTween(this.planetObject.scale,s,{duration:2e3,easing:oi.Quintic.Out});this.setAttribute("closed",""),e.start()}onMouseOver(){var s;(s=this.getElement("enterButton"))==null||s.setAttribute("active","")}onMouseOut(){var s;(s=this.getElement("enterButton"))==null||s.removeAttribute("active")}},"PlanetSplash");ra=Hx([ui(Ux),hi(zx)],ra);xn(ra);const Vx=`<header :continentHeader class="continent-header">
   <nav>
     <mp-arrow-button
       class="back-button"
@@ -3446,7 +3446,6 @@ void main() {
 
 .continent-body {
   font-size: 1.25rem;
-  padding-bottom: var(--continent-vertical-spacing);
   direction: rtl;
   -webkit-mask-image: linear-gradient(to top, transparent, #000000 10%);
   overflow: hidden;
@@ -3469,6 +3468,7 @@ void main() {
 }
 
 .continent.continent-active > .continent-body.has-scroll {
+  padding-bottom: var(--continent-vertical-spacing);
   overflow: auto;
 
   /* Scrollbar */

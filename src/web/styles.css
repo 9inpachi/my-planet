@@ -32,4 +32,9 @@ body {
   font-family: var(--font-family-text);
   /* Base font size from which relative units (`rem`) are calculated. */
   font-size: 16px;
+  background: var(--bg-primary);
+}
+
+body[loading] {
+  visibility: hidden;
 }

@@ -14,6 +14,8 @@ class PlanetSplash extends Component {
     window.planet.onLoad(() => {
       this.planetObject = window.planet.getScene().getObjectByName('planet');
       this.planetObject?.scale.setScalar(0.5);
+
+      document.body.removeAttribute('loading');
     });
   }
 

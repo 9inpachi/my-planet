@@ -34,16 +34,22 @@
   font-size: 5rem;
   margin: 0;
   margin-top: 1rem;
-  transition: letter-spacing 0.5s;
-}
-
-.planet-splash:hover > h1 {
-  letter-spacing: 0.125rem;
 }
 
 /* Portrait */
 @media screen and (orientation: portrait) {
   .planet-splash > h1 {
     font-size: 4rem;
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 768px) {
+  .planet-splash {
+    width: 100%;
+  }
+
+  .planet-splash > h1 {
+    font-size: 3rem;
   }
 }

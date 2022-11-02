@@ -42,7 +42,6 @@
 
 .continent-body {
   font-size: 1.25rem;
-  padding-bottom: var(--continent-vertical-spacing);
   direction: rtl;
   -webkit-mask-image: linear-gradient(to top, transparent, #000000 10%);
   overflow: hidden;
@@ -65,6 +64,7 @@
 }
 
 .continent.continent-active > .continent-body.has-scroll {
+  padding-bottom: var(--continent-vertical-spacing);
   overflow: auto;
 
   /* Scrollbar */

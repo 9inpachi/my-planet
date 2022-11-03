@@ -3350,7 +3350,7 @@ void main() {
   font-family: var(--font-family-heading);
   font-size: 3.5rem;
   margin: 0;
-  color: var(--primary);
+  color: var(--secondary-color);
 }
 
 .back-button {

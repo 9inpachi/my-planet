@@ -3334,7 +3334,7 @@ void main() {
       on:click="this.onBackClick"
     ></mp-arrow-button>
   </nav>
-  <h1 class="continent-title"><slot></slot></h1>
+  <h2 class="continent-title"><span><slot></slot></span></h2>
 </header>
 `,Gx=`.continent-header {
   --gradient: linear-gradient(
@@ -3349,8 +3349,8 @@ void main() {
 .continent-title {
   font-family: var(--font-family-heading);
   font-size: 3.5rem;
+  color: var(--primary);
   margin: 0;
-  color: var(--secondary-color);
 }
 
 .back-button {
@@ -3445,7 +3445,6 @@ void main() {
 }
 
 .continent-body {
-  font-size: 1.25rem;
   flex-grow: 1;
   /* For making scroll appear on the left which is a design element. */
   direction: rtl;

@@ -11,8 +11,8 @@
 .continent-title {
   font-family: var(--font-family-heading);
   font-size: 3.5rem;
+  color: var(--primary);
   margin: 0;
-  color: var(--secondary-color);
 }
 
 .back-button {

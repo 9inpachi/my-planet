@@ -3446,6 +3446,8 @@ void main() {
 
 .continent-body {
   font-size: 1.25rem;
+  flex-grow: 1;
+  /* For making scroll appear on the left which is a design element. */
   direction: rtl;
   -webkit-mask-image: linear-gradient(to top, transparent, #000000 10%);
   overflow: hidden;

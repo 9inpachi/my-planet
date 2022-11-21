@@ -2,7 +2,7 @@ var yd=Object.defineProperty;var u=(s,e)=>yd(s,"name",{value:e,configurable:!0})
 host element and event bubbling will make that "on:click" run on
 clicking this button. -->
 <button class="arrow-button">
-  <span class="arrow-button-label">\${this.label}</span>
+  <span class="arrow-button-label"><slot></slot></span>
   <div class="arrow-button-icon">
     <div class="bar top"></div>
     <div class="bar mid"></div>
@@ -3298,7 +3298,7 @@ void main() {
   on:mouseout="this.onMouseOut"
 >
   <h1>My Planet</h1>
-  <mp-arrow-button :enterButton label="Enter"></mp-arrow-button>
+  <mp-arrow-button :enterButton>Enter</mp-arrow-button>
 </header>
 `,qx=`:host {
   position: fixed;
@@ -3360,11 +3360,14 @@ void main() {
     <mp-arrow-button
       class="back-button"
       direction="left"
-      label="Back"
       on:click="this.onBackClick"
-    ></mp-arrow-button>
+    >
+      Back
+    </mp-arrow-button>
   </nav>
-  <h2 class="continent-title"><span><slot></slot></span></h2>
+  <h2 class="continent-title">
+    <span><slot></slot></span>
+  </h2>
 </header>
 `,Zx=`.continent-header {
   --gradient: linear-gradient(

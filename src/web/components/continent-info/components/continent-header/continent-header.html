@@ -3,9 +3,12 @@
     <mp-arrow-button
       class="back-button"
       direction="left"
-      label="Back"
       on:click="this.onBackClick"
-    ></mp-arrow-button>
+    >
+      Back
+    </mp-arrow-button>
   </nav>
-  <h2 class="continent-title"><span><slot></slot></span></h2>
+  <h2 class="continent-title">
+    <span><slot></slot></span>
+  </h2>
 </header>

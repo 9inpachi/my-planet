@@ -101,7 +101,11 @@ clicking this button. -->
   right: 100%;
   left: -1.5rem;
 }
-`;var Rd=Object.defineProperty,Pd=Object.getOwnPropertyDescriptor,ga=u((s,e,t,n)=>{for(var i=n>1?void 0:n?Pd(e,t):e,r=s.length-1,o;r>=0;r--)(o=s[r])&&(i=(n?o(e,t,i):o(i))||i);return n&&i&&Rd(e,t,i),i},"__decorateClass$8");let Ds=u(class extends Jt{},"ArrowButton");ga([Vs()],Ds.prototype,"direction",2);ga([Vs()],Ds.prototype,"label",2);Ds=ga([Gn(Cd),Wn(Ld)],Ds);hn(Ds);const Dd=`svg {
+`;var Rd=Object.defineProperty,Pd=Object.getOwnPropertyDescriptor,ga=u((s,e,t,n)=>{for(var i=n>1?void 0:n?Pd(e,t):e,r=s.length-1,o;r>=0;r--)(o=s[r])&&(i=(n?o(e,t,i):o(i))||i);return n&&i&&Rd(e,t,i),i},"__decorateClass$8");let Ds=u(class extends Jt{},"ArrowButton");ga([Vs()],Ds.prototype,"direction",2);ga([Vs()],Ds.prototype,"label",2);Ds=ga([Gn(Cd),Wn(Ld)],Ds);hn(Ds);const Dd=`:host {
+  display: inline-block;
+}
+
+svg {
   width: 100%;
   height: 100%;
 }

@@ -35,10 +35,10 @@ clicking this button. -->
 
 .arrow-button-icon {
   position: absolute;
-  top: calc(50% - 1.4125rem / 2);
-  left: calc(50% - 3.5rem / 2);
-  height: 1.4125rem;
-  width: 3.5rem;
+  top: calc(50% - var(--arrow-height) / 2);
+  left: calc(50% - var(--arrow-width) / 2);
+  height: var(--arrow-height);
+  width: var(--arrow-width);
   transition: all 0.5s;
 }
 
@@ -47,7 +47,7 @@ clicking this button. -->
   top: calc(50% - 0.125rem);
   background: var(--primary);
   border-radius: 0.25rem;
-  height: 0.25rem;
+  height: var(--line-width);
   transition: all 0.5s;
 
   /* Assume right direction by default. */

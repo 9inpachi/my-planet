@@ -1,0 +1,35 @@
+.circle-button {
+  all: unset;
+  padding: 0.5rem;
+  border: 0.25rem solid var(--primary);
+  border-radius: 50%;
+  color: var(--primary);
+  position: relative;
+  cursor: pointer;
+}
+
+.circle-button-icon {
+  display: block;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.circle-button-tooltip {
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 0.75rem);
+  transform: translateY(-50%);
+  background: var(--bg-primary-dim);
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  white-space: nowrap;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.25s;
+  pointer-events: none;
+}
+
+.circle-button:hover > .circle-button-tooltip {
+  visibility: visible;
+  opacity: 1;
+}

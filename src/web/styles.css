@@ -19,6 +19,7 @@
 
   /* Look */
   --focus-outline: 0.0625rem solid var(--primary-dim);
+  --line-width: 0.25rem;
 }
 
 html,

@@ -16,9 +16,6 @@
 
 .circle-button-tooltip {
   position: absolute;
-  top: 50%;
-  left: calc(100% + 0.75rem);
-  transform: translateY(-50%);
   background: var(--bg-primary-dim);
   border-radius: 0.25rem;
   padding: 0.25rem 0.5rem;
@@ -29,7 +26,32 @@
   pointer-events: none;
 }
 
-.circle-button:hover > .circle-button-tooltip {
+.circle-button-tooltip.top {
+  bottom: calc(100% + 0.75rem);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.circle-button-tooltip.right {
+  top: 50%;
+  left: calc(100% + 0.75rem);
+  transform: translateY(-50%);
+}
+
+.circle-button-tooltip.bottom {
+  top: calc(100% + 0.75rem);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.circle-button-tooltip.left {
+  top: 50%;
+  right: calc(100% + 0.75rem);
+  transform: translateY(-50%);
+}
+
+.circle-button:hover > .circle-button-tooltip,
+.circle-button:focus-visible > .circle-button-tooltip {
   visibility: visible;
   opacity: 1;
 }

@@ -14,6 +14,8 @@ import circleButtonStyles from './circle-button.css?raw';
 class CircleButton extends Component {
   @property()
   icon!: string;
+  @property()
+  tooltipPosition = 'top';
 
   iconSrc!: string;
 

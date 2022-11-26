@@ -14,6 +14,8 @@ class Icon extends Component {
   private async loadIcon() {
     const svg = await (await fetch(this.src)).text();
     this.shadowDOM.innerHTML = svg;
+    // To be able to select the `svg` element with
+    // `.icon-element::part(svg)` using css.
     this.shadowDOM.firstElementChild?.setAttribute('part', 'svg');
   }
 }

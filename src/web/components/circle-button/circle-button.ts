@@ -16,10 +16,14 @@ class CircleButton extends Component {
   icon!: string;
   @property()
   tooltipPosition = 'top';
+  @property()
+  link!: string;
 
   iconSrc!: string;
+  tag!: 'button' | 'a';
 
   protected async onBeforeInitAsync() {
+    this.tag = this.link ? 'a' : 'button';
     this.iconSrc = (
       await import(`../../../assets/icons/${this.icon}.svg?url`)
     ).default;

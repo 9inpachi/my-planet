@@ -1,11 +1,16 @@
 .circle-button {
   all: unset;
+  display: inline-block;
   padding: 0.5rem;
   border: 0.25rem solid var(--primary);
   border-radius: 50%;
   color: var(--primary);
   position: relative;
   cursor: pointer;
+}
+
+.circle-button:focus-visible {
+  outline: var(--focus-outline);
 }
 
 .circle-button-icon {

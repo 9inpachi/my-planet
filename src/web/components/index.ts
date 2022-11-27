@@ -8,3 +8,4 @@ import './planet-splash/planet-splash';
 
 import './continent-info';
 import './continent-pin/continent-pin';
+import './project/project';

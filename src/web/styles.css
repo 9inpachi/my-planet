@@ -21,6 +21,11 @@
   /* Look */
   --focus-outline: 0.0625rem solid var(--primary-dim);
   --line-width: 0.25rem;
+
+  /* Layout */
+  --layer-background: -1;
+  --layer-base: 0;
+  --layer-front: 1;
 }
 
 html,

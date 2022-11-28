@@ -2,7 +2,7 @@
   all: unset;
   display: inline-block;
   padding: 0.5rem;
-  border: 0.25rem solid var(--primary);
+  border: var(--line-width) solid var(--primary);
   border-radius: 50%;
   color: var(--primary);
   position: relative;

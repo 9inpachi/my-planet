@@ -59,55 +59,79 @@
           Projects
         </mp-continent-header>
         <mp-continent-body slot="continent-body">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-            molestie magna sed ante gravida, ut pharetra arcu blandit. Mauris
-            justo dolor, convallis ac porta non, semper quis ipsum. Pellentesque
-            sed ex venenatis, viverra quam at, pretium ex. Aenean fringilla
-            mattis mauris ac imperdiet. In fringilla nulla nulla, sed tincidunt
-            nisi malesuada in. Vivamus eleifend justo ut arcu molestie, in
-            elementum urna ultrices. Nunc ac ex in turpis tempus rutrum. Nulla
-            vestibulum ex at egestas cursus. In ac magna diam. Quisque egestas
-            efficitur faucibus. Donec ac libero a nunc lacinia ultricies ac non
-            purus. Quisque turpis velit, ultrices et dui eget, accumsan faucibus
-            diam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
-            aliquet erat molestie urna interdum commodo.
-          </p>
-          <p>
-            In hac habitasse platea dictumst. Duis massa est, pretium eu mattis
-            ut, accumsan vitae lacus. Cras vel sagittis nulla. Morbi tincidunt
-            ante in est tempus sagittis. Integer non enim id erat pulvinar
-            ultricies. Pellentesque fermentum nulla nec condimentum tempus.
-            Maecenas in metus ipsum. Sed egestas quis risus eget feugiat.
-            Pellentesque varius velit justo, et rutrum dui ullamcorper vitae.
-            Quisque mattis risus eu arcu sollicitudin porttitor. Morbi egestas
-            erat tellus, nec molestie est convallis et. In felis nunc, accumsan
-            ut nisl et, condimentum dictum mi. Pellentesque ullamcorper, ex ac
-            tincidunt sodales, purus erat auctor libero, sit amet pharetra velit
-            tellus sit amet justo.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi
-            libero turpis, venenatis id molestie nec, aliquam at ligula. Aenean
-            posuere non diam in hendrerit. Sed efficitur, tellus sed lobortis
-            scelerisque, libero lorem placerat orci, vel maximus elit nisi non
-            enim. Pellentesque habitant morbi tristique senectus et netus et
-            malesuada fames ac turpis egestas. Nulla semper in metus a finibus.
-            Duis lacinia luctus erat, eget venenatis nisi interdum in. Curabitur
-            a odio elit. Morbi luctus lorem quis nulla iaculis accumsan. Vivamus
-            eget aliquam mauris.
-          </p>
-          <p>
-            Integer leo eros, viverra ut risus ac, viverra lobortis lectus.
-            Curabitur a justo eget nulla aliquam malesuada vitae vel odio.
-            Aenean nec vestibulum arcu. Integer tincidunt placerat tortor sed
-            pulvinar. Sed eget mi fermentum purus mattis porttitor. Phasellus
-            ornare, nunc vitae mattis maximus, ex arcu convallis justo, at
-            tristique purus risus elementum diam. Duis feugiat, purus in
-            placerat efficitur, neque mauris hendrerit neque, sit amet lobortis
-            sem libero lobortis ipsum. Etiam varius convallis purus nec iaculis.
-            Nulla pulvinar elit eu erat bibendum tempus.
-          </p>
+          <mp-project>
+            <h3 slot="project-title">Interactive Maps Application</h3>
+            <p slot="project-description">
+              An application extension in XWiki to easily create interactive
+              maps with ability to share locations and associate structured data
+              with areas.
+            </p>
+            <div slot="project-links">
+              <mp-circle-button
+                icon="code"
+                tooltip-position="right"
+                link="https://github.com/xwiki-contrib/application-interactive-maps"
+              >
+                Source
+              </mp-circle-button>
+              <mp-circle-button
+                icon="link"
+                tooltip-position="right"
+                link="https://extensions.xwiki.org/xwiki/bin/view/Extension/InteractiveMapsApplication/"
+              >
+                App
+              </mp-circle-button>
+            </div>
+          </mp-project>
+          <mp-project>
+            <h3 slot="project-title">
+              OpenCL code-generation backend for GPU-enhanced Neural Networks
+            </h3>
+            <p slot="project-description">
+              GeNN is a GPU-enhanced Neuronal Network simulation environment
+              based on code generation for NVIDIA CUDA. This project added a new
+              OpenCL based backend to GeNN.
+            </p>
+            <div slot="project-links">
+              <mp-circle-button
+                icon="code"
+                tooltip-position="right"
+                link="https://github.com/9inpachi/genn"
+              >
+                Source
+              </mp-circle-button>
+            </div>
+          </mp-project>
+          <mp-project>
+            <h3 slot="project-title">Phoenix</h3>
+            <p slot="project-description">
+              A web-based experiment independent event display for High Energy
+              Physics.
+            </p>
+            <div slot="project-links">
+              <mp-circle-button
+                icon="code"
+                tooltip-position="right"
+                link="https://github.com/HSF/phoenix"
+              >
+                Source
+              </mp-circle-button>
+              <mp-circle-button
+                icon="link"
+                tooltip-position="right"
+                link="https://hepsoftwarefoundation.org/phoenix/"
+              >
+                App
+              </mp-circle-button>
+            </div>
+          </mp-project>
+          <mp-project>
+            <h3 slot="project-title">Empower Youth for Work - Oxfam GB</h3>
+            <p slot="project-description">
+              A web system to manage beneficiaries information and keep track of
+              beneficiaries influenced by the EYW project.
+            </p>
+          </mp-project>
         </mp-continent-body>
       </mp-continent-info>
     </mp-continent>

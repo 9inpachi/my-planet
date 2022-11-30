@@ -3750,6 +3750,6 @@ void main() {
 </section>
 `,Ey=`.project-links::slotted(*) {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.75rem;
 }
 `;var Ay=Object.defineProperty,Cy=Object.getOwnPropertyDescriptor,Ly=u((s,e,t,n)=>{for(var i=n>1?void 0:n?Cy(e,t):e,r=s.length-1,o;r>=0;r--)(o=s[r])&&(i=(n?o(e,t,i):o(i))||i);return n&&i&&Ay(e,t,i),i},"__decorateClass");let ga=u(class extends qt{},"Project");ga=Ly([wn(Ty),Sn(Ey)],ga);Qt(ga);

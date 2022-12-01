@@ -3622,19 +3622,16 @@ void main() {
 
 /* Tablet */
 @media screen and (max-width: 992px) {
+  .continent {
+    width: 50%;
+  }
+
   .continent-body::-webkit-scrollbar-track-piece:end {
     margin-bottom: 0;
   }
 
   .continent-body::-webkit-scrollbar-track-piece:start {
     margin-top: 0;
-  }
-}
-
-/* Tablet */
-@media screen and (max-width: 992px) {
-  .continent {
-    width: 50%;
   }
 }
 

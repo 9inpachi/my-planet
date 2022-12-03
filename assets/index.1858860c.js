@@ -3751,6 +3751,7 @@ void main() {
 }
 `;var Cy=Object.defineProperty,Ly=Object.getOwnPropertyDescriptor,Ry=u((s,e,t,n)=>{for(var i=n>1?void 0:n?Ly(e,t):e,r=s.length-1,o;r>=0;r--)(o=s[r])&&(i=(n?o(e,t,i):o(i))||i);return n&&i&&Cy(e,t,i),i},"__decorateClass$1");let ga=u(class extends Ut{},"Project");ga=Ry([dn(Ey),fn(Ay)],ga);Yt(ga);const Py=`<slot class="timeline-event"></slot>
 `,Dy=`.timeline-event::slotted(*) {
+  display: block;
   position: relative;
   /* 1.5rem for "::before" and 0.5rem for spacing. */
   margin-left: 2rem;

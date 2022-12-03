@@ -1,4 +1,5 @@
 .timeline-event::slotted(*) {
+  display: block;
   position: relative;
   /* 1.5rem for "::before" and 0.5rem for spacing. */
   margin-left: 2rem;

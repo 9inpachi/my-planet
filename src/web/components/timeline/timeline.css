@@ -1,0 +1,16 @@
+.timeline-event::slotted(*) {
+  position: relative;
+  /* 1.5rem for "::before" and 0.5rem for spacing. */
+  margin-left: 2rem;
+}
+
+.timeline-event::slotted(*)::before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  right: calc(100% + 0.5rem);
+  width: 1.5rem;
+  height: 1.5rem;
+  border: var(--line-width) solid var(--primary);
+  border-radius: 50%;
+}

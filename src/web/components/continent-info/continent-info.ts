@@ -51,7 +51,7 @@ class ContinentInfo extends Component {
   onWrapperMouseWheel(event: WheelEvent) {
     // Don't propogate to the `scroll` event.
     event.preventDefault();
-    // Active the continent with a minimum down scroll.
+    // Activate the continent with a minimum down scroll.
     if (this.isScrollDown(event)) {
       this.activateContinent();
     }

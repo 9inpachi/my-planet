@@ -3780,6 +3780,7 @@ void main() {
 
 .timeline-event-data::slotted(h3) {
   margin-top: 0;
+  font-size: 1.25rem;
 }
 `;var Oy=Object.defineProperty,Ny=Object.getOwnPropertyDescriptor,Fy=u((s,e,t,n)=>{for(var i=n>1?void 0:n?Ny(e,t):e,r=s.length-1,o;r>=0;r--)(o=s[r])&&(i=(n?o(e,t,i):o(i))||i);return n&&i&&Oy(e,t,i),i},"__decorateClass$1");let _a=u(class extends It{},"TimelineEvent");_a=Fy([en(Dy),tn(Iy)],_a);kt(_a);const Uy=`<slot class="timeline-event"></slot>
 `,ky=`/* Hide the vertical bar for the last timeline event. */

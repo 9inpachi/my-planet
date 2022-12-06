@@ -1,8 +1,8 @@
 :host {
   display: block;
   position: relative;
-  /* 1.5rem for "::before" and 0.5rem for spacing. */
-  margin-left: 2rem;
+  /* 1.25rem for "::before" and 0.5rem for spacing. */
+  margin-left: 1.75rem;
 }
 
 :host::before {
@@ -10,8 +10,8 @@
   box-sizing: border-box;
   position: absolute;
   right: calc(100% + 0.5rem);
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 1.25rem;
+  height: 1.25rem;
   border: var(--line-width) solid var(--primary);
   border-radius: 50%;
 }
@@ -20,13 +20,19 @@
   content: '';
   position: absolute;
   background: var(--primary);
-  top: 1.5rem;
-  right: calc(100% + 1rem + var(--line-width) / 2);
+  top: 1.25rem;
+  right: calc(100% + 0.5rem + 1.25rem / 2 - var(--line-width) / 2);
   width: var(--line-width);
-  height: calc(100% - 0.5rem);
+  height: calc(100% - 0.25rem);
 }
 
-.timeline-event-data::slotted(h3) {
-  margin-top: 0;
+.timeline-event-time::slotted(span),
+.timeline-event-subtitle::slotted(span) {
+  font-size: 0.75rem;
+  color: var(--primary-dim);
+}
+
+.timeline-event-title::slotted(h3) {
+  margin: 0;
   font-size: 1.25rem;
 }

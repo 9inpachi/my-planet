@@ -3749,12 +3749,15 @@ void main() {
   display: flex;
   gap: 0.75rem;
 }
-`;var Ly=Object.defineProperty,Ry=Object.getOwnPropertyDescriptor,Py=u((s,e,t,n)=>{for(var i=n>1?void 0:n?Ry(e,t):e,r=s.length-1,o;r>=0;r--)(o=s[r])&&(i=(n?o(e,t,i):o(i))||i);return n&&i&&Ly(e,t,i),i},"__decorateClass$2");let ga=u(class extends It{},"Project");ga=Py([en(Ay),tn(Cy)],ga);kt(ga);const Dy=`<slot class="timeline-event-data"></slot>
+`;var Ly=Object.defineProperty,Ry=Object.getOwnPropertyDescriptor,Py=u((s,e,t,n)=>{for(var i=n>1?void 0:n?Ry(e,t):e,r=s.length-1,o;r>=0;r--)(o=s[r])&&(i=(n?o(e,t,i):o(i))||i);return n&&i&&Ly(e,t,i),i},"__decorateClass$2");let ga=u(class extends It{},"Project");ga=Py([en(Ay),tn(Cy)],ga);kt(ga);const Dy=`<slot name="time" class="timeline-event-time"></slot>
+<slot name="title" class="timeline-event-title"></slot>
+<slot name="subtitle" class="timeline-event-subtitle"></slot>
+<p><slot></slot></p>
 `,Iy=`:host {
   display: block;
   position: relative;
-  /* 1.5rem for "::before" and 0.5rem for spacing. */
-  margin-left: 2rem;
+  /* 1.25rem for "::before" and 0.5rem for spacing. */
+  margin-left: 1.75rem;
 }
 
 :host::before {
@@ -3762,8 +3765,8 @@ void main() {
   box-sizing: border-box;
   position: absolute;
   right: calc(100% + 0.5rem);
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 1.25rem;
+  height: 1.25rem;
   border: var(--line-width) solid var(--primary);
   border-radius: 50%;
 }
@@ -3772,14 +3775,20 @@ void main() {
   content: '';
   position: absolute;
   background: var(--primary);
-  top: 1.5rem;
-  right: calc(100% + 1rem + var(--line-width) / 2);
+  top: 1.25rem;
+  right: calc(100% + 0.5rem + 1.25rem / 2 - var(--line-width) / 2);
   width: var(--line-width);
-  height: calc(100% - 0.5rem);
+  height: calc(100% - 0.25rem);
 }
 
-.timeline-event-data::slotted(h3) {
-  margin-top: 0;
+.timeline-event-time::slotted(span),
+.timeline-event-subtitle::slotted(span) {
+  font-size: 0.75rem;
+  color: var(--primary-dim);
+}
+
+.timeline-event-title::slotted(h3) {
+  margin: 0;
   font-size: 1.25rem;
 }
 `;var Oy=Object.defineProperty,Ny=Object.getOwnPropertyDescriptor,Fy=u((s,e,t,n)=>{for(var i=n>1?void 0:n?Ny(e,t):e,r=s.length-1,o;r>=0;r--)(o=s[r])&&(i=(n?o(e,t,i):o(i))||i);return n&&i&&Oy(e,t,i),i},"__decorateClass$1");let _a=u(class extends It{},"TimelineEvent");_a=Fy([en(Dy),tn(Iy)],_a);kt(_a);const Uy=`<slot class="timeline-event"></slot>

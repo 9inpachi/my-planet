@@ -1,1 +1,1 @@
-const e=""+new URL("images/placeholder-continent.svg",import.meta.url).href;export{e as default};
+const t=""+new URL("images/connect-continent.svg",import.meta.url).href;export{t as default};

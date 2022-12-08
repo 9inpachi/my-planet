@@ -5,7 +5,7 @@ import { TreeProperties } from '../../objects/tree';
 import { LandHeight } from '../common/lib/heights';
 import { WithPositionAttributes } from '../common/lib/types';
 
-export const placeholderTrees: WithPositionAttributes<TreeProperties>[] = [
+export const connectTrees: WithPositionAttributes<TreeProperties>[] = [
   {
     scale: 1.2,
     lat: 222,
@@ -37,7 +37,7 @@ export const placeholderTrees: WithPositionAttributes<TreeProperties>[] = [
   },
 ];
 
-export const placeholderHouses: WithPositionAttributes<HouseProperties>[] = [
+export const connectHouses: WithPositionAttributes<HouseProperties>[] = [
   {
     scale: 1,
     lat: -140,
@@ -47,19 +47,18 @@ export const placeholderHouses: WithPositionAttributes<HouseProperties>[] = [
   },
 ];
 
-export const placeholderBuildings: WithPositionAttributes<BuildingProperties>[] =
-  [
-    {
-      scale: 1,
-      lat: -133,
-      lng: -147,
-      rotation: 70,
-      landHeight: LandHeight.LevelTwo,
-      floors: 2,
-    },
-  ];
+export const connectBuildings: WithPositionAttributes<BuildingProperties>[] = [
+  {
+    scale: 1,
+    lat: -133,
+    lng: -147,
+    rotation: 70,
+    landHeight: LandHeight.LevelTwo,
+    floors: 2,
+  },
+];
 
-export const placeholderHuts: WithPositionAttributes<HutProperties>[] = [
+export const connectHuts: WithPositionAttributes<HutProperties>[] = [
   {
     lat: -50,
     lng: -5,

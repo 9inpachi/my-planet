@@ -8,7 +8,7 @@ import { ProjectsContinent } from './continents/projects-continent/projects-cont
 import { GltfLoader } from '../three/loaders/gltf-loader';
 import { WorkContinent } from './continents/work-continent/work-continent';
 import { LifeContinent } from './continents/life-continent/life-continent';
-import { PlaceholderContinent } from './continents/placeholder-continent/placeholder-continent';
+import { ConnectContinent } from './continents/connect-continent/connect-continent';
 import { Galaxy } from './objects/galaxy';
 import { enableParallax } from './common/util/parallax';
 import { ContinentInteractor } from './continents/continent-interactor/continent-interactor';
@@ -92,7 +92,7 @@ export class Planet {
       new ProjectsContinent({ globeRadius }),
       new WorkContinent({ globeRadius }),
       new LifeContinent({ globeRadius }),
-      new PlaceholderContinent({ globeRadius }),
+      new ConnectContinent({ globeRadius }),
     ];
 
     allContinents.forEach((continent) => {

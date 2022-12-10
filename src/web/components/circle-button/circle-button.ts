@@ -24,9 +24,10 @@ class CircleButton extends Component {
 
   protected async onBeforeInitAsync() {
     this.tag = this.link ? 'a' : 'button';
-    this.iconSrc = (
-      await import(`../../../assets/icons/${this.icon}.svg?url`)
-    ).default;
+    // Using the string directly in the import statement gives an error
+    // when using paths like `social/facebook`.
+    const path = `../../../assets/icons/${this.icon}.svg?url`;
+    this.iconSrc = (await import(/* @vite-ignore */ path)).default;
   }
 }
 

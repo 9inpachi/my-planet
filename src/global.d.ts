@@ -4,6 +4,7 @@ declare module '*.jpg';
 declare module '*.jpeg';
 declare module '*.gif';
 declare module '*.svg?raw';
+declare module '*.svg?url';
 declare module '*.ico';
 
 // Geometries

@@ -127,16 +127,28 @@ clicking this button. -->
   color: var(--primary);
   position: relative;
   cursor: pointer;
+  transition: all 0.5s;
 }
 
 .circle-button:focus-visible {
   outline: var(--focus-outline);
 }
 
+.circle-button:hover,
+.circle-button:focus-visible {
+  background: var(--primary);
+}
+
+.circle-button:hover .circle-button-icon,
+.circle-button:focus-visible .circle-button-icon {
+  color: var(--bg-primary);
+}
+
 .circle-button-icon {
   display: block;
   width: 1.5rem;
   height: 1.5rem;
+  transition: all 0.5s;
 }
 
 .circle-button-tooltip {
@@ -147,7 +159,7 @@ clicking this button. -->
   white-space: nowrap;
   visibility: hidden;
   opacity: 0;
-  transition: all 0.25s;
+  transition: all 0.5s;
   pointer-events: none;
   z-index: var(--layer-front);
 }

@@ -24,10 +24,22 @@ class CircleButton extends Component {
 
   protected async onBeforeInitAsync() {
     this.tag = this.link ? 'a' : 'button';
-    // Using the string directly in the import statement gives an error
-    // when using paths like `social/facebook`.
-    const path = `../../../assets/icons/${this.icon}.svg?url`;
-    this.iconSrc = (await import(/* @vite-ignore */ path)).default;
+
+    // Workaround. If the icon exists in a directory like "social", then
+    // we manually split the directory and icon. Because it's not
+    // possible to specify a path like `social/facebook` in `this.icon`.
+    // See https://www.npmjs.com/package/vite-plugin-dynamic-import.
+    if (this.icon.includes('/')) {
+      const [directory, icon] = this.icon.split('/');
+
+      this.iconSrc = (
+        await import(`../../../assets/icons/${directory}/${icon}.svg?url`)
+      ).default;
+    } else {
+      this.iconSrc = (
+        await import(`../../../assets/icons/${this.icon}.svg?url`)
+      ).default;
+    }
   }
 }
 

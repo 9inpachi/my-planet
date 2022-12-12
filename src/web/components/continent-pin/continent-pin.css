@@ -9,19 +9,20 @@
   top: 1rem;
   left: 0;
   pointer-events: none;
+  /* Hide the pin on page load using transform. Because `visibility:
+  hidden;` takes effect only after 0.25s due to the `transition` applied
+  to it. */
+  transform: translateX(-500%);
   /* Only displays on hover of continent. */
   visibility: hidden;
   opacity: 0;
-  transition: opacity 0.25s, top 0.25s, visibility 0s;
-  /* Delay is applied to not immediately hide pin on mouse out. */
-  transition-delay: 0s, 0s, 0.25s;
+  transition: opacity 0.25s, top 0.25s, visibility 0.25s;
 }
 
 :host([mouseover]) {
   visibility: visible;
   opacity: 1;
   top: 0;
-  transition-delay: 0s;
 }
 
 .continent-pin {

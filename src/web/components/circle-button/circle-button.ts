@@ -28,7 +28,7 @@ class CircleButton extends Component {
     // Workaround. If the icon exists in a directory like "social", then
     // we manually split the directory and icon. Because it's not
     // possible to specify a path like `social/facebook` in `this.icon`.
-    // See https://www.npmjs.com/package/vite-plugin-dynamic-import.
+    // See https://github.com/rollup/plugins/tree/master/packages/dynamic-import-vars#limitations.
     if (this.icon.includes('/')) {
       const [directory, icon] = this.icon.split('/');
 

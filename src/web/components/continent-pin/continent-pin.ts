@@ -16,14 +16,10 @@ class ContinentPin extends Component {
   @property()
   name!: string;
 
-  iconSrc!: string;
+  icon!: string;
 
   protected async onBeforeInitAsync() {
-    this.iconSrc = (
-      await import(
-        `../../../assets/icons/${camelCaseToKebabCase(this.name)}.svg?url`
-      )
-    ).default;
+    this.icon = camelCaseToKebabCase(this.name);
   }
 }
 

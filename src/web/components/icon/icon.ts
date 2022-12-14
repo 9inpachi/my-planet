@@ -7,7 +7,7 @@ class Icon extends Component {
   /** URL of the icon. */
   @property()
   src!: string;
-  /** Local icon located in `assets/icons`. */
+  /** Local icon located in `./src/assets/icons`. */
   @property()
   icon!: string;
 
@@ -17,8 +17,8 @@ class Icon extends Component {
 
   private async loadIcon() {
     const svg = this.icon
-      ? await this.importIconSource()
-      : await this.fetchIconSource();
+      ? await this.importIconFromAssets()
+      : await this.fetchIcon();
 
     this.shadowDOM.innerHTML = svg;
     // To be able to select the `svg` element with
@@ -27,9 +27,16 @@ class Icon extends Component {
   }
 
   /**
+   * Fetch the icon from a URL.
+   */
+  private async fetchIcon(): Promise<string> {
+    return await (await fetch(this.src)).text();
+  }
+
+  /**
    * Import the icon from local assets.
    */
-  private async importIconSource(): Promise<string> {
+  private async importIconFromAssets(): Promise<string> {
     // Workaround. If the icon exists in a directory like "social", then
     // we manually split the directory and icon. Because it's not
     // possible to specify a path like `social/facebook` in `this.icon`.
@@ -44,13 +51,6 @@ class Icon extends Component {
       return (await import(`../../../assets/icons/${this.icon}.svg?raw`))
         .default;
     }
-  }
-
-  /**
-   * Fetch the icon from a URL.
-   */
-  private async fetchIconSource(): Promise<string> {
-    return await (await fetch(this.src)).text();
   }
 }
 

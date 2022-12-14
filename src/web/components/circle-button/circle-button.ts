@@ -19,27 +19,10 @@ class CircleButton extends Component {
   @property()
   link!: string;
 
-  iconSrc!: string;
   tag!: 'button' | 'a';
 
   protected async onBeforeInitAsync() {
     this.tag = this.link ? 'a' : 'button';
-
-    // Workaround. If the icon exists in a directory like "social", then
-    // we manually split the directory and icon. Because it's not
-    // possible to specify a path like `social/facebook` in `this.icon`.
-    // See https://github.com/rollup/plugins/tree/master/packages/dynamic-import-vars#limitations.
-    if (this.icon.includes('/')) {
-      const [directory, icon] = this.icon.split('/');
-
-      this.iconSrc = (
-        await import(`../../../assets/icons/${directory}/${icon}.svg?url`)
-      ).default;
-    } else {
-      this.iconSrc = (
-        await import(`../../../assets/icons/${this.icon}.svg?url`)
-      ).default;
-    }
   }
 }
 

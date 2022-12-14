@@ -2,7 +2,7 @@
 host element and event bubbling will make that "on:click" run on
 clicking this button. -->
 <${this.tag} class="circle-button" ${this.link ? `href="${this.link}"` : ''}>
-  <mp-icon src="${this.iconSrc}" class="circle-button-icon"></mp-icon>
+  <mp-icon icon="${this.icon}" class="circle-button-icon"></mp-icon>
   <span class="circle-button-tooltip ${this.tooltipPosition}">
     <slot></slot>
   </span>

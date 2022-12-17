@@ -20,6 +20,12 @@
   margin-bottom: 1rem;
 }
 
+.continent-icon {
+  height: 3rem;
+  --primary-color: var(--primary);
+  --secondary-color: var(--primary);
+}
+
 /* Tablet */
 @media screen and (max-width: 992px) {
   .continent-header {

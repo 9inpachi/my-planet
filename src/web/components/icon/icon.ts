@@ -37,10 +37,11 @@ class Icon extends Component {
    * Import the icon from local assets.
    */
   private async importIconFromAssets(): Promise<string> {
-    // Workaround. If the icon exists in a directory like "social", then
-    // we manually split the directory and icon. Because it's not
-    // possible to specify a path like `social/facebook` in `this.icon`.
-    // See https://github.com/rollup/plugins/tree/master/packages/dynamic-import-vars#limitations.
+    // Workaround. If the icon exists in a directory like "social" (in
+    // "src/assets"), then we manually split the directory and icon.
+    // Because it's not possible to use a path in dynamic import like
+    // `social/facebook` as the value of `this.icon`. See
+    // https://github.com/rollup/plugins/tree/master/packages/dynamic-import-vars#limitations.
     if (this.icon.includes('/')) {
       const [directory, icon] = this.icon.split('/');
 

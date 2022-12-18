@@ -10,3 +10,4 @@ import './continent-info';
 import './continent-pin/continent-pin';
 import './project/project';
 import './timeline';
+import './dev-icon/dev-icon';

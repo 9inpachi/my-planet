@@ -3,7 +3,7 @@ import { Component, property, registerComponent, styles } from '../component';
 import iconStyles from './icon.css?raw';
 
 @styles(iconStyles)
-class Icon extends Component {
+export class Icon extends Component {
   /** URL of the icon. */
   @property()
   src!: string;

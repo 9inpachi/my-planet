@@ -1,3 +1,4 @@
+import './heading/heading';
 import './arrow-button/arrow-button';
 import './icon/icon';
 import './circle-button/circle-button';

@@ -11,7 +11,7 @@ import { LifeContinent } from './continents/life-continent/life-continent';
 import { ConnectContinent } from './continents/connect-continent/connect-continent';
 import { Galaxy } from './objects/galaxy';
 import { enableParallax } from './common/util/parallax';
-import { ContinentInteractor } from './continents/continent-interactor/continent-interactor';
+import { ContinentInteractor } from './continents/common/util/continent-interactor';
 import { isScreenPortrait } from '../common/util/responsive';
 import {
   defaultCameraConfigDesktop,

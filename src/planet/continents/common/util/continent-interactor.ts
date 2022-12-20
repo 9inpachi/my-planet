@@ -1,19 +1,19 @@
 import { Easing } from '@tweenjs/tween.js';
 import { MathUtils, Matrix4, Object3D, Quaternion, Vector3 } from 'three';
-import { isScreenPortrait } from '../../../common/util/responsive';
-import { Three } from '../../../three';
+import { isScreenPortrait } from '../../../../common/util/responsive';
+import { Three } from '../../../../three';
 import {
   getObjectCenter,
   getDirectionBetweenVectors,
   getObjectDirection,
   getObjectPositionOnScreen,
-} from '../../../three/common/util/transform';
-import { BaseContinent } from '../base-continent';
-import { CameraTargetTransform } from './lib/types';
+} from '../../../../three/common/util/transform';
+import { BaseContinent } from '../../base-continent';
+import { CameraTargetTransform } from '../lib/types';
 import {
   continentCameraTransformMobile,
   continentCameraTransformDesktop,
-} from './lib/continent-camera-config';
+} from '../lib/continent-camera-config';
 
 // If we want to remove dependency to `src/web` and avoid accessing DOM
 // elements from here, we can add callbacks with methods like

@@ -32,7 +32,6 @@
   color: var(--primary-dim);
 }
 
-.timeline-event-title::slotted(h3) {
+.timeline-event-title::slotted(*) {
   margin: 0;
-  font-size: 1.25rem;
 }

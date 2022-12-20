@@ -3,7 +3,6 @@
 }
 
 :host {
-  box-sizing: border-box;
   display: block;
   font-family: var(--font-family-heading);
   font-weight: bold;

@@ -9,7 +9,6 @@
 }
 
 .continent-title {
-  font-family: var(--font-family-heading);
   font-size: 3.5rem;
   color: var(--primary);
   margin: 0;
@@ -34,7 +33,6 @@
 
   .continent-title {
     font-size: 3rem;
-    margin: 0;
   }
 }
 

@@ -5,7 +5,6 @@ var Pd=Object.defineProperty;var u=(s,e)=>Pd(s,"name",{value:e,configurable:!0})
 }
 
 :host {
-  box-sizing: border-box;
   display: block;
   font-family: var(--font-family-heading);
   font-weight: bold;
@@ -3422,7 +3421,7 @@ void main() {
   on:mouseover="this.onMouseOver"
   on:mouseout="this.onMouseOut"
 >
-  <h1>My Planet</h1>
+  <mp-heading level="h1" class="planet-splash-title">My Planet</mp-heading>
   <mp-arrow-button :enterButton>Enter</mp-arrow-button>
 </header>
 `,py=`:host {
@@ -3456,8 +3455,7 @@ void main() {
   cursor: pointer;
 }
 
-.planet-splash > h1 {
-  font-family: var(--font-family-heading);
+.planet-splash > .planet-splash-title {
   font-size: 5rem;
   margin: 0;
   margin-top: 1rem;
@@ -3465,7 +3463,7 @@ void main() {
 
 /* Portrait */
 @media screen and (orientation: portrait) {
-  .planet-splash > h1 {
+  .planet-splash > .planet-splash-title {
     font-size: 4rem;
   }
 }
@@ -3476,7 +3474,7 @@ void main() {
     width: 100%;
   }
 
-  .planet-splash > h1 {
+  .planet-splash > .planet-splash-title {
     font-size: 3rem;
   }
 }
@@ -3490,10 +3488,10 @@ void main() {
       Back
     </mp-arrow-button>
   </nav>
-  <h2 class="continent-title">
+  <mp-heading level="h2" class="continent-title">
     <mp-icon icon="\${this.icon}" class="continent-icon"></mp-icon>
     <span><slot></slot></span>
-  </h2>
+  </mp-heading>
 </header>
 `,xy=`.continent-header {
   --gradient: linear-gradient(
@@ -3506,7 +3504,6 @@ void main() {
 }
 
 .continent-title {
-  font-family: var(--font-family-heading);
   font-size: 3.5rem;
   color: var(--primary);
   margin: 0;
@@ -3531,7 +3528,6 @@ void main() {
 
   .continent-title {
     font-size: 3rem;
-    margin: 0;
   }
 }
 
@@ -3725,9 +3721,9 @@ void main() {
 }
 `;var Cy=Object.defineProperty,Ly=Object.getOwnPropertyDescriptor,Ry=u((s,e,t,n)=>{for(var i=n>1?void 0:n?Ly(e,t):e,r=s.length-1,o;r>=0;r--)(o=s[r])&&(i=(n?o(e,t,i):o(i))||i);return n&&i&&Cy(e,t,i),i},"__decorateClass$5");let ma=u(class extends Dt{constructor(){super(...arguments),this.continentActive=!1,this.touchStartY=0}onInit(){this.continent=this.getElement("continent"),this.continentBody=this.getElement("continentBody")}static get observedAttributes(){return["open"]}attributeChangedCallback(s,e,t){if(s!=="open")return;if(t!==null){const{scrollHeight:i,offsetHeight:r}=this.continentBody;i>r&&this.continentBody.classList.add("has-scroll")}else this.deactivateContinent()}onWrapperMouseWheel(s){s.preventDefault(),this.isScrollDown(s)&&this.activateContinent()}onBodyMouseWheel(s){this.continentActive&&s.stopPropagation(),this.continentBody.scrollTop===0&&this.isScrollUp(s)&&this.deactivateContinent()}onWrapperScroll(){this.activateContinent()}onBodyScroll(s){this.continentActive&&s.stopPropagation(),this.continentBody.scrollTop===0&&this.deactivateContinent()}onWrapperTouchStart(s){this.touchStartY=s.changedTouches[0].clientY}onWrapperTouchEnd(s){!this.continentActive&&this.isTouchUp(s)?this.activateContinent():this.continentActive&&this.isTouchDown(s)&&this.deactivateContinent()}onBodyTouchEnd(s){this.continentActive&&s.stopPropagation(),this.continentBody.scrollTop===0&&this.isTouchDown(s)&&this.deactivateContinent()}isScrollUp(s){return s.deltaY<0}isScrollDown(s){return s.deltaY>0}isTouchUp(s){return s.changedTouches[0].clientY<this.touchStartY}isTouchDown(s){return s.changedTouches[0].clientY>this.touchStartY}activateContinent(){this.continent.classList.add("continent-active"),this.continentBody.scrollTop=1,this.continentActive=!0}deactivateContinent(){this.continent.classList.remove("continent-active"),this.continentActive=!1}},"ContinentInfo");ma=Ry([Jt(Ey),Zt(Ay)],ma);It(ma);const Py=`<div class="continent-pin">
   <div class="continent-pin-content">
-    <h2 class="continent-pin-title">
+    <mp-heading level="h3" class="continent-pin-title">
       <slot name="title"></slot>
-    </h2>
+    </mp-heading>
     <slot name="subtitle" class="continent-pin-subtitle"></slot>
   </div>
   <mp-icon icon="\${this.icon}" class="continent-pin-icon"></mp-icon>
@@ -3772,7 +3768,6 @@ void main() {
 }
 
 .continent-pin-title {
-  font-family: var(--font-family-heading);
   margin: 0;
 }
 
@@ -3840,9 +3835,8 @@ void main() {
   color: var(--primary-dim);
 }
 
-.timeline-event-title::slotted(h3) {
+.timeline-event-title::slotted(*) {
   margin: 0;
-  font-size: 1.25rem;
 }
 `;var Hy=Object.defineProperty,Vy=Object.getOwnPropertyDescriptor,Gy=u((s,e,t,n)=>{for(var i=n>1?void 0:n?Vy(e,t):e,r=s.length-1,o;r>=0;r--)(o=s[r])&&(i=(n?o(e,t,i):o(i))||i);return n&&i&&Hy(e,t,i),i},"__decorateClass$2");let _a=u(class extends Dt{},"TimelineEvent");_a=Gy([Jt(zy),Zt(By)],_a);It(_a);const Wy=`<slot class="timeline-event"></slot>
 `,jy=`/* Hide the vertical bar for the last timeline event. */

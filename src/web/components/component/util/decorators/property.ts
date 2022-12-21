@@ -1,4 +1,4 @@
-import { camelCaseToKebabCase } from '../string';
+import { camelCaseToKebabCase } from '../../../../../common/util/string';
 
 export const property = (definedName?: string): PropertyDecorator => {
   return (target, propertyKey) => {

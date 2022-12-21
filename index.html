@@ -10,7 +10,7 @@
     <link rel="icon" href="./assets/./planet-icon-01.ico" />
     
     
-    <script type="module" crossorigin src="./assets/index-3713c69b.js"></script>
+    <script type="module" crossorigin src="./assets/index-a9e5047a.js"></script>
     <link rel="stylesheet" href="./assets/css/index.css">
   </head>
 
@@ -21,61 +21,11 @@
     <mp-planet-splash></mp-planet-splash>
 
     <!-- Continent names are set in continent classes and 3D model. -->
-
-    <mp-continent style="--primary-color: #d45c2a; --secondary-color: #ef941c">
-      <mp-continent-pin name="aboutContinent">
-        <span slot="title">About</span>
-        <span slot="subtitle">Click on the continent to land</span>
-      </mp-continent-pin>
-      <mp-continent-info name="aboutContinent">
-        <mp-continent-header slot="continent-header" icon="about-continent">
-          About
-        </mp-continent-header>
-        <mp-continent-body slot="continent-body">
-          <mp-heading level="h3">Who am I?</mp-heading>
-          <p>Hi there!</p>
-          <p>
-            <b>Fawad Ali</b> here. An anime guy who loves to develop software.
-          </p>
-          <p>
-            A <b>Software Engineer</b> currently building great stuff at Amazon.
-            Someone who is interested in contributing to the world through
-            software with experience working across multiple tech stacks.
-          </p>
-          <p>
-            Originally from the wonderful land of Pakistan and enjoying life in
-            Madrid, Spain these days.
-          </p>
-          <p>
-            In my free time, I like to watch anime and contribute to open
-            source.
-          </p>
-          <mp-heading level="h3">Programming</mp-heading>
-          <p>
-            <mp-dev-icon icon="dev/typescript" title="TypeScript"></mp-dev-icon>
-            <mp-dev-icon icon="dev/javascript" title="JavaScript"></mp-dev-icon>
-            <mp-dev-icon icon="dev/java" title="Java"></mp-dev-icon>
-            <mp-dev-icon icon="dev/kotlin" title="Kotlin"></mp-dev-icon>
-            <mp-dev-icon icon="dev/cplusplus" title="C++"></mp-dev-icon>
-          </p>
-          <mp-heading level="h3">Web</mp-heading>
-          <p>
-            <mp-dev-icon icon="dev/angularjs" title="Angular"></mp-dev-icon>
-            <mp-dev-icon icon="dev/react" title="React"></mp-dev-icon>
-            <mp-dev-icon icon="dev/graphql" title="GraphQL"></mp-dev-icon>
-            <mp-dev-icon icon="dev/mongodb" title="MongoDB"></mp-dev-icon>
-            <mp-dev-icon icon="dev/mysql" title="MySQL"></mp-dev-icon>
-            <mp-dev-icon icon="dev/nodejs" title="Node.js"></mp-dev-icon>
-            <mp-dev-icon icon="dev/php" title="PHP"></mp-dev-icon>
-            <mp-dev-icon icon="dev/spring" title="Spring"></mp-dev-icon>
-            <mp-dev-icon
-              icon="dev/aws"
-              title="Amazon Web Services"
-            ></mp-dev-icon>
-          </p>
-        </mp-continent-body>
-      </mp-continent-info>
-    </mp-continent>
+    <mp-continents>
+      <mp-about-continent
+        style="--primary-color: #d45c2a; --secondary-color: #ef941c"
+      ></mp-about-continent>
+    </mp-continents>
 
     <mp-continent style="--primary-color: #6eb844; --secondary-color: #9acd7d">
       <mp-continent-pin name="projectsContinent">

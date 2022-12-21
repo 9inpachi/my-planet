@@ -19,7 +19,7 @@ class ContinentHeader extends Component {
     event.stopPropagation();
 
     window.planet.resetControls();
-    document.querySelector('mp-continent-info[open]')?.removeAttribute('open');
+    document.querySelector('mp-continents > *[open]')?.removeAttribute('open');
   }
 }
 

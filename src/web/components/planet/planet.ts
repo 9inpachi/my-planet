@@ -34,7 +34,7 @@ class Planet extends Component {
   }
 
   private deactiveContinentInfo() {
-    const openContinentInfo = document.querySelector('mp-continent-info[open]');
+    const openContinentInfo = document.querySelector('mp-continents > *[open]');
 
     if (openContinentInfo) {
       openContinentInfo.removeAttribute('open');

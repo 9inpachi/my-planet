@@ -1,8 +1,7 @@
-export const evaluateStringTemplate = (
+export const evaluateStringTemplate = <T extends object>(
   template: string,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  context: any,
-) => {
+  context: T,
+): string => {
   const properties = Object.getOwnPropertyNames(context);
   const values = Object.values(context);
   const evaluationFunction = new Function(

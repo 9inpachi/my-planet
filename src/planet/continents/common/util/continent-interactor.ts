@@ -14,6 +14,7 @@ import {
   continentCameraTransformMobile,
   continentCameraTransformDesktop,
 } from '../lib/continent-camera-config';
+import { camelCaseToKebabCase } from '../../../../common/util/string';
 
 // If we want to remove dependency to `src/web` and avoid accessing DOM
 // elements from here, we can add callbacks with methods like
@@ -23,6 +24,7 @@ import {
 
 export class ContinentInteractor<T extends BaseContinent> {
   private continentObject: Object3D;
+  private continentShadowRoot: ShadowRoot;
   private cameraAnimationOptions = {
     duration: 2000,
     easing: Easing.Cubic.Out,
@@ -30,6 +32,9 @@ export class ContinentInteractor<T extends BaseContinent> {
 
   constructor(private three: Three, continent: T, private sun: Object3D) {
     this.continentObject = continent.getObject();
+    this.continentShadowRoot = document.querySelector(
+      `mp-${camelCaseToKebabCase(this.continentObject.name)}`,
+    )?.shadowRoot as ShadowRoot;
   }
 
   public setupEventHandlers() {
@@ -74,10 +79,7 @@ export class ContinentInteractor<T extends BaseContinent> {
 
   private onContinentClick() {
     // If continent is already open.
-    if (
-      this.isContinentInfoOpen(this.continentObject.name) ||
-      this.isAnyContinentInfoOpening()
-    ) {
+    if (this.isContinentInfoOpen() || this.isAnyContinentInfoOpening()) {
       return;
     }
 
@@ -120,43 +122,34 @@ export class ContinentInteractor<T extends BaseContinent> {
 
     // Open Continent Info
 
-    this.openContinentInfo(
-      this.continentObject.name,
-      this.cameraAnimationOptions.duration / 2,
-    );
+    this.openContinentInfo(this.cameraAnimationOptions.duration / 2);
   }
 
-  private openContinentInfo(continentName: string, openDelay: number) {
-    // Close opened continent info.
-    document.querySelector('mp-continent-info[open]')?.removeAttribute('open');
+  private openContinentInfo(openDelay: number) {
+    // Close any open continent info.
+    document.querySelector('mp-continents > *[open]')?.removeAttribute('open');
 
-    const continentInfo = document.querySelector(
-      `mp-continent-info[name="${continentName}"]`,
-    );
+    const continentHost = this.continentShadowRoot.host;
     // This is to avoid problems caused by clicking another continent
     // in this timeout.
-    continentInfo?.setAttribute('opening', '');
+    continentHost?.setAttribute('opening', '');
 
     // Open the continent after a delay for a smoother animation
     // experience. We do it here instead of CSS to make it configurable
     // with `cameraAnimationOptions.duration`.
     setTimeout(() => {
-      continentInfo?.setAttribute('open', '');
-      continentInfo?.removeAttribute('opening');
+      continentHost?.setAttribute('open', '');
+      continentHost?.removeAttribute('opening');
     }, openDelay);
   }
 
-  private isContinentInfoOpen(continentName: string) {
-    const continentInfo = document.querySelector(
-      `mp-continent-info[name="${continentName}"]`,
-    );
-
-    return continentInfo?.hasAttribute('open') ?? false;
+  private isContinentInfoOpen() {
+    return this.getContinentInfo().hasAttribute('open') ?? false;
   }
 
   private isAnyContinentInfoOpening() {
     const openingContinentInfo = document.querySelector(
-      'mp-continent-info[opening]',
+      'mp-continents > *[opening]',
     );
 
     return !!openingContinentInfo;
@@ -226,26 +219,19 @@ export class ContinentInteractor<T extends BaseContinent> {
 
   private onContinentMouseOver() {
     // If continent is already open.
-    if (
-      this.isContinentInfoOpen(this.continentObject.name) ||
-      this.isAnyContinentInfoOpening()
-    ) {
+    if (this.isContinentInfoOpen() || this.isAnyContinentInfoOpening()) {
       return;
     }
 
     const canvas = this.three.getRenderer().getCanvas();
-    const continentPin = document.querySelector(
-      `mp-continent-pin[name=${this.continentObject.name}]`,
-    ) as HTMLElement;
+    const continentPin = this.getContinentPinElement();
 
     canvas.classList.add('has-pointer');
     continentPin.setAttribute('mouseover', '');
   }
 
   private onContinentMouseOut() {
-    const continentPin = document.querySelector(
-      `mp-continent-pin[name=${this.continentObject.name}]`,
-    ) as HTMLElement;
+    const continentPin = this.getContinentPinElement();
     const canvas = this.three.getRenderer().getCanvas();
 
     continentPin.removeAttribute('mouseover');
@@ -273,13 +259,23 @@ export class ContinentInteractor<T extends BaseContinent> {
       canvas,
     );
     const { x: left, y: top } = continentOnScreenPosition;
-    const continentPin = document.querySelector(
-      `mp-continent-pin[name=${this.continentObject.name}]`,
-    ) as HTMLElement;
+    const continentPin = this.getContinentPinElement();
 
     continentPin.style.setProperty(
       'transform',
       `translate(-50%, -50%) translate(${left}px, ${top}px)`,
     );
+  }
+
+  private getContinentPinElement(): HTMLElement {
+    return this.continentShadowRoot.querySelector(
+      'mp-continent-pin',
+    ) as HTMLElement;
+  }
+
+  private getContinentInfo(): HTMLElement {
+    return this.continentShadowRoot.querySelector(
+      `mp-continent-info`,
+    ) as HTMLElement;
   }
 }

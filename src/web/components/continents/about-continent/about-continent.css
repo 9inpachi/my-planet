@@ -1,0 +1,10 @@
+.dev-icons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.dev-icons > mp-icon {
+  width: 3.5rem;
+  height: 3.5rem;
+}

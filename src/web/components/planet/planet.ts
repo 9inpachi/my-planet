@@ -49,10 +49,18 @@ class Planet extends Component {
     window.planet.onLoad(() => {
       const continents = window.planet.getContinents();
       const router = new Router();
+      const planetSplash = document.getElementsByTagName('mp-planet-splash')[0];
 
       for (const continentName in continents) {
         router.addRoute(camelCaseToKebabCase(`/${continentName}`), () => {
           continents[continentName].continentInteractor.clickContinent();
+
+          // Close the planet splash if it's open.
+          if (!planetSplash.hasAttribute('closed')) {
+            setTimeout(() => {
+              (planetSplash.shadowRoot?.firstChild as HTMLElement).click();
+            });
+          }
         });
       }
 

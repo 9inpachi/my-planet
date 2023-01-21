@@ -5,7 +5,11 @@ export class Continent extends Component {
     return ['open'];
   }
 
-  attributeChangedCallback(name: string, _oldVal: string, newVal: any) {
+  attributeChangedCallback(
+    name: string,
+    _oldVal: string,
+    newVal: string | null,
+  ) {
     if (name !== 'open') {
       return;
     }

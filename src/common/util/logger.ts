@@ -3,14 +3,14 @@ export class Logger {
   private prefix = 'LOGGER:';
 
   constructor() {
-    return Logger.getInstance();
+    if (Logger.instance === undefined) {
+      Logger.instance = this;
+    }
+
+    return Logger.instance;
   }
 
   public static getInstance(): Logger {
-    if (Logger.instance === undefined) {
-      Logger.instance = new Logger();
-    }
-
     return Logger.instance;
   }
 

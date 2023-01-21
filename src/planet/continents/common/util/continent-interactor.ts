@@ -77,6 +77,10 @@ export class ContinentInteractor<T extends BaseContinent> {
     });
   }
 
+  public clickContinent() {
+    this.onContinentClick();
+  }
+
   private onContinentClick() {
     // If continent is already open.
     if (this.isContinentInfoOpen() || this.isAnyContinentInfoOpening()) {

@@ -1,21 +1,30 @@
+import { Logger } from '../../common/util/logger';
+
 export class Router {
   private static instance: Router;
   private routeHandlers: { [url: string]: () => void } = {};
 
   constructor() {
-    if (!Router.instance) {
-      Router.instance = new Router();
-      this.setupDOMEvents();
+    if (Router.instance === undefined) {
+      Router.instance = this;
     }
 
     return Router.instance;
   }
 
+  public initialize() {
+    this.setupDOMEvents();
+  }
+
   private setupDOMEvents() {
     const { pathname: url } = window.location;
 
-    if (this.routeHandlers[url]) {
-      window.addEventListener('load', this.resolveRouteHandler(url));
+    if (document.readyState === 'complete') {
+      // Directly call the current route's handler.
+      this.routeHandlers[url]?.();
+    } else {
+      // Call the current route's handler on load.
+      window.addEventListener('load', this.routeHandlers[url]);
     }
 
     window.addEventListener('popstate', () => {
@@ -25,7 +34,10 @@ export class Router {
   }
 
   public addRoute(url: string, callback: () => void) {
-    this.routeHandlers[url] = callback;
+    this.routeHandlers[url] = () => {
+      window.history.pushState(null, '', url);
+      callback();
+    };
   }
 
   public to(url: string) {
@@ -38,6 +50,7 @@ export class Router {
       return this.routeHandlers[url];
     }
 
+    Logger.getInstance().logError(`No route defined for the path ${url}`);
     throw new Error(`No route defined for the path ${url}`);
   }
 }

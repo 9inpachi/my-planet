@@ -19,10 +19,17 @@ import {
 } from './common/lib/camera-config';
 
 import continentGeometry from '../assets/geometries/continents.gltf';
+import { BaseContinent } from './continents/base-continent';
 
 export class Planet {
   private three: Three;
   private onLoadCallbacks: ((planet: Planet) => void)[] = [];
+  private continents: {
+    [continentName: string]: {
+      continent: BaseContinent;
+      continentInteractor: ContinentInteractor<BaseContinent>;
+    };
+  } = {};
   // This gets set when initializing the planet.
   private sun!: Sun;
   private cameraAnimationOptions = {
@@ -109,6 +116,11 @@ export class Planet {
         this.sun.getObject(),
       );
       continentInteractor.setupEventHandlers();
+
+      this.continents[continentObject.name] = {
+        continent,
+        continentInteractor,
+      };
     });
   }
 
@@ -154,6 +166,10 @@ export class Planet {
 
   public getAnimator() {
     return this.three.getAnimator();
+  }
+
+  public getContinents() {
+    return this.continents;
   }
 
   // Helpers

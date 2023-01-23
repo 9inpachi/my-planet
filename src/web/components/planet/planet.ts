@@ -48,7 +48,7 @@ class Planet extends Component {
   private setupContinentsRouting() {
     window.planet.onLoad(() => {
       const continents = window.planet.getContinents();
-      const router = new Router();
+      const router = Router.getInstance();
       const planetSplash = document.getElementsByTagName('mp-planet-splash')[0];
 
       for (const continentName in continents) {
@@ -57,6 +57,7 @@ class Planet extends Component {
 
           // Close the planet splash if it's open.
           if (!planetSplash.hasAttribute('closed')) {
+            // The click somehow doesn't work without a timeout. ¯\_(ツ)_/¯
             setTimeout(() => {
               (planetSplash.shadowRoot?.firstChild as HTMLElement).click();
             });

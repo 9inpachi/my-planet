@@ -12,6 +12,10 @@ export class Router {
     return Router.instance;
   }
 
+  public static getInstance(): Router {
+    return new Router();
+  }
+
   public initialize() {
     this.setupDOMEvents();
   }
@@ -34,15 +38,16 @@ export class Router {
   }
 
   public addRoute(url: string, callback: () => void) {
-    this.routeHandlers[url] = () => {
-      window.history.pushState(null, '', url);
-      callback();
-    };
+    this.routeHandlers[url] = callback;
   }
 
   public to(url: string) {
     window.history.pushState(null, '', url);
     this.resolveRouteHandler(url)();
+  }
+
+  public back() {
+    window.history.back();
   }
 
   private resolveRouteHandler(url: string) {

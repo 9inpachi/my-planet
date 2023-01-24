@@ -52,8 +52,10 @@ class Planet extends Component {
       const planetSplash = document.getElementsByTagName('mp-planet-splash')[0];
 
       for (const continentName in continents) {
-        router.addRoute(camelCaseToKebabCase(`/${continentName}`), () => {
-          continents[continentName].continentInteractor.clickContinent();
+        const continentRoute = camelCaseToKebabCase(`/${continentName}`);
+
+        router.addRoute(continentRoute, () => {
+          continents[continentName].continentInteractor.openContinent();
 
           // Close the planet splash if it's open.
           if (!planetSplash.hasAttribute('closed')) {
@@ -62,6 +64,12 @@ class Planet extends Component {
               (planetSplash.shadowRoot?.firstChild as HTMLElement).click();
             });
           }
+        });
+
+        continents[continentName].continentInteractor.onContinentClick(() => {
+          window.location.pathname === '/'
+            ? router.to(continentRoute)
+            : router.replace(continentRoute);
         });
       }
 

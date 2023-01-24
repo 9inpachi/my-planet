@@ -29,6 +29,7 @@ export class ContinentInteractor<T extends BaseContinent> {
     duration: 2000,
     easing: Easing.Cubic.Out,
   };
+  private onContinentClickCallbacks: VoidFunction[] = [];
 
   constructor(private three: Three, continent: T, private sun: Object3D) {
     this.continentObject = continent.getObject();
@@ -43,9 +44,9 @@ export class ContinentInteractor<T extends BaseContinent> {
   }
 
   private setupContinentClick() {
-    this.three
-      .getSelector()
-      .onClick(this.continentObject, this.onContinentClick.bind(this));
+    this.three.getSelector().onClick(this.continentObject, () => {
+      this.onContinentClickCallbacks.forEach((callback) => callback());
+    });
   }
 
   private setupContinentMouseOver() {
@@ -77,11 +78,15 @@ export class ContinentInteractor<T extends BaseContinent> {
     });
   }
 
-  public clickContinent() {
-    this.onContinentClick();
+  public onContinentClick(callback: VoidFunction) {
+    this.onContinentClickCallbacks.push(callback);
   }
 
-  private onContinentClick() {
+  public openContinent() {
+    this.handleContinentClick();
+  }
+
+  private handleContinentClick() {
     // If continent is already open.
     if (this.isContinentInfoOpen() || this.isAnyContinentInfoOpening()) {
       return;

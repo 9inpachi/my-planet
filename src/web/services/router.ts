@@ -46,6 +46,11 @@ export class Router {
     this.resolveRouteHandler(url)();
   }
 
+  public replace(url: string) {
+    window.history.replaceState(null, '', url);
+    this.resolveRouteHandler(url)();
+  }
+
   public back() {
     window.history.back();
   }

@@ -1,4 +1,5 @@
 import { Logger } from '../../common/util/logger';
+import { baseUrl as baseURL } from '../../../package.json';
 
 export class Router {
   private static instance: Router;
@@ -42,12 +43,12 @@ export class Router {
   }
 
   public to(url: string) {
-    window.history.pushState(null, '', url);
+    window.history.pushState(null, '', this.prependBaseURL(url));
     this.resolveRouteHandler(url)();
   }
 
   public replace(url: string) {
-    window.history.replaceState(null, '', url);
+    window.history.replaceState(null, '', this.prependBaseURL(url));
     this.resolveRouteHandler(url)();
   }
 
@@ -62,5 +63,9 @@ export class Router {
 
     Logger.getInstance().logError(`No route defined for the path ${url}`);
     throw new Error(`No route defined for the path ${url}`);
+  }
+
+  private prependBaseURL(url: string) {
+    return baseURL ? baseURL + url : url;
   }
 }

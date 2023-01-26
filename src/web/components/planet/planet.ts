@@ -15,6 +15,8 @@ declare global {
 @template(planetTemplate)
 @styles(planetStyles)
 class Planet extends Component {
+  private router = Router.getInstance();
+
   protected onInit() {
     const canvasElement = this.shadowDOM.querySelector(
       '#planet-canvas',
@@ -31,30 +33,20 @@ class Planet extends Component {
   closeContinentOnEscape() {
     document.addEventListener('keydown', (event) => {
       if (event.key === 'Escape') {
-        this.deactiveContinentInfo();
+        this.router.back();
       }
     });
-  }
-
-  private deactiveContinentInfo() {
-    const openContinentInfo = document.querySelector('mp-continents > *[open]');
-
-    if (openContinentInfo) {
-      openContinentInfo.removeAttribute('open');
-      window.planet.resetControls();
-    }
   }
 
   private setupContinentsRouting() {
     window.planet.onLoad(() => {
       const continents = window.planet.getContinents();
-      const router = Router.getInstance();
       const planetSplash = document.getElementsByTagName('mp-planet-splash')[0];
 
       for (const continentName in continents) {
         const continentRoute = camelCaseToKebabCase(`/${continentName}`);
 
-        router.addRoute(continentRoute, () => {
+        this.router.addRoute(continentRoute, () => {
           continents[continentName].continentInteractor.openContinent();
 
           // Close the planet splash if it's open.
@@ -68,13 +60,13 @@ class Planet extends Component {
 
         continents[continentName].continentInteractor.onContinentClick(() => {
           window.location.pathname === '/'
-            ? router.to(continentRoute)
-            : router.replace(continentRoute);
+            ? this.router.to(continentRoute)
+            : this.router.replace(continentRoute);
         });
       }
 
       // Initialize the router and execute the current route handler.
-      router.initialize();
+      this.router.initialize();
     });
   }
 }

@@ -1,5 +1,5 @@
 import { Logger } from '../../common/util/logger';
-import { baseUrl as baseURL } from '../../../package.json';
+import * as packageJSON from '../../../package.json';
 
 export class Router {
   private static instance: Router;
@@ -66,6 +66,10 @@ export class Router {
   }
 
   private prependBaseURL(url: string) {
-    return baseURL ? baseURL + url : url;
+    // `baseUrl` may not be provided in package.json.
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const { baseUrl } = packageJSON;
+    return baseUrl ? baseUrl + url : url;
   }
 }

@@ -25,11 +25,9 @@ class ContinentHeader extends Component {
   onBackClick(event: MouseEvent) {
     event.stopPropagation();
 
-    if (this.router.getLastRoute() !== undefined) {
-      this.router.back();
-    } else {
-      this.router.replace('/');
-    }
+    this.router.getCurrentRoute() !== undefined
+      ? this.router.back()
+      : this.router.replace('/');
   }
 
   private closeOpenContinent() {

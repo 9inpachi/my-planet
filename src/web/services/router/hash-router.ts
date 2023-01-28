@@ -55,7 +55,9 @@ export class HashRouter implements IRouter {
     this.resolveRouteHandler(route)();
 
     // Replace the latest URL.
-    this.historyStack[this.historyStack.length - 1] = route;
+    if (this.historyStack.length > 0) {
+      this.historyStack[this.historyStack.length - 1] = route;
+    }
   }
 
   public back() {
@@ -63,7 +65,7 @@ export class HashRouter implements IRouter {
     this.historyStack.pop();
   }
 
-  public getLastRoute() {
+  public getCurrentRoute() {
     return this.historyStack[this.historyStack.length - 1];
   }
 

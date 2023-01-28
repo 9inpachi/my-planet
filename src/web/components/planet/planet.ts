@@ -25,50 +25,58 @@ class Planet extends Component {
     window.planet = Planet3D.build({ canvasElement });
 
     this.closeContinentOnEscape();
-    this.setupContinentsRouting();
+    window.planet.onLoad(this.setupContinentsRouting.bind(this));
   }
 
   // This may not be the right place to add keyboard event handers.
 
   private closeContinentOnEscape() {
     document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape') {
-        this.router.back();
+      const isContinentOpen = !!document.querySelector(
+        'mp-continents > *[open]',
+      );
+
+      if (event.key !== 'Escape' || !isContinentOpen) {
+        return;
       }
+
+      this.router.getCurrentRoute() !== undefined
+        ? this.router.back()
+        : this.router.replace('/');
     });
   }
 
   private setupContinentsRouting() {
-    window.planet.onLoad(() => {
-      const continents = window.planet.getContinents();
-      const planetSplash = document.getElementsByTagName('mp-planet-splash')[0];
+    const continents = window.planet.getContinents();
+    const planetSplash = document.getElementsByTagName('mp-planet-splash')[0];
 
-      for (const continentName in continents) {
-        const continentRoute = camelCaseToKebabCase(`/${continentName}`);
+    for (const continentName in continents) {
+      const continentRoute = camelCaseToKebabCase(`/${continentName}`);
 
-        this.router.addRoute(continentRoute, () => {
-          continents[continentName].continentInteractor.openContinent();
+      this.router.addRoute(continentRoute, () => {
+        continents[continentName].continentInteractor.openContinent();
 
-          // Close the planet splash if it's open.
-          if (!planetSplash.hasAttribute('closed')) {
-            // The click somehow doesn't work without a timeout. ¯\_(ツ)_/¯
-            setTimeout(() => {
-              (planetSplash.shadowRoot?.firstChild as HTMLElement).click();
-            });
-          }
-        });
+        // Close the planet splash if it's open.
+        if (!planetSplash.hasAttribute('closed')) {
+          // The click somehow doesn't work without a timeout. ¯\_(ツ)_/¯
+          setTimeout(() => {
+            (planetSplash.shadowRoot?.firstChild as HTMLElement).click();
+          });
+        }
+      });
 
-        continents[continentName].continentInteractor.onContinentClick(() => {
-          console.log(window.location.hash);
-          window.location.pathname === '/'
-            ? this.router.to(continentRoute)
-            : this.router.replace(continentRoute);
-        });
-      }
+      continents[continentName].continentInteractor.onContinentClick(() => {
+        // Replace the route if a continent is already open. So the
+        // back button in `continent-header` which uses
+        // `window.history.back()` leads to the home (`/`) route.
+        this.router.getCurrentRoute() === '/'
+          ? this.router.to(continentRoute)
+          : this.router.replace(continentRoute);
+      });
+    }
 
-      // Initialize the router and execute the current route handler.
-      this.router.initialize();
-    });
+    // Initialize the router and execute the current route handler.
+    this.router.initialize();
   }
 }
 

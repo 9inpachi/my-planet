@@ -3,6 +3,8 @@ import * as packageJSON from '../../../package.json';
 
 export class Router {
   private static instance: Router;
+
+  private historyStack: string[] = [];
   private routeHandlers: { [url: string]: () => void } = {};
 
   constructor() {
@@ -45,15 +47,25 @@ export class Router {
   public to(url: string) {
     window.history.pushState(null, '', this.prependBaseURL(url));
     this.resolveRouteHandler(url)();
+
+    this.historyStack.push(url);
   }
 
   public replace(url: string) {
     window.history.replaceState(null, '', this.prependBaseURL(url));
     this.resolveRouteHandler(url)();
+
+    // Replace the latest URL.
+    this.historyStack[this.historyStack.length - 1] = url;
   }
 
   public back() {
     window.history.back();
+    this.historyStack.pop();
+  }
+
+  public getLastRoute() {
+    return this.historyStack[this.historyStack.length - 1];
   }
 
   private resolveRouteHandler(url: string) {
@@ -70,6 +82,7 @@ export class Router {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const { baseUrl } = packageJSON;
+
     return baseUrl ? baseUrl + url : url;
   }
 }

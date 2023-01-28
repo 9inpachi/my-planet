@@ -30,7 +30,7 @@ class Planet extends Component {
 
   // This may not be the right place to add keyboard event handers.
 
-  closeContinentOnEscape() {
+  private closeContinentOnEscape() {
     document.addEventListener('keydown', (event) => {
       if (event.key === 'Escape') {
         this.router.back();

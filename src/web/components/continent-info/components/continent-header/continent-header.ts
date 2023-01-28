@@ -5,10 +5,10 @@ import {
   registerComponent,
   property,
 } from '../../../component';
+import { Router } from '../../../../services/router';
 
 import continentHeaderTemplate from './continent-header.html?raw';
 import continentHeaderStyles from './continent-header.css?raw';
-import { Router } from '../../../../services/router';
 
 @template(continentHeaderTemplate)
 @styles(continentHeaderStyles)
@@ -24,7 +24,12 @@ class ContinentHeader extends Component {
 
   onBackClick(event: MouseEvent) {
     event.stopPropagation();
-    this.router.back();
+
+    if (this.router.getLastRoute() !== undefined) {
+      this.router.back();
+    } else {
+      this.router.replace('/');
+    }
   }
 
   private closeOpenContinent() {

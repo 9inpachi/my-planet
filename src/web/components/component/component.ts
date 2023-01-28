@@ -26,7 +26,7 @@ export abstract class Component extends HTMLElement {
 
   // Old: The lazy constructor is used in `setTimeout` because
   // that's when we can access the child's properties through `this`.
-  // New: Async/await does the same this here as `setTimeout`.
+  // New: Async/await does the same thing here as `setTimeout`.
   private async lazyConstructor() {
     await this.onBeforeInitAsync?.();
 

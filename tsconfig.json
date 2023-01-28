@@ -4,7 +4,7 @@
     "sourceMap": true,
     "strict": true,
     "noImplicitAny": true,
-    "module": "commonjs",
+    "module": "esnext",
     "moduleResolution": "node",
     "target": "esnext",
     "esModuleInterop": true,
@@ -14,7 +14,8 @@
     "forceConsistentCasingInFileNames": true,
     // Very important for property decorator.
     "useDefineForClassFields": false,
-    "allowJs": true
+    "allowJs": true,
+    "types": ["vite/client"]
   },
   "include": ["src"]
 }

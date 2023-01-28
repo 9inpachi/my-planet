@@ -1,6 +1,6 @@
 import { Planet as Planet3D } from '../../../planet/planet';
 import { Component, template, styles, registerComponent } from '../component';
-import { Router } from '../../services/router';
+import { HashRouter } from '../../services/router/hash-router';
 import { camelCaseToKebabCase } from '../../../common/util/string';
 
 import planetTemplate from './planet.html?raw';
@@ -15,7 +15,7 @@ declare global {
 @template(planetTemplate)
 @styles(planetStyles)
 class Planet extends Component {
-  private router = Router.getInstance();
+  private router = HashRouter.getInstance();
 
   protected onInit() {
     const canvasElement = this.shadowDOM.querySelector(
@@ -59,6 +59,7 @@ class Planet extends Component {
         });
 
         continents[continentName].continentInteractor.onContinentClick(() => {
+          console.log(window.location.hash);
           window.location.pathname === '/'
             ? this.router.to(continentRoute)
             : this.router.replace(continentRoute);

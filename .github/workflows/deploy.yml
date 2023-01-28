@@ -18,18 +18,12 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Setup Base URL
+      - name: Build
         env:
           BASE_URL: https://fawadali.dev/my-planet
         run: |
-          sudo apt install -y jq
-          jq '.baseUrl = $baseUrl' package.json --arg baseUrl $BASE_URL > .tmp.json
-          mv .tmp.json package.json
-
-      - name: Build
-        run: |
           yarn install --silent
-          yarn build
+          yarn build --base=$BASE_URL
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3

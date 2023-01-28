@@ -5,7 +5,7 @@ import {
   registerComponent,
   property,
 } from '../../../component';
-import { Router } from '../../../../services/router';
+import { HashRouter } from '../../../../services/router/hash-router';
 
 import continentHeaderTemplate from './continent-header.html?raw';
 import continentHeaderStyles from './continent-header.css?raw';
@@ -16,7 +16,7 @@ class ContinentHeader extends Component {
   @property()
   icon!: string;
 
-  router: Router = Router.getInstance();
+  router: HashRouter = HashRouter.getInstance();
 
   protected onInit() {
     this.router.addRoute('/', () => this.closeOpenContinent());

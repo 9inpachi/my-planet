@@ -40,9 +40,7 @@ class Planet extends Component {
         return;
       }
 
-      this.router.getCurrentRoute() !== undefined
-        ? this.router.back()
-        : this.router.replace('/');
+      this.router.to('/');
     });
   }
 
@@ -65,14 +63,9 @@ class Planet extends Component {
         }
       });
 
-      continents[continentName].continentInteractor.onContinentClick(() => {
-        // Replace the route if a continent is already open. So the
-        // back button in `continent-header` which uses
-        // `window.history.back()` leads to the home (`/`) route.
-        this.router.getCurrentRoute() === '/'
-          ? this.router.to(continentRoute)
-          : this.router.replace(continentRoute);
-      });
+      continents[continentName].continentInteractor.onContinentClick(() =>
+        this.router.to(continentRoute),
+      );
     }
 
     // Initialize the router and execute the current route handler.

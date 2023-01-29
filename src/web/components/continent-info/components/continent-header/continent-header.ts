@@ -24,6 +24,7 @@ class ContinentHeader extends Component {
 
   onBackClick(event: MouseEvent) {
     event.stopPropagation();
+
     this.router.to('/');
   }
 

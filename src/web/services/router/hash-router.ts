@@ -28,10 +28,10 @@ export class HashRouter implements IRouter {
 
     if (document.readyState === 'complete') {
       // Directly call the current route's handler.
-      this.routeHandlers[route]?.();
+      this.replace(route);
     } else {
       // Call the current route's handler on load.
-      window.addEventListener('load', this.routeHandlers[route]);
+      window.addEventListener('load', () => this.replace(route));
     }
 
     window.addEventListener('hashchange', () => {
@@ -62,6 +62,7 @@ export class HashRouter implements IRouter {
 
   public back() {
     window.history.back();
+
     this.historyStack.pop();
   }
 
@@ -70,7 +71,9 @@ export class HashRouter implements IRouter {
   }
 
   private getRouteFromHash() {
-    return window.location.hash.slice(1);
+    const routeFromHash = window.location.hash.slice(1);
+
+    return routeFromHash === '' ? '/' : routeFromHash;
   }
 
   private resolveRouteHandler(route: string) {
@@ -83,6 +86,7 @@ export class HashRouter implements IRouter {
   }
 
   private prependBaseURL(route: string) {
+    // See https://vitejs.dev/guide/env-and-mode.html.
     const baseURL = import.meta.env.BASE_URL ?? '';
 
     return `${baseURL}#${route}`;

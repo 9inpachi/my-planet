@@ -1,13 +1,11 @@
-import { Logger } from '../../../common/util/logger';
-import { IRouter } from './lib/irouter';
+import { Router } from './router';
 
-export class HashRouter implements IRouter {
+export class HashRouter extends Router {
   private static instance: HashRouter;
 
-  private historyStack: string[] = [];
-  private routeHandlers: { [route: string]: () => void } = {};
-
   constructor() {
+    super();
+
     if (HashRouter.instance === undefined) {
       HashRouter.instance = this;
     }
@@ -19,11 +17,7 @@ export class HashRouter implements IRouter {
     return new HashRouter();
   }
 
-  public initialize() {
-    this.setupDOMEvents();
-  }
-
-  private setupDOMEvents() {
+  protected setupDOMEvents() {
     const route = this.getRouteFromHash();
 
     if (document.readyState === 'complete') {
@@ -39,56 +33,16 @@ export class HashRouter implements IRouter {
     });
   }
 
-  public addRoute(route: string, handler: VoidFunction) {
-    this.routeHandlers[route] = handler;
-  }
+  protected prependBaseURL(route: string) {
+    // See https://vitejs.dev/guide/env-and-mode.html.
+    const baseURL = import.meta.env.BASE_URL ?? '';
 
-  public to(route: string) {
-    window.history.pushState(null, '', this.prependBaseURL(route));
-    this.resolveRouteHandler(route)();
-
-    this.historyStack.push(route);
-  }
-
-  public replace(route: string) {
-    window.history.replaceState(null, '', this.prependBaseURL(route));
-    this.resolveRouteHandler(route)();
-
-    // Replace the latest URL.
-    if (this.historyStack.length > 0) {
-      this.historyStack[this.historyStack.length - 1] = route;
-    }
-  }
-
-  public back() {
-    window.history.back();
-
-    this.historyStack.pop();
-  }
-
-  public getCurrentRoute() {
-    return this.historyStack[this.historyStack.length - 1];
+    return `${baseURL}#${route}`;
   }
 
   private getRouteFromHash() {
     const routeFromHash = window.location.hash.slice(1);
 
     return routeFromHash === '' ? '/' : routeFromHash;
-  }
-
-  private resolveRouteHandler(route: string) {
-    if (this.routeHandlers[route]) {
-      return this.routeHandlers[route];
-    }
-
-    Logger.getInstance().logError(`No route defined for the path ${route}`);
-    throw new Error(`No route defined for the path ${route}`);
-  }
-
-  private prependBaseURL(route: string) {
-    // See https://vitejs.dev/guide/env-and-mode.html.
-    const baseURL = import.meta.env.BASE_URL ?? '';
-
-    return `${baseURL}#${route}`;
   }
 }

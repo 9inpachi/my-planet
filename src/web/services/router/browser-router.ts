@@ -1,13 +1,11 @@
-import { Logger } from '../../../common/util/logger';
-import { IRouter } from './lib/irouter';
+import { Router } from './router';
 
-export class BrowserRouter implements IRouter {
+export class BrowserRouter extends Router {
   private static instance: BrowserRouter;
 
-  private historyStack: string[] = [];
-  private routeHandlers: { [url: string]: () => void } = {};
-
   constructor() {
+    super();
+
     if (BrowserRouter.instance === undefined) {
       BrowserRouter.instance = this;
     }
@@ -19,67 +17,27 @@ export class BrowserRouter implements IRouter {
     return new BrowserRouter();
   }
 
-  public initialize() {
-    this.setupDOMEvents();
-  }
-
-  private setupDOMEvents() {
-    const { pathname: url } = window.location;
+  protected setupDOMEvents() {
+    const { pathname: route } = window.location;
 
     if (document.readyState === 'complete') {
       // Directly call the current route's handler.
-      this.routeHandlers[url]?.();
+      this.replace(route);
     } else {
       // Call the current route's handler on load.
-      window.addEventListener('load', this.routeHandlers[url]);
+      window.addEventListener('load', this.routeHandlers[route]);
     }
 
     window.addEventListener('popstate', () => {
-      const { pathname: url } = window.location;
-      this.resolveRouteHandler(url)();
+      const { pathname: route } = window.location;
+      this.resolveRouteHandler(route)();
     });
   }
 
-  public addRoute(url: string, callback: () => void) {
-    this.routeHandlers[url] = callback;
-  }
-
-  public to(url: string) {
-    window.history.pushState(null, '', this.prependBaseURL(url));
-    this.resolveRouteHandler(url)();
-
-    this.historyStack.push(url);
-  }
-
-  public replace(url: string) {
-    window.history.replaceState(null, '', this.prependBaseURL(url));
-    this.resolveRouteHandler(url)();
-
-    // Replace the latest URL.
-    this.historyStack[this.historyStack.length - 1] = url;
-  }
-
-  public back() {
-    window.history.back();
-    this.historyStack.pop();
-  }
-
-  public getCurrentRoute() {
-    return this.historyStack[this.historyStack.length - 1];
-  }
-
-  private resolveRouteHandler(url: string) {
-    if (this.routeHandlers[url]) {
-      return this.routeHandlers[url];
-    }
-
-    Logger.getInstance().logError(`No route defined for the path ${url}`);
-    throw new Error(`No route defined for the path ${url}`);
-  }
-
-  private prependBaseURL(url: string) {
+  protected prependBaseURL(route: string) {
+    // See https://vitejs.dev/guide/env-and-mode.html.
     const baseURL = import.meta.env.BASE_URL ?? '';
 
-    return baseURL + url;
+    return baseURL + route;
   }
 }

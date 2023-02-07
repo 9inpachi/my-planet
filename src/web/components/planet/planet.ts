@@ -69,7 +69,7 @@ class Planet extends Component {
     }
 
     // Initialize the router and execute the current route handler.
-    this.router.initialize();
+    this.router.initialize('/');
   }
 }
 

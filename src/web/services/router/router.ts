@@ -2,13 +2,15 @@ import { Logger } from '../../../common/util/logger';
 import { IRouter } from './lib/irouter';
 
 export abstract class Router implements IRouter {
+  protected fallbackRoute?: string;
   protected historyStack: string[] = [];
   protected routeHandlers: { [route: string]: () => void } = {};
 
   protected abstract setupDOMEvents(): void;
   protected abstract prependBaseURL(route: string): string;
 
-  public initialize() {
+  public initialize(fallbackRoute?: string) {
+    this.fallbackRoute = fallbackRoute;
     this.setupDOMEvents();
   }
 
@@ -48,7 +50,19 @@ export abstract class Router implements IRouter {
       return this.routeHandlers[route];
     }
 
-    Logger.getInstance().logError(`No route defined for the path ${route}`);
-    throw new Error(`No route defined for the path ${route}`);
+    let noRouteMessage = `No route defined for the path ${route}.`;
+
+    if (!this.fallbackRoute) {
+      Logger.getInstance().logError(noRouteMessage);
+      throw new Error(noRouteMessage);
+    }
+
+    const fallbackURL = this.prependBaseURL(this.fallbackRoute);
+    window.history.replaceState(null, '', fallbackURL);
+
+    noRouteMessage += ` Using fallback route ${this.fallbackRoute}.`;
+    Logger.getInstance().logError(noRouteMessage);
+
+    return this.routeHandlers[this.fallbackRoute];
   }
 }

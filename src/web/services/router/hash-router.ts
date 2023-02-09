@@ -21,15 +21,15 @@ export class HashRouter extends Router {
     const route = this.getRouteFromHash();
 
     if (document.readyState === 'complete') {
-      // Directly call the current route's handler.
+      // Replace the current route.
       this.replace(route);
     } else {
-      // Call the current route's handler on load.
+      // Replace the current route on load.
       window.addEventListener('load', () => this.replace(route));
     }
 
     window.addEventListener('hashchange', () => {
-      this.resolveRouteHandler(this.getRouteFromHash())();
+      this.runRouteHandler(this.getRouteFromHash());
     });
   }
 

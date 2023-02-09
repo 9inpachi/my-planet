@@ -21,16 +21,16 @@ export class BrowserRouter extends Router {
     const { pathname: route } = window.location;
 
     if (document.readyState === 'complete') {
-      // Directly call the current route's handler.
+      // Replace the current route.
       this.replace(route);
     } else {
-      // Call the current route's handler on load.
-      window.addEventListener('load', this.routeHandlers[route]);
+      // Replace the current route on load.
+      window.addEventListener('load', () => this.replace(route));
     }
 
     window.addEventListener('popstate', () => {
       const { pathname: route } = window.location;
-      this.resolveRouteHandler(route)();
+      this.runRouteHandler(route);
     });
   }
 

@@ -9,9 +9,12 @@ export abstract class Router implements IRouter {
   protected abstract setupDOMEvents(): void;
   protected abstract prependBaseURL(route: string): string;
 
-  public initialize(fallbackRoute?: string) {
-    this.fallbackRoute = fallbackRoute;
+  public initialize() {
     this.setupDOMEvents();
+  }
+
+  public setFallbackRoute(fallbackRoute: string) {
+    this.fallbackRoute = fallbackRoute;
   }
 
   public addRoute(route: string, callback: () => void) {

@@ -25,7 +25,16 @@ class Planet extends Component {
     window.planet = Planet3D.build({ canvasElement });
 
     this.closeContinentOnEscape();
-    window.planet.onLoad(this.setupContinentsRouting.bind(this));
+
+    window.planet.onLoad(() => {
+      this.router.addRoute('/', () => this.closeOpenContinent());
+      this.setupContinentsRouting();
+    });
+  }
+
+  private closeOpenContinent() {
+    window.planet.resetControls();
+    document.querySelector('mp-continents > *[open]')?.removeAttribute('open');
   }
 
   // This may not be the right place to add keyboard event handers.
@@ -68,8 +77,9 @@ class Planet extends Component {
       );
     }
 
+    this.router.setFallbackRoute('/');
     // Initialize the router and execute the current route handler.
-    this.router.initialize('/');
+    this.router.initialize();
   }
 }
 

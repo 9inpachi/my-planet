@@ -18,19 +18,10 @@ class ContinentHeader extends Component {
 
   router: HashRouter = HashRouter.getInstance();
 
-  protected onInit() {
-    this.router.addRoute('/', () => this.closeOpenContinent());
-  }
-
   onBackClick(event: MouseEvent) {
     event.stopPropagation();
 
     this.router.to('/');
-  }
-
-  private closeOpenContinent() {
-    window.planet.resetControls();
-    document.querySelector('mp-continents > *[open]')?.removeAttribute('open');
   }
 }
 

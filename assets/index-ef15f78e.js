@@ -3569,12 +3569,19 @@ void main() {
   position: absolute;
   top: 0;
   left: 0;
+  visibility: hidden;
+  opacity: 0;
   transition: all 0.5s;
 }
-`;var Ny=Object.defineProperty,Fy=Object.getOwnPropertyDescriptor,ky=c((s,e,t,n)=>{for(var i=n>1?void 0:n?Fy(e,t):e,r=s.length-1,o;r>=0;r--)(o=s[r])&&(i=(n?o(e,t,i):o(i))||i);return n&&i&&Ny(e,t,i),i},"__decorateClass$a");let ga=c(class extends Tt{constructor(){super(...arguments),this.radius=8,this.startAngle=0,this.rotationAngle=90}onInit(){var r;const s=[...((r=this.getElement("continentsMenuOptions"))==null?void 0:r.children)??[]],e=s.length-1,t=this.startAngle+this.rotationAngle/e;let n="";s.forEach((o,a)=>{n+=`.continents-menu-options.active > mp-circle-button:nth-child(${a+1}) {
-        transform: ${this.getTransformStyle(this.radius,t*a)};
+
+:host([open]) > .continents-menu-options > mp-circle-button {
+  visibility: visible;
+  opacity: 1;
+}
+`;var Ny=Object.defineProperty,Fy=Object.getOwnPropertyDescriptor,ky=c((s,e,t,n)=>{for(var i=n>1?void 0:n?Fy(e,t):e,r=s.length-1,o;r>=0;r--)(o=s[r])&&(i=(n?o(e,t,i):o(i))||i);return n&&i&&Ny(e,t,i),i},"__decorateClass$a");let ga=c(class extends Tt{constructor(){super(...arguments),this.radius=8,this.startAngle=0,this.rotationAngle=90}onInit(){const s=this.constructMenuOptionsStyles(),e=new CSSStyleSheet;e.replaceSync(s),this.shadowDOM.adoptedStyleSheets.push(e)}onMenuToggleClick(){this.hasAttribute("open")?this.removeAttribute("open"):this.setAttribute("open","")}constructMenuOptionsStyles(){var i;const s=[...((i=this.getElement("continentsMenuOptions"))==null?void 0:i.children)??[]],e=s.length-1,t=this.startAngle+this.rotationAngle/e;return s.reduce((r,o,a)=>{const l=this.getMenuItemSelector(a);return r+=`${l} {
+        transform: ${this.getMenuItemTransformStyle(this.radius,t*a)};
       }
-      `});const i=new CSSStyleSheet;i.replaceSync(n),this.shadowDOM.adoptedStyleSheets.push(i)}getTransformStyle(s,e){return`rotate(${e}deg) translate(${s}rem) rotate(${-e}deg)`}onMenuToggleClick(){var s;(s=this.getElement("continentsMenuOptions"))==null||s.classList.toggle("active")}},"ContinentsMenu");ga=ky([Mt(Iy),Gt(Oy)],ga);ut(ga);const zy=`<header :continentHeader class="continent-header">
+      `,r},"")}getMenuItemTransformStyle(s,e){return`rotate(${e}deg) translate(${s}rem) rotate(${-e}deg)`}getMenuItemSelector(s){return`:host([open]) > .continents-menu-options > mp-circle-button:nth-child(${s+1})`}},"ContinentsMenu");ga=ky([Mt(Iy),Gt(Oy)],ga);ut(ga);const zy=`<header :continentHeader class="continent-header">
   <nav>
     <mp-arrow-button
       class="back-button"

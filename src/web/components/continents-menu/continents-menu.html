@@ -1,5 +1,12 @@
-<mp-circle-button icon="menu" tooltip-position="right">Menu</mp-circle-button>
-<div class="menu-options">
+<mp-circle-button
+  class="continents-menu-toggle"
+  on:click="this.onMenuToggleClick"
+  icon="about-continent"
+  tooltip-position="right"
+>
+  Menu
+</mp-circle-button>
+<div :continentsMenuOptions class="continents-menu-options">
   <mp-circle-button icon="about-continent" tooltip-position="right">
     About
   </mp-circle-button>

@@ -1,0 +1,24 @@
+:host {
+  --primary-color: currentColor;
+  --secondary-color: currentColor;
+
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+}
+
+.continents-menu-toggle {
+  position: absolute;
+  z-index: var(--layer-front);
+}
+
+.continents-menu-options {
+  position: relative;
+}
+
+.continents-menu-options > mp-circle-button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: all 0.5s;
+}

@@ -5,11 +5,11 @@
   position: fixed;
   top: 1rem;
   left: 1rem;
+  z-index: var(--layer-front);
 }
 
 .continents-menu-toggle {
   position: absolute;
-  z-index: var(--layer-front);
 }
 
 .continents-menu-options {

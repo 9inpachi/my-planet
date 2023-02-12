@@ -20,5 +20,12 @@
   position: absolute;
   top: 0;
   left: 0;
+  visibility: hidden;
+  opacity: 0;
   transition: all 0.5s;
+}
+
+:host([open]) > .continents-menu-options > mp-circle-button {
+  visibility: visible;
+  opacity: 1;
 }

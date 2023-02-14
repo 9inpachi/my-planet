@@ -3539,31 +3539,33 @@ void main() {
     font-size: 3rem;
   }
 }
-`;var Fy=Object.defineProperty,ky=Object.getOwnPropertyDescriptor,zy=c((s,e,t,n)=>{for(var i=n>1?void 0:n?ky(e,t):e,r=s.length-1,o;r>=0;r--)(o=s[r])&&(i=(n?o(e,t,i):o(i))||i);return n&&i&&Fy(e,t,i),i},"__decorateClass$b");let ga=c(class extends St{onInit(){window.planet.onLoad(()=>{var s;this.planetObject=window.planet.getScene().getObjectByName("planet"),(s=this.planetObject)==null||s.scale.setScalar(.5),document.body.removeAttribute("loading")})}onHeaderClick(){if(!this.planetObject)return;const s=new A().setScalar(1),e=window.planet.getAnimator().createTween(this.planetObject.scale,s,{duration:2e3,easing:ci.Quintic.Out});this.setAttribute("closed",""),e.start()}onMouseOver(){var s;(s=this.getElement("enterButton"))==null||s.setAttribute("active","")}onMouseOut(){var s;(s=this.getElement("enterButton"))==null||s.removeAttribute("active")}},"PlanetSplash");ga=zy([gt(Oy),Ut(Ny)],ga);at(ga);const Uy=`<mp-circle-button
-  class="continents-menu-toggle"
-  on:click="this.onMenuToggleClick"
-  icon="accessibility"
-  tooltip-position="right"
->
-  Accessibility Menu
-</mp-circle-button>
-<div :continentsMenuOptions class="continents-menu-options">
-  <mp-circle-button icon="about-continent" tooltip-position="right">
-    About
+`;var Fy=Object.defineProperty,ky=Object.getOwnPropertyDescriptor,zy=c((s,e,t,n)=>{for(var i=n>1?void 0:n?ky(e,t):e,r=s.length-1,o;r>=0;r--)(o=s[r])&&(i=(n?o(e,t,i):o(i))||i);return n&&i&&Fy(e,t,i),i},"__decorateClass$b");let ga=c(class extends St{onInit(){window.planet.onLoad(()=>{var s;this.planetObject=window.planet.getScene().getObjectByName("planet"),(s=this.planetObject)==null||s.scale.setScalar(.5),document.body.removeAttribute("loading")})}onHeaderClick(){if(!this.planetObject)return;const s=new A().setScalar(1),e=window.planet.getAnimator().createTween(this.planetObject.scale,s,{duration:2e3,easing:ci.Quintic.Out});this.setAttribute("closed",""),e.start()}onMouseOver(){var s;(s=this.getElement("enterButton"))==null||s.setAttribute("active","")}onMouseOut(){var s;(s=this.getElement("enterButton"))==null||s.removeAttribute("active")}},"PlanetSplash");ga=zy([gt(Oy),Ut(Ny)],ga);at(ga);const Uy=`<mp-backdrop :backdrop on:click="this.onMenuToggleClick">
+  <mp-circle-button
+    class="continents-menu-toggle"
+    on:click="this.onMenuToggleClick"
+    icon="accessibility"
+    tooltip-position="right"
+  >
+    Accessibility Menu
   </mp-circle-button>
-  <mp-circle-button icon="projects-continent" tooltip-position="right">
-    Projects
-  </mp-circle-button>
-  <mp-circle-button icon="work-continent" tooltip-position="right">
-    Work
-  </mp-circle-button>
-  <mp-circle-button icon="life-continent" tooltip-position="right">
-    Life
-  </mp-circle-button>
-  <mp-circle-button icon="connect-continent" tooltip-position="right">
-    Connect
-  </mp-circle-button>
-</div>
+  <div :continentsMenuOptions class="continents-menu-options">
+    <mp-circle-button icon="about-continent" tooltip-position="right">
+      About
+    </mp-circle-button>
+    <mp-circle-button icon="projects-continent" tooltip-position="right">
+      Projects
+    </mp-circle-button>
+    <mp-circle-button icon="work-continent" tooltip-position="right">
+      Work
+    </mp-circle-button>
+    <mp-circle-button icon="life-continent" tooltip-position="right">
+      Life
+    </mp-circle-button>
+    <mp-circle-button icon="connect-continent" tooltip-position="right">
+      Connect
+    </mp-circle-button>
+  </div>
+</mp-backdrop>
 `,By=`:host {
   --primary-color: currentColor;
   --secondary-color: currentColor;
@@ -3576,6 +3578,13 @@ void main() {
 
 .continents-menu-toggle {
   position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+:host([open]) > mp-backdrop > .continents-menu-toggle,
+.continents-menu-toggle:focus {
+  opacity: 1;
 }
 
 .continents-menu-options {
@@ -3591,14 +3600,14 @@ void main() {
   transition: all 0.5s;
 }
 
-:host([open]) > .continents-menu-options > mp-circle-button {
+:host([open]) > mp-backdrop > .continents-menu-options > mp-circle-button {
   visibility: visible;
   opacity: 1;
 }
-`;var Hy=Object.defineProperty,Vy=Object.getOwnPropertyDescriptor,Gy=c((s,e,t,n)=>{for(var i=n>1?void 0:n?Vy(e,t):e,r=s.length-1,o;r>=0;r--)(o=s[r])&&(i=(n?o(e,t,i):o(i))||i);return n&&i&&Hy(e,t,i),i},"__decorateClass$a");let _a=c(class extends St{constructor(){super(...arguments),this.radius=8,this.startAngle=0,this.rotationAngle=90}onInit(){const s=this.constructMenuOptionsStyles(),e=new CSSStyleSheet;e.replaceSync(s),this.shadowDOM.adoptedStyleSheets.push(e)}onMenuToggleClick(){this.hasAttribute("open")?this.removeAttribute("open"):this.setAttribute("open","")}constructMenuOptionsStyles(){var i;const s=[...((i=this.getElement("continentsMenuOptions"))==null?void 0:i.children)??[]],e=s.length-1,t=this.startAngle+this.rotationAngle/e;return s.reduce((r,o,a)=>{const l=this.getMenuItemSelector(a);return r+=`${l} {
+`;var Hy=Object.defineProperty,Vy=Object.getOwnPropertyDescriptor,Gy=c((s,e,t,n)=>{for(var i=n>1?void 0:n?Vy(e,t):e,r=s.length-1,o;r>=0;r--)(o=s[r])&&(i=(n?o(e,t,i):o(i))||i);return n&&i&&Hy(e,t,i),i},"__decorateClass$a");let _a=c(class extends St{constructor(){super(...arguments),this.radius=8,this.startAngle=0,this.rotationAngle=90}onInit(){const s=this.constructMenuOptionsStyles(),e=new CSSStyleSheet;e.replaceSync(s),this.shadowDOM.adoptedStyleSheets.push(e)}onMenuToggleClick(s){var e,t;s.stopPropagation(),this.hasAttribute("open")?(this.removeAttribute("open"),(e=this.getElement("backdrop"))==null||e.removeAttribute("active")):(this.setAttribute("open",""),(t=this.getElement("backdrop"))==null||t.setAttribute("active",""))}onBackDropClick(){var s;this.removeAttribute("open"),(s=this.getElement("backdrop"))==null||s.removeAttribute("active")}constructMenuOptionsStyles(){var i;const s=[...((i=this.getElement("continentsMenuOptions"))==null?void 0:i.children)??[]],e=s.length-1,t=this.startAngle+this.rotationAngle/e;return s.reduce((r,o,a)=>{const l=this.getMenuItemSelector(a);return r+=`${l} {
         transform: ${this.getMenuItemTransformStyle(this.radius,t*a)};
       }
-      `,r},"")}getMenuItemSelector(s){return`:host([open]) > .continents-menu-options > mp-circle-button:nth-child(${s+1})`}getMenuItemTransformStyle(s,e){return`rotate(${e}deg) translate(${s}rem) rotate(${-e}deg)`}},"ContinentsMenu");_a=Gy([gt(Uy),Ut(By)],_a);at(_a);const Wy=`<header :continentHeader class="continent-header">
+      `,r},"")}getMenuItemSelector(s){return`:host([open]) > mp-backdrop > .continents-menu-options > mp-circle-button:nth-child(${s+1})`}getMenuItemTransformStyle(s,e){return`rotate(${e}deg) translate(${s}rem) rotate(${-e}deg)`}},"ContinentsMenu");_a=Gy([gt(Uy),Ut(By)],_a);at(_a);const Wy=`<header :continentHeader class="continent-header">
   <nav>
     <mp-arrow-button
       class="back-button"

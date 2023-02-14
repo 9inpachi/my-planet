@@ -18,10 +18,22 @@ class ContinentsMenu extends Component {
     this.shadowDOM.adoptedStyleSheets.push(stylesheet);
   }
 
-  onMenuToggleClick() {
-    this.hasAttribute('open')
-      ? this.removeAttribute('open')
-      : this.setAttribute('open', '');
+  onMenuToggleClick(event: MouseEvent) {
+    // Do not propogate to click the backdrop.
+    event.stopPropagation();
+
+    if (this.hasAttribute('open')) {
+      this.removeAttribute('open');
+      this.getElement('backdrop')?.removeAttribute('active');
+    } else {
+      this.setAttribute('open', '');
+      this.getElement('backdrop')?.setAttribute('active', '');
+    }
+  }
+
+  onBackDropClick() {
+    this.removeAttribute('open');
+    this.getElement('backdrop')?.removeAttribute('active');
   }
 
   /**
@@ -54,7 +66,7 @@ class ContinentsMenu extends Component {
   }
 
   private getMenuItemSelector(index: number) {
-    return `:host([open]) > .continents-menu-options > mp-circle-button:nth-child(${
+    return `:host([open]) > mp-backdrop > .continents-menu-options > mp-circle-button:nth-child(${
       index + 1
     })`;
   }

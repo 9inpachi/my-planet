@@ -1,25 +1,27 @@
-<mp-circle-button
-  class="continents-menu-toggle"
-  on:click="this.onMenuToggleClick"
-  icon="accessibility"
-  tooltip-position="right"
->
-  Accessibility Menu
-</mp-circle-button>
-<div :continentsMenuOptions class="continents-menu-options">
-  <mp-circle-button icon="about-continent" tooltip-position="right">
-    About
+<mp-backdrop :backdrop on:click="this.onMenuToggleClick">
+  <mp-circle-button
+    class="continents-menu-toggle"
+    on:click="this.onMenuToggleClick"
+    icon="accessibility"
+    tooltip-position="right"
+  >
+    Accessibility Menu
   </mp-circle-button>
-  <mp-circle-button icon="projects-continent" tooltip-position="right">
-    Projects
-  </mp-circle-button>
-  <mp-circle-button icon="work-continent" tooltip-position="right">
-    Work
-  </mp-circle-button>
-  <mp-circle-button icon="life-continent" tooltip-position="right">
-    Life
-  </mp-circle-button>
-  <mp-circle-button icon="connect-continent" tooltip-position="right">
-    Connect
-  </mp-circle-button>
-</div>
+  <div :continentsMenuOptions class="continents-menu-options">
+    <mp-circle-button icon="about-continent" tooltip-position="right">
+      About
+    </mp-circle-button>
+    <mp-circle-button icon="projects-continent" tooltip-position="right">
+      Projects
+    </mp-circle-button>
+    <mp-circle-button icon="work-continent" tooltip-position="right">
+      Work
+    </mp-circle-button>
+    <mp-circle-button icon="life-continent" tooltip-position="right">
+      Life
+    </mp-circle-button>
+    <mp-circle-button icon="connect-continent" tooltip-position="right">
+      Connect
+    </mp-circle-button>
+  </div>
+</mp-backdrop>

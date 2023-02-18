@@ -3549,19 +3549,39 @@ void main() {
     Accessibility Menu
   </mp-circle-button>
   <div :continentsMenuOptions class="continents-menu-options">
-    <mp-circle-button icon="about-continent" tooltip-position="right">
+    <mp-circle-button
+      icon="about-continent"
+      tooltip-position="right"
+      link="/#/about-continent"
+    >
       About
     </mp-circle-button>
-    <mp-circle-button icon="projects-continent" tooltip-position="right">
+    <mp-circle-button
+      icon="projects-continent"
+      tooltip-position="right"
+      link="/#/projects-continent"
+    >
       Projects
     </mp-circle-button>
-    <mp-circle-button icon="work-continent" tooltip-position="right">
+    <mp-circle-button
+      icon="work-continent"
+      tooltip-position="right"
+      link="/#/work-continent"
+    >
       Work
     </mp-circle-button>
-    <mp-circle-button icon="life-continent" tooltip-position="right">
+    <mp-circle-button
+      icon="life-continent"
+      tooltip-position="right"
+      link="/#/life-continent"
+    >
       Life
     </mp-circle-button>
-    <mp-circle-button icon="connect-continent" tooltip-position="right">
+    <mp-circle-button
+      icon="connect-continent"
+      tooltip-position="right"
+      link="/#/connect-continent"
+    >
       Connect
     </mp-circle-button>
   </div>
@@ -3583,7 +3603,7 @@ void main() {
 }
 
 :host([open]) > mp-backdrop > .continents-menu-toggle,
-.continents-menu-toggle:focus {
+.continents-menu-toggle:focus-within {
   opacity: 1;
 }
 

@@ -15,7 +15,7 @@
 }
 
 :host([open]) > mp-backdrop > .continents-menu-toggle,
-.continents-menu-toggle:focus {
+.continents-menu-toggle:focus-within {
   opacity: 1;
 }
 

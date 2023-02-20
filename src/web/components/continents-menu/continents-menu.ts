@@ -1,4 +1,5 @@
 import { Component, registerComponent, styles, template } from '../component';
+import { HashRouter } from '../../services/router/hash-router';
 
 import continentsMenuTemplate from './continents-menu.html?raw';
 import continentsMenuStyles from './continents-menu.css?raw';
@@ -6,6 +7,8 @@ import continentsMenuStyles from './continents-menu.css?raw';
 @template(continentsMenuTemplate)
 @styles(continentsMenuStyles)
 class ContinentsMenu extends Component {
+  private router = HashRouter.getInstance();
+
   private radius = 8;
   private startAngle = 0;
   private rotationAngle = 90;
@@ -34,6 +37,10 @@ class ContinentsMenu extends Component {
   onBackDropClick() {
     this.removeAttribute('open');
     this.getElement('backdrop')?.removeAttribute('active');
+  }
+
+  getMenuItemClickListener(route: string) {
+    return () => this.router.to(route);
   }
 
   /**

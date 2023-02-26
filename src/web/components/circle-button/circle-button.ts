@@ -21,7 +21,7 @@ class CircleButton extends Component {
 
   tag!: 'button' | 'a';
 
-  protected async onBeforeInitAsync() {
+  protected onBeforeInit() {
     this.tag = this.link ? 'a' : 'button';
   }
 }

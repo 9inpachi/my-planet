@@ -1,4 +1,5 @@
 import { Component } from '../../component';
+import { allEvents } from '../events';
 import { IHTMLParser } from './ihtml-parser';
 
 const eventPrefix = 'on:';
@@ -29,7 +30,7 @@ export class HTMLParser implements IHTMLParser {
     const addEventListenersToNodes = (node: Element) => {
       for (const attribute of node.getAttributeNames()) {
         if (attribute.startsWith(eventPrefix)) {
-          const eventName = attribute.substring(eventPrefix.length);
+          const eventName = this.getEventName(attribute);
           const eventListener = node.getAttribute(attribute);
           if (!eventListener) continue;
 
@@ -57,5 +58,15 @@ export class HTMLParser implements IHTMLParser {
 
   getRootElements(): Element[] {
     return [...this.parsedFragment.children];
+  }
+
+  private getEventName(attributeName: string): string {
+    const eventName = attributeName.substring(eventPrefix.length);
+
+    if (!allEvents.has(eventName)) {
+      throw new Error(`The specified event "${eventName}" is invalid.`);
+    }
+
+    return eventName;
   }
 }

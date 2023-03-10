@@ -52,7 +52,7 @@ export class Galaxy extends BaseObject<GalaxyProperties> {
     );
     const material = new PointsMaterial({
       color: colors.star,
-      size: 7,
+      size: 5,
       map: this.createStarTexture(),
       transparent: true,
       depthWrite: false,

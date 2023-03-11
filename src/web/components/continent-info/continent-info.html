@@ -1,18 +1,18 @@
 <article
   :continent
   class="continent"
-  on:wheel="this.onWrapperMouseWheel"
-  on:scroll="this.onWrapperScroll"
-  on:touchstart="this.onWrapperTouchStart"
-  on:touchend="this.onWrapperTouchEnd"
+  on:wheel="this.withScrollableCheck(this.onWrapperMouseWheel)"
+  on:scroll="this.withScrollableCheck(this.onWrapperScroll)"
+  on:touchstart="this.withScrollableCheck(this.onWrapperTouchStart)"
+  on:touchend="this.withScrollableCheck(this.onWrapperTouchEnd)"
 >
   <slot name="continent-header"></slot>
   <div
     :continentBody
     class="continent-body"
-    on:wheel="this.onBodyMouseWheel"
-    on:scroll="this.onBodyScroll"
-    on:touchend="this.onBodyTouchEnd"
+    on:wheel="this.withScrollableCheck(this.onBodyMouseWheel)"
+    on:scroll="this.withScrollableCheck(this.onBodyScroll)"
+    on:touchend="this.withScrollableCheck(this.onBodyTouchEnd)"
   >
     <div class="continent-body-inner">
       <slot name="continent-body"></slot>

@@ -12,7 +12,7 @@ class ContinentInfo extends Component {
 
   private touchStartY = 0;
 
-  onInit() {
+  protected onInit() {
     this.continent = this.getElement('continent') as HTMLElement;
     this.continentBody = this.getElement('continentBody') as HTMLElement;
   }
@@ -28,11 +28,10 @@ class ContinentInfo extends Component {
       return;
     }
 
-    const isContinentOpen = newVal !== null;
+    const isContinentOpening = newVal !== null;
 
-    if (isContinentOpen) {
-      const { scrollHeight, offsetHeight } = this.continentBody;
-      if (scrollHeight > offsetHeight) {
+    if (isContinentOpening) {
+      if (this.isContentScrollable()) {
         // Add the `has-scroll` class only if content is scrollable. So
         // the correct padding and margin can be applied to the
         // continent body to prevent the scroll bar from taking space.
@@ -43,6 +42,14 @@ class ContinentInfo extends Component {
     }
   }
 
+  withScrollableCheck(listener: EventListener) {
+    return (event: Event) => {
+      if (this.isContentScrollable()) {
+        listener.call(this, event);
+      }
+    };
+  }
+
   // Mouse Wheel Events
 
   // Ugh. Scroll events aren't always triggered so we have to use mouse
@@ -51,6 +58,7 @@ class ContinentInfo extends Component {
   onWrapperMouseWheel(event: WheelEvent) {
     // Don't propogate to the `scroll` event.
     event.preventDefault();
+
     // Activate the continent with a minimum down scroll.
     if (this.isScrollDown(event)) {
       this.activateContinent();
@@ -142,6 +150,10 @@ class ContinentInfo extends Component {
   private deactivateContinent() {
     this.continent.classList.remove('continent-active');
     this.continentActive = false;
+  }
+
+  private isContentScrollable() {
+    return this.continentBody.scrollHeight > this.continentBody.offsetHeight;
   }
 }
 

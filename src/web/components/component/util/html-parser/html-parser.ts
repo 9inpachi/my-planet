@@ -19,43 +19,45 @@ export class HTMLParser implements IHTMLParser {
     }
   }
 
-  /**
-   * Event listeners processed here execute in the context
-   * of the component which the template belongs to.
-   */
   processEventListeners() {
-    const rootElements = this.getRootElements();
-
-    const addEventListenersToNodes = (node: Element) => {
-      for (const attribute of node.getAttributeNames()) {
-        if (attribute.startsWith(eventPrefix)) {
-          const eventName = attribute.substring(eventPrefix.length);
-          const eventListener = node.getAttribute(attribute);
-          if (!eventListener) continue;
-
-          node.addEventListener(
-            eventName,
-            // Evaluate the wrapper function (`new Function`) in component's context
-            // to return the right value of `this.onClick`.
-            // And then make the listener run in the component's context.
-            new Function(`return ${eventListener}`)
-              .apply(this.componentContext)
-              .bind(this.componentContext),
-          );
-
-          node.removeAttribute(attribute);
-        }
-      }
-
-      for (const child of node.children) {
-        addEventListenersToNodes(child);
-      }
-    };
-
-    rootElements.forEach(addEventListenersToNodes);
+    this.getRootElements().forEach((rootElement) => {
+      this.addEventListenersToNodes(rootElement);
+    });
   }
 
   getRootElements(): Element[] {
     return [...this.parsedFragment.children];
+  }
+
+  /**
+   * Event listeners processed here execute in the context
+   * of the component which the template belongs to.
+   */
+  private addEventListenersToNodes(node: Element) {
+    const eventAttributes = node
+      .getAttributeNames()
+      .filter((attribute) => attribute.startsWith(eventPrefix));
+
+    for (const attribute of eventAttributes) {
+      const eventName = attribute.substring(eventPrefix.length);
+      const eventListener = node.getAttribute(attribute);
+      if (!eventListener) continue;
+
+      node.addEventListener(
+        eventName,
+        // Evaluate the wrapper function (`new Function`) in component's context
+        // to return the right value of `this.onClick`.
+        // And then make the listener run in the component's context.
+        new Function(`return ${eventListener}`)
+          .apply(this.componentContext)
+          ?.bind(this.componentContext),
+      );
+
+      node.removeAttribute(attribute);
+    }
+
+    for (const child of node.children) {
+      this.addEventListenersToNodes(child);
+    }
   }
 }

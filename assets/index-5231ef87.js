@@ -3963,9 +3963,9 @@ void main() {
     <p>Hi there!</p>
     <p><b>Fawad Ali</b> here. An anime guy who loves to develop software.</p>
     <p>
-      A <b>Software Engineer</b> currently building great stuff at Amazon.
-      Someone who is interested in contributing to the world through software
-      with experience working across multiple tech stacks.
+      A <b>Software Engineer</b> currently helping build near real-time maps at
+      TomTom. Someone who is interested in contributing to the world through
+      software with experience working across multiple tech stacks.
     </p>
     <p>
       Originally from the wonderful land of Pakistan and enjoying life in
@@ -4184,6 +4184,11 @@ void main() {
   </mp-continent-header>
   <mp-continent-body slot="continent-body">
     <mp-timeline>
+      <mp-timeline-event>
+        <span slot="time">2023/03</span>
+        <mp-heading level="h3" slot="title">TomTom</mp-heading>
+        <span slot="subtitle">Software Engineer III</span>
+      </mp-timeline-event>
       <mp-timeline-event>
         <span slot="time">2022/11</span>
         <mp-heading level="h3" slot="title">Amazon</mp-heading>

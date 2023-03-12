@@ -42,8 +42,8 @@ class ContinentInfo extends Component {
     }
   }
 
-  withScrollableCheck(listener: EventListener) {
-    return (event: Event) => {
+  withScrollableCheck<T>(listener: (event: T) => void) {
+    return (event: T) => {
       if (this.isContentScrollable()) {
         listener.call(this, event);
       }

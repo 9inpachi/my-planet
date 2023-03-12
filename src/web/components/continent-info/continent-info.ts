@@ -116,6 +116,12 @@ class ContinentInfo extends Component {
     }
   }
 
+  // Focus Events
+
+  onBodyFocus() {
+    this.activateContinent();
+  }
+
   // Helper Methods
 
   private isScrollUp(event: WheelEvent) {
@@ -149,6 +155,7 @@ class ContinentInfo extends Component {
 
   private deactivateContinent() {
     this.continent.classList.remove('continent-active');
+    this.continentBody.scrollTop = 0;
     this.continentActive = false;
   }
 

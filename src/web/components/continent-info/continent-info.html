@@ -9,10 +9,12 @@
   <slot name="continent-header"></slot>
   <div
     :continentBody
+    tabindex="0"
     class="continent-body"
     on:wheel="this.withScrollableCheck(this.onBodyMouseWheel)"
     on:scroll="this.withScrollableCheck(this.onBodyScroll)"
     on:touchend="this.withScrollableCheck(this.onBodyTouchEnd)"
+    on:focus="this.withScrollableCheck(this.onBodyFocus)"
   >
     <div class="continent-body-inner">
       <slot name="continent-body"></slot>

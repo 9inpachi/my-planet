@@ -4054,7 +4054,80 @@ void main() {
     Life
   </mp-continent-header>
   <mp-continent-body slot="continent-body">
-    Some content to come
+    <mp-timeline>
+      <mp-timeline-event>
+        <span slot="time">2023/03</span>
+        <mp-heading level="h3" slot="title">TomTom</mp-heading>
+        <span slot="subtitle">Software Engineer III Job</span>
+      </mp-timeline-event>
+      <mp-timeline-event>
+        <span slot="time">2022/11</span>
+        <mp-heading level="h3" slot="title">Amazon</mp-heading>
+        <span slot="subtitle">Software Development Engineer Job</span>
+      </mp-timeline-event>
+      <mp-timeline-event>
+        <span slot="time">2020/12</span>
+        <mp-heading level="h3" slot="title">Unite/Mercateo</mp-heading>
+        <span slot="subtitle">Software Engineer Job</span>
+      </mp-timeline-event>
+      <mp-timeline-event>
+        <span slot="time">2020/10</span>
+        <mp-heading level="h3" slot="title">University of Sussex</mp-heading>
+        <span slot="subtitle">
+          OpenCL Backend for GPU-enhanced Neural Networks (GeNN) Project
+        </span>
+      </mp-timeline-event>
+      <mp-timeline-event>
+        <span slot="time">2020/05</span>
+        <mp-heading level="h3" slot="title">Phoenix Project</mp-heading>
+        <span slot="subtitle">Google Summer of Code with CERN</span>
+      </mp-timeline-event>
+      <mp-timeline-event>
+        <span slot="time">2019/05</span>
+        <mp-heading level="h3" slot="title">
+          Interactive Maps Application Project
+        </mp-heading>
+        <span slot="subtitle">Google Summer of Code with XWiki</span>
+      </mp-timeline-event>
+      <mp-timeline-event>
+        <span slot="time">2017/07</span>
+        <mp-heading level="h3" slot="title">Spring Jumper 2D</mp-heading>
+        <span slot="subtitle">Design and Animation for the Game</span>
+      </mp-timeline-event>
+      <mp-timeline-event>
+        <span slot="time">2017/03</span>
+        <mp-heading level="h3" slot="title">NUST CEME Olympiad</mp-heading>
+        <span slot="subtitle">Won Poster and Logo Designing Competition</span>
+      </mp-timeline-event>
+      <mp-timeline-event>
+        <span slot="time">2016/10</span>
+        <mp-heading level="h3" slot="title">
+          University of Engineering and Technology, Taxila
+        </mp-heading>
+        <span slot="subtitle">Graduation as a Software Engineer</span>
+      </mp-timeline-event>
+      <mp-timeline-event>
+        <span slot="time">2016/06</span>
+        <mp-heading level="h3" slot="title">
+          The Scholars Science College
+        </mp-heading>
+        <span slot="subtitle">
+          Higher Secondary School (11<sup>th</sup> and 12<sup>th</sup> Grade)
+        </span>
+      </mp-timeline-event>
+      <mp-timeline-event>
+        <span slot="time">2014/06</span>
+        <mp-heading level="h3" slot="title">POF Model High School</mp-heading>
+        <span slot="subtitle">
+          Secondary School (9<sup>th</sup> and 10<sup>th</sup> Grade)
+        </span>
+      </mp-timeline-event>
+      <mp-timeline-event>
+        <span slot="time">2006/03</span>
+        <mp-heading level="h3" slot="title">APSACS</mp-heading>
+        <span slot="subtitle">1<sup>st</sup> to 7<sup>th</sup> Grade</span>
+      </mp-timeline-event>
+    </mp-timeline>
   </mp-continent-body>
 </mp-continent-info>
 `;var Tb=Object.defineProperty,Eb=Object.getOwnPropertyDescriptor,Ab=c((s,e,t,n)=>{for(var i=n>1?void 0:n?Eb(e,t):e,r=s.length-1,o;r>=0;r--)(o=s[r])&&(i=(n?o(e,t,i):o(i))||i);return n&&i&&Tb(e,t,i),i},"__decorateClass$2");let Sa=c(class extends rs{},"LifeContinent");Sa=Ab([gt(Sb)],Sa);at(Sa);const Cb=`<mp-continent-pin icon="projects-continent">

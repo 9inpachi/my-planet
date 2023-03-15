@@ -30,9 +30,9 @@ jobs:
         uses: jacobtomlinson/gha-find-replace@v3
         with:
           find: '<!-- {GTM_EMBED_CODE_PLACEHOLDER} -->'
-          replace: ${{ vars.GTM_EMBED_CODE }}
+          replace: '${{ vars.GTM_EMBED_CODE }}'
           regex: false
-          include: ./dist/index.html
+          include: 'dist/index.html'
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3

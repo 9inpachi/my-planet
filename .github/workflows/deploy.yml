@@ -29,7 +29,7 @@ jobs:
         if: ${{ vars.GTM_EMBED_CODE }}
         uses: jacobtomlinson/gha-find-replace@v3
         with:
-          find: '<!-- {GTM_EMBED_CODE} -->'
+          find: '<!-- {GTM_EMBED_CODE_PLACEHOLDER} -->'
           replace: ${{ vars.GTM_EMBED_CODE }}
           regex: false
           include: ./dist/index.html

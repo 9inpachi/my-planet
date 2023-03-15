@@ -25,6 +25,15 @@ jobs:
           yarn install --silent
           yarn build --base=$BASE_URL
 
+      - name: Embed Google Tag Manager Code
+        if: ${{ vars.GTM_EMBED_CODE }}
+        uses: jacobtomlinson/gha-find-replace@v3
+        with:
+          find: '<!-- {GTM_EMBED_CODE} -->'
+          replace: ${{ vars.GTM_EMBED_CODE }}
+          regex: false
+          include: ./dist/index.html
+
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:

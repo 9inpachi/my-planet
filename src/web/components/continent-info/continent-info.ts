@@ -8,9 +8,6 @@ import continentStyles from './continent-info.css?raw';
 class ContinentInfo extends Component {
   private continent!: HTMLElement;
   private continentBody!: HTMLElement;
-  private continentActive = false;
-
-  private touchStartY = 0;
 
   protected onInit() {
     this.continent = this.getElement('continent') as HTMLElement;
@@ -28,118 +25,38 @@ class ContinentInfo extends Component {
       return;
     }
 
-    const isContinentOpening = newVal !== null;
+    // `open` attribute is not set.
+    const isContinentClosing = newVal === null;
 
-    if (isContinentOpening) {
-      if (this.isContentScrollable()) {
-        // Add the `has-scroll` class only if content is scrollable. So
-        // the correct padding and margin can be applied to the
-        // continent body to prevent the scroll bar from taking space.
-        this.continentBody.classList.add('has-scroll');
-      }
+    if (isContinentClosing) {
+      this.deactivateContinent();
+      return;
+    }
+
+    if (this.isContentScrollable()) {
+      // Add the `has-scroll` class only if content is scrollable. So
+      // the correct padding and margin can be applied to the
+      // continent body to prevent the scroll bar from taking space.
+      this.continentBody.classList.add('has-scroll');
     } else {
-      this.deactivateContinent();
+      this.getElement('showMoreButton')?.remove();
     }
   }
 
-  withScrollableCheck<T>(listener: (event: T) => void) {
-    return (event: T) => {
-      if (this.isContentScrollable()) {
-        listener.call(this, event);
-      }
-    };
-  }
+  onShowMoreClick() {
+    const isContinentActive =
+      this.continent.classList.contains('continent-active');
+    const showMoreButton = this.getElement('showMoreButton') as HTMLElement;
 
-  // Mouse Wheel Events
-
-  // Ugh. Scroll events aren't always triggered so we have to use mouse
-  // wheel events.
-
-  onWrapperMouseWheel(event: WheelEvent) {
-    // Don't propogate to the `scroll` event.
-    event.preventDefault();
-
-    // Activate the continent with a minimum down scroll.
-    if (this.isScrollDown(event)) {
+    if (isContinentActive) {
+      this.deactivateContinent();
+      this.continentBody.scrollTop = 0;
+      showMoreButton.textContent = 'Show more';
+    } else {
       this.activateContinent();
+      this.continentBody.focus();
+      showMoreButton.textContent = 'Show less';
     }
-  }
-
-  onBodyMouseWheel(event: WheelEvent) {
-    // We only stop propagation when the continent is active. If we stop
-    // it in the start, scrolling on the content won't activate the
-    // continent.
-    this.continentActive && event.stopPropagation();
-    const scrollTop = this.continentBody.scrollTop;
-
-    if (scrollTop === 0 && this.isScrollUp(event)) {
-      this.deactivateContinent();
-    }
-  }
-
-  // Scroll Events for Other Devices
-
-  onWrapperScroll() {
-    this.activateContinent();
-  }
-
-  onBodyScroll(event: Event) {
-    this.continentActive && event.stopPropagation();
-    const scrollTop = this.continentBody.scrollTop;
-
-    if (scrollTop === 0) {
-      this.deactivateContinent();
-    }
-  }
-
-  // Other Ways to Activate Continent
-
-  onWrapperTouchStart(event: TouchEvent) {
-    this.touchStartY = event.changedTouches[0].clientY;
-  }
-
-  onWrapperTouchEnd(event: TouchEvent) {
-    if (!this.continentActive && this.isTouchUp(event)) {
-      this.activateContinent();
-    } else if (this.continentActive && this.isTouchDown(event)) {
-      this.deactivateContinent();
-    }
-  }
-
-  onBodyTouchEnd(event: TouchEvent) {
-    // Don't call `onWrapperTouchEnd` if the continent is being scrolled.
-    this.continentActive && event.stopPropagation();
-    const scrollTop = this.continentBody.scrollTop;
-
-    if (scrollTop === 0 && this.isTouchDown(event)) {
-      this.deactivateContinent();
-    }
-  }
-
-  // Focus Events
-
-  onBodyFocus() {
-    this.activateContinent();
-  }
-
-  // Helper Methods
-
-  private isScrollUp(event: WheelEvent) {
-    return event.deltaY < 0;
-  }
-
-  private isScrollDown(event: WheelEvent) {
-    return event.deltaY > 0;
-  }
-
-  private isTouchUp(event: TouchEvent) {
-    const touchEndY = event.changedTouches[0].clientY;
-    return touchEndY < this.touchStartY;
-  }
-
-  private isTouchDown(event: TouchEvent) {
-    const touchEndY = event.changedTouches[0].clientY;
-    return touchEndY > this.touchStartY;
   }
 
   private activateContinent() {
@@ -147,16 +64,10 @@ class ContinentInfo extends Component {
     // (`overflow: hidden;`) for continent and enable it for continent
     // body through css.
     this.continent.classList.add('continent-active');
-    // Setting to `scrollTop = 1` so the content can be scrolled up. Because the
-    // `scroll` event isn't triggered with `scrollTop = 0` when deactivating the content.
-    this.continentBody.scrollTop = 1;
-    this.continentActive = true;
   }
 
   private deactivateContinent() {
     this.continent.classList.remove('continent-active');
-    this.continentBody.scrollTop = 0;
-    this.continentActive = false;
   }
 
   private isContentScrollable() {

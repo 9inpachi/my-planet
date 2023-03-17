@@ -44,7 +44,7 @@
   flex-grow: 1;
   /* For making scroll appear on the left which is a design element. */
   direction: rtl;
-  -webkit-mask-image: linear-gradient(to top, transparent, #000000 10%);
+  -webkit-mask-image: linear-gradient(to top, transparent, #000000 20%);
   overflow: hidden;
 
   /* Scrollbar Styles */
@@ -72,6 +72,23 @@
   /* 0.5rem left for the width of scrollbar. */
   padding-left: 1.5rem;
   margin-left: -2rem;
+}
+
+/* "Show more" Button */
+
+.show-more-button {
+  position: absolute;
+  left: 50%;
+  bottom: 0.75rem;
+  transform: translateX(-50%);
+}
+
+.show-more-button::part(icon) {
+  transform: rotate(-90deg);
+}
+
+.continent.continent-active > .show-more-button::part(icon) {
+  transform: rotate(90deg);
 }
 
 /* Scrollbar Styles */

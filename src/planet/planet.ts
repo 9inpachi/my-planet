@@ -13,13 +13,13 @@ import { Galaxy } from './objects/galaxy';
 import { enableParallax } from './common/util/parallax';
 import { ContinentInteractor } from './continents/common/util/continent-interactor';
 import { isScreenPortrait } from '../common/util/responsive';
+import { BaseContinent } from './continents/base-continent';
 import {
   defaultCameraConfigDesktop,
   defaultCameraConfigMobile,
 } from './common/lib/camera-config';
 
 import continentGeometry from '../assets/geometries/continents.gltf';
-import { BaseContinent } from './continents/base-continent';
 
 export class Planet {
   private three: Three;

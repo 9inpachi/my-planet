@@ -1,23 +1,17 @@
-<article
-  :continent
-  class="continent"
-  on:wheel="this.withScrollableCheck(this.onWrapperMouseWheel)"
-  on:scroll="this.withScrollableCheck(this.onWrapperScroll)"
-  on:touchstart="this.withScrollableCheck(this.onWrapperTouchStart)"
-  on:touchend="this.withScrollableCheck(this.onWrapperTouchEnd)"
->
+<article :continent class="continent">
   <slot name="continent-header"></slot>
-  <div
-    :continentBody
-    tabindex="0"
-    class="continent-body"
-    on:wheel="this.withScrollableCheck(this.onBodyMouseWheel)"
-    on:scroll="this.withScrollableCheck(this.onBodyScroll)"
-    on:touchend="this.withScrollableCheck(this.onBodyTouchEnd)"
-    on:focus="this.withScrollableCheck(this.onBodyFocus)"
-  >
+  <div :continentBody tabindex="0" class="continent-body">
     <div class="continent-body-inner">
       <slot name="continent-body"></slot>
     </div>
   </div>
+  <mp-circle-button
+    :showMoreButton
+    class="show-more-button"
+    icon="arrow"
+    tooltip-position="top"
+    on:click="this.onShowMoreClick"
+  >
+    Show more
+  </mp-circle-button>
 </article>

@@ -3756,13 +3756,13 @@ void main() {
     </div>
   </div>
   <mp-circle-button
-    :showMoreButton
-    class="show-more-button"
+    :expandCollapseButton
+    class="expand-collapse-button"
     icon="arrow"
     tooltip-position="top"
-    on:click="this.onShowMoreClick"
+    on:click="this.onExpandCollapseClick"
   >
-    Show more
+    Expand
   </mp-circle-button>
 </article>
 `,ub=`:host {
@@ -3831,7 +3831,7 @@ void main() {
   padding-top: 0;
 }
 
-.continent.continent-active > .continent-body.has-scroll {
+.continent.continent-active.scrollable > .continent-body {
   padding-bottom: var(--continent-vertical-spacing);
   overflow: auto;
 
@@ -3841,21 +3841,25 @@ void main() {
   margin-left: -2rem;
 }
 
-/* "Show more" Button */
+/* Expand/Collapse Button */
 
-.show-more-button {
+.expand-collapse-button {
   position: absolute;
   left: 50%;
   bottom: 0.75rem;
   transform: translateX(-50%);
 }
 
-.show-more-button::part(icon) {
+.expand-collapse-button::part(icon) {
   transform: rotate(-90deg);
 }
 
-.continent.continent-active > .show-more-button::part(icon) {
+.continent.continent-active > .expand-collapse-button::part(icon) {
   transform: rotate(90deg);
+}
+
+.continent:not(.scrollable) > .expand-collapse-button {
+  display: none;
 }
 
 /* Scrollbar Styles */
@@ -3918,7 +3922,7 @@ void main() {
     display: none;
   }
 
-  .continent.continent-active > .continent-body.has-scroll {
+  .continent.continent-active.scrollable > .continent-body {
     padding-left: 0;
     margin-left: 0;
   }
@@ -3938,7 +3942,7 @@ void main() {
     padding-right: 3rem;
   }
 }
-`;var hb=Object.defineProperty,db=Object.getOwnPropertyDescriptor,fb=u((s,e,t,n)=>{for(var i=n>1?void 0:n?db(e,t):e,r=s.length-1,o;r>=0;r--)(o=s[r])&&(i=(n?o(e,t,i):o(i))||i);return n&&i&&hb(e,t,i),i},"__decorateClass$7");let va=u(class extends St{onInit(){this.continent=this.getElement("continent"),this.continentBody=this.getElement("continentBody")}static get observedAttributes(){return["open"]}attributeChangedCallback(s,e,t){var i;if(s!=="open")return;if(t===null){this.deactivateContinent();return}this.isContentScrollable()?this.continentBody.classList.add("has-scroll"):(i=this.getElement("showMoreButton"))==null||i.remove()}onShowMoreClick(){const s=this.continent.classList.contains("continent-active"),e=this.getElement("showMoreButton");s?(this.deactivateContinent(),this.continentBody.scrollTop=0,e.textContent="Show more"):(this.activateContinent(),this.continentBody.focus(),e.textContent="Show less")}activateContinent(){this.continent.classList.add("continent-active")}deactivateContinent(){this.continent.classList.remove("continent-active")}isContentScrollable(){return this.continentBody.scrollHeight>this.continentBody.offsetHeight}},"ContinentInfo");va=fb([mt(cb),Ut(ub)],va);at(va);const pb=`<div class="continent-pin">
+`;var hb=Object.defineProperty,db=Object.getOwnPropertyDescriptor,fb=u((s,e,t,n)=>{for(var i=n>1?void 0:n?db(e,t):e,r=s.length-1,o;r>=0;r--)(o=s[r])&&(i=(n?o(e,t,i):o(i))||i);return n&&i&&hb(e,t,i),i},"__decorateClass$7");let va=u(class extends St{onInit(){this.continent=this.getElement("continent"),this.continentBody=this.getElement("continentBody")}static get observedAttributes(){return["open"]}attributeChangedCallback(s,e,t){if(s!=="open")return;t===null?this.deactivateContinent():this.isContentScrollable()&&this.continent.classList.add("scrollable")}onExpandCollapseClick(){const s=this.getElement("expandCollapseButton");this.continent.classList.contains("continent-active")?(this.deactivateContinent(),this.continentBody.scrollTop=0,s.textContent="Expand"):(this.activateContinent(),this.continentBody.focus(),s.textContent="Collapse")}activateContinent(){this.continent.classList.add("continent-active")}deactivateContinent(){this.continent.classList.remove("continent-active")}isContentScrollable(){return this.continentBody.scrollHeight>this.continentBody.offsetHeight}},"ContinentInfo");va=fb([mt(cb),Ut(ub)],va);at(va);const pb=`<div class="continent-pin">
   <div class="continent-pin-content">
     <mp-heading level="h3" class="continent-pin-title">
       <slot name="title"></slot>

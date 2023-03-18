@@ -64,7 +64,7 @@
   padding-top: 0;
 }
 
-.continent.continent-active > .continent-body.has-scroll {
+.continent.continent-active.scrollable > .continent-body {
   padding-bottom: var(--continent-vertical-spacing);
   overflow: auto;
 
@@ -74,21 +74,25 @@
   margin-left: -2rem;
 }
 
-/* "Show more" Button */
+/* Expand/Collapse Button */
 
-.show-more-button {
+.expand-collapse-button {
   position: absolute;
   left: 50%;
   bottom: 0.75rem;
   transform: translateX(-50%);
 }
 
-.show-more-button::part(icon) {
+.expand-collapse-button::part(icon) {
   transform: rotate(-90deg);
 }
 
-.continent.continent-active > .show-more-button::part(icon) {
+.continent.continent-active > .expand-collapse-button::part(icon) {
   transform: rotate(90deg);
+}
+
+.continent:not(.scrollable) > .expand-collapse-button {
+  display: none;
 }
 
 /* Scrollbar Styles */
@@ -151,7 +155,7 @@
     display: none;
   }
 
-  .continent.continent-active > .continent-body.has-scroll {
+  .continent.continent-active.scrollable > .continent-body {
     padding-left: 0;
     margin-left: 0;
   }

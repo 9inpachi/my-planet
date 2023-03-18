@@ -30,32 +30,29 @@ class ContinentInfo extends Component {
 
     if (isContinentClosing) {
       this.deactivateContinent();
-      return;
-    }
-
-    if (this.isContentScrollable()) {
-      // Add the `has-scroll` class only if content is scrollable. So
-      // the correct padding and margin can be applied to the
-      // continent body to prevent the scroll bar from taking space.
-      this.continentBody.classList.add('has-scroll');
-    } else {
-      this.getElement('showMoreButton')?.remove();
+    } else if (this.isContentScrollable()) {
+      // Add the `.scrollable` class only if content is scrollable. So
+      // the correct padding and margin can be applied to the continent
+      // body to prevent the scroll bar from taking space.
+      this.continent.classList.add('scrollable');
     }
   }
 
-  onShowMoreClick() {
+  onExpandCollapseClick() {
+    const expandCollapseButton = this.getElement(
+      'expandCollapseButton',
+    ) as HTMLElement;
     const isContinentActive =
       this.continent.classList.contains('continent-active');
-    const showMoreButton = this.getElement('showMoreButton') as HTMLElement;
 
     if (isContinentActive) {
       this.deactivateContinent();
       this.continentBody.scrollTop = 0;
-      showMoreButton.textContent = 'Show more';
+      expandCollapseButton.textContent = 'Expand';
     } else {
       this.activateContinent();
       this.continentBody.focus();
-      showMoreButton.textContent = 'Show less';
+      expandCollapseButton.textContent = 'Collapse';
     }
   }
 

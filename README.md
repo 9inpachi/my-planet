@@ -1,6 +1,6 @@
 # My Planet
 
-> **Note:** This doc s a work in progress.
+> **Note:** This doc is a work in progress.
 
 A small planet with procedurally generated objects placed over continents.
 

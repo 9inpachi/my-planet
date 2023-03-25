@@ -1,17 +1,13 @@
-<article :continent class="continent">
-  <slot name="continent-header"></slot>
-  <div :continentBody tabindex="0" class="continent-body">
-    <div class="continent-body-inner">
+<article
+  :continent
+  tabindex="0"
+  class="continent"
+  on:scroll="this.onContinentScroll"
+>
+  <div class="continent-inner">
+    <slot class="continent-header" name="continent-header"></slot>
+    <div class="continent-body">
       <slot name="continent-body"></slot>
     </div>
   </div>
-  <mp-circle-button
-    :expandCollapseButton
-    class="expand-collapse-button"
-    icon="arrow"
-    tooltip-position="top"
-    on:click="this.onExpandCollapseClick"
-  >
-    Expand
-  </mp-circle-button>
 </article>

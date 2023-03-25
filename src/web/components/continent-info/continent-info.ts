@@ -7,11 +7,9 @@ import continentStyles from './continent-info.css?raw';
 @styles(continentStyles)
 class ContinentInfo extends Component {
   private continent!: HTMLElement;
-  private continentBody!: HTMLElement;
 
   protected onInit() {
     this.continent = this.getElement('continent') as HTMLElement;
-    this.continentBody = this.getElement('continentBody') as HTMLElement;
   }
 
   // Should move the attribute observation logic to the @property
@@ -20,17 +18,12 @@ class ContinentInfo extends Component {
     return ['open'];
   }
 
-  attributeChangedCallback(name: string, _oldVal: string, newVal: string) {
+  attributeChangedCallback(name: string) {
     if (name !== 'open') {
       return;
     }
 
-    // `open` attribute is not set.
-    const isContinentClosing = newVal === null;
-
-    if (isContinentClosing) {
-      this.deactivateContinent();
-    } else if (this.isContentScrollable()) {
+    if (this.isContentScrollable()) {
       // Add the `.scrollable` class only if content is scrollable. So
       // the correct padding and margin can be applied to the continent
       // body to prevent the scroll bar from taking space.
@@ -38,37 +31,18 @@ class ContinentInfo extends Component {
     }
   }
 
-  onExpandCollapseClick() {
-    const expandCollapseButton = this.getElement(
-      'expandCollapseButton',
-    ) as HTMLElement;
-    const isContinentActive =
-      this.continent.classList.contains('continent-active');
-
-    if (isContinentActive) {
-      this.deactivateContinent();
-      this.continentBody.scrollTop = 0;
-      expandCollapseButton.textContent = 'Expand';
+  onContinentScroll() {
+    // TODO: Handle this better.
+    const expectedScrollTop = document.documentElement.clientHeight * 0.35;
+    if (this.continent.scrollTop > expectedScrollTop) {
+      this.continent.classList.add('scrolled');
     } else {
-      this.activateContinent();
-      this.continentBody.focus();
-      expandCollapseButton.textContent = 'Collapse';
+      this.continent.classList.remove('scrolled');
     }
   }
 
-  private activateContinent() {
-    // Add the class `continent-active` which will disable scroll
-    // (`overflow: hidden;`) for continent and enable it for continent
-    // body through css.
-    this.continent.classList.add('continent-active');
-  }
-
-  private deactivateContinent() {
-    this.continent.classList.remove('continent-active');
-  }
-
   private isContentScrollable() {
-    return this.continentBody.scrollHeight > this.continentBody.offsetHeight;
+    return this.continent.scrollHeight > this.continent.offsetHeight;
   }
 }
 

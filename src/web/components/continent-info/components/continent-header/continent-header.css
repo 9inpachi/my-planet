@@ -1,9 +1,4 @@
 .continent-header {
-  --gradient: linear-gradient(
-    to right,
-    var(--primary-color) 0%,
-    var(--secondary-color) 90%
-  );
   padding: 2.5rem 0;
   transition: margin-top 0.5s;
 }

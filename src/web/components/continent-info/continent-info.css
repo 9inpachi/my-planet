@@ -17,7 +17,6 @@
   padding-top: var(--continent-vertical-spacing);
   padding-left: 4rem;
   padding-right: 4rem;
-  overflow: auto;
 
   /* Open/Close Animation */
   visibility: hidden;
@@ -26,11 +25,14 @@
   transition: all var(--continent-open-close-duration),
     padding-top var(--continent-scroll-duration);
 
-  /* Hide Scrollbar */
-  /* IE and Edge */
-  -ms-overflow-style: none;
-  /* Firefox */
-  scrollbar-width: none;
+  /* For making scroll appear on the left which is a design element. */
+  direction: rtl;
+  -webkit-mask-image: linear-gradient(to top, transparent, #000000 10%);
+  overflow: auto;
+}
+
+.continent-inner {
+  direction: ltr;
 }
 
 :host([open]) .continent {
@@ -40,92 +42,68 @@
   opacity: 1;
 }
 
-.continent-body {
-  flex-grow: 1;
-  /* For making scroll appear on the left which is a design element. */
-  direction: rtl;
-  -webkit-mask-image: linear-gradient(to top, transparent, #000000 20%);
-  overflow: hidden;
+/* Sticky Continent Header */
 
-  /* Scrollbar Styles */
-  /* Firefox has 0.5rem width of scroll for `thin`. */
-  scrollbar-width: thin;
-  scrollbar-color: var(--primary) transparent;
+.continent-header::slotted(*) {
+  position: sticky;
+  top: calc(-1 * var(--continent-vertical-spacing));
+  z-index: var(--layer-front);
 }
 
-.continent-body > .continent-body-inner {
-  direction: ltr;
+.continent.scrolled .continent-header::slotted(*)::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse at left center, #000000, transparent 75%);
+  z-index: var(--layer-background);
 }
 
 /* Handling Scroll */
 
-.continent.continent-active {
-  overflow: hidden;
-  padding-top: 0;
-}
-
-.continent.continent-active.scrollable > .continent-body {
+.continent.scrollable {
   padding-bottom: var(--continent-vertical-spacing);
-  overflow: auto;
-
-  /* Scrollbar */
-  /* 0.5rem left for the width of scrollbar. */
-  padding-left: 1.5rem;
-  margin-left: -2rem;
-}
-
-/* Expand/Collapse Button */
-
-.expand-collapse-button {
-  position: absolute;
-  left: 50%;
-  bottom: 0.75rem;
-  transform: translateX(-50%);
-}
-
-.expand-collapse-button::part(icon) {
-  transform: rotate(-90deg);
-}
-
-.continent.continent-active > .expand-collapse-button::part(icon) {
-  transform: rotate(90deg);
-}
-
-.continent:not(.scrollable) > .expand-collapse-button {
-  display: none;
 }
 
 /* Scrollbar Styles */
 
 .continent::-webkit-scrollbar {
-  display: none;
-}
-
-.continent-body::-webkit-scrollbar {
   width: 0.5rem;
 }
 
-.continent-body::-webkit-scrollbar-track {
+.continent::-webkit-scrollbar-track {
   background: transparent;
 }
 
-.continent-body::-webkit-scrollbar-thumb {
+.continent::-webkit-scrollbar-thumb {
   background: var(--primary);
   border-radius: 1rem;
 }
 
-.continent-body::-webkit-scrollbar-thumb:hover {
+.continent::-webkit-scrollbar-thumb:hover {
   background: var(--primary-dim);
 }
 
-.continent-body::-webkit-scrollbar-track-piece:end {
+.continent::-webkit-scrollbar-track-piece:end {
   background: transparent;
   margin-bottom: 10rem;
 }
 
-.continent-body::-webkit-scrollbar-track-piece:start {
+.continent::-webkit-scrollbar-track-piece:start {
   background: transparent;
-  margin-top: 10rem;
+  margin-top: calc(var(--continent-vertical-spacing) + 20vh);
+}
+
+/* Desktop */
+@media screen and (min-width: 992px) {
+  .continent.scrollable {
+    /* Scrollbar */
+    padding-left: 2rem;
+    /* 0.5rem left for the width of scrollbar. */
+    margin-left: 1.5rem;
+  }
 }
 
 /* Tablet */
@@ -134,11 +112,11 @@
     width: 50%;
   }
 
-  .continent-body::-webkit-scrollbar-track-piece:end {
+  .continent::-webkit-scrollbar-track-piece:end {
     margin-bottom: 0;
   }
 
-  .continent-body::-webkit-scrollbar-track-piece:start {
+  .continent::-webkit-scrollbar-track-piece:start {
     margin-top: 0;
   }
 }
@@ -151,13 +129,13 @@
 
   /* Hide Scrollbar for Mobile */
 
-  .continent-body::-webkit-scrollbar {
+  .continent::-webkit-scrollbar {
     display: none;
   }
 
-  .continent.continent-active.scrollable > .continent-body {
-    padding-left: 0;
-    margin-left: 0;
+  .continent {
+    padding-left: 3rem;
+    padding-right: 3rem;
   }
 }
 

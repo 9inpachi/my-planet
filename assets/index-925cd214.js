@@ -3700,11 +3700,6 @@ void main() {
   </mp-heading>
 </header>
 `,nb=`.continent-header {
-  --gradient: linear-gradient(
-    to right,
-    var(--primary-color) 0%,
-    var(--secondary-color) 90%
-  );
   padding: 2.5rem 0;
   transition: margin-top 0.5s;
 }
@@ -3748,24 +3743,24 @@ void main() {
   }
 }
 `;var ib=Object.defineProperty,sb=Object.getOwnPropertyDescriptor,Cd=u((s,e,t,n)=>{for(var i=n>1?void 0:n?sb(e,t):e,r=s.length-1,o;r>=0;r--)(o=s[r])&&(i=(n?o(e,t,i):o(i))||i);return n&&i&&ib(e,t,i),i},"__decorateClass$9");let Rr=u(class extends St{constructor(){super(...arguments),this.router=Ln.getInstance()}onBackClick(s){s.stopPropagation(),this.router.to("/")}},"ContinentHeader");Cd([vn()],Rr.prototype,"icon",2);Rr=Cd([mt(tb),Ut(nb)],Rr);at(Rr);const rb=`<slot></slot>
-`;var ob=Object.defineProperty,ab=Object.getOwnPropertyDescriptor,lb=u((s,e,t,n)=>{for(var i=n>1?void 0:n?ab(e,t):e,r=s.length-1,o;r>=0;r--)(o=s[r])&&(i=(n?o(e,t,i):o(i))||i);return n&&i&&ob(e,t,i),i},"__decorateClass$8");let _a=u(class extends St{},"ContinentBody");_a=lb([mt(rb)],_a);at(_a);const cb=`<article :continent class="continent">
-  <slot name="continent-header"></slot>
-  <div :continentBody tabindex="0" class="continent-body">
-    <div class="continent-body-inner">
+`;var ob=Object.defineProperty,ab=Object.getOwnPropertyDescriptor,lb=u((s,e,t,n)=>{for(var i=n>1?void 0:n?ab(e,t):e,r=s.length-1,o;r>=0;r--)(o=s[r])&&(i=(n?o(e,t,i):o(i))||i);return n&&i&&ob(e,t,i),i},"__decorateClass$8");let _a=u(class extends St{},"ContinentBody");_a=lb([mt(rb)],_a);at(_a);const cb=`<article
+  :continent
+  tabindex="0"
+  class="continent"
+  on:scroll="this.onContinentScroll"
+>
+  <div class="continent-inner">
+    <div :continentHeader class="continent-header">
+      <slot name="continent-header"></slot>
+    </div>
+    <div class="continent-body">
       <slot name="continent-body"></slot>
     </div>
   </div>
-  <mp-circle-button
-    :expandCollapseButton
-    class="expand-collapse-button"
-    icon="arrow"
-    tooltip-position="top"
-    on:click="this.onExpandCollapseClick"
-  >
-    Expand
-  </mp-circle-button>
 </article>
 `,ub=`:host {
+  /* This spacing should be the same as \`continentVerticalSpacing\` in
+  \`continent-info.ts\`. */
   --continent-vertical-spacing: 35vh;
   --continent-open-close-duration: 1s;
   --continent-scroll-duration: 0.5s;
@@ -3784,7 +3779,6 @@ void main() {
   padding-top: var(--continent-vertical-spacing);
   padding-left: 4rem;
   padding-right: 4rem;
-  overflow: auto;
 
   /* Open/Close Animation */
   visibility: hidden;
@@ -3793,11 +3787,22 @@ void main() {
   transition: all var(--continent-open-close-duration),
     padding-top var(--continent-scroll-duration);
 
-  /* Hide Scrollbar */
-  /* IE and Edge */
-  -ms-overflow-style: none;
-  /* Firefox */
-  scrollbar-width: none;
+  /* For making scroll appear on the left which is a design element. */
+  direction: rtl;
+  -webkit-mask-image: linear-gradient(
+    to top,
+    transparent,
+    var(--bg-primary) 10%
+  );
+  overflow: auto;
+}
+
+.continent.scrollable {
+  padding-bottom: var(--continent-vertical-spacing);
+}
+
+.continent-inner {
+  direction: ltr;
 }
 
 :host([open]) .continent {
@@ -3807,92 +3812,64 @@ void main() {
   opacity: 1;
 }
 
-.continent-body {
-  flex-grow: 1;
-  /* For making scroll appear on the left which is a design element. */
-  direction: rtl;
-  -webkit-mask-image: linear-gradient(to top, transparent, #000000 20%);
-  overflow: hidden;
+/* Sticky Continent Header */
 
-  /* Scrollbar Styles */
-  /* Firefox has 0.5rem width of scroll for \`thin\`. */
-  scrollbar-width: thin;
-  scrollbar-color: var(--primary) transparent;
+.continent-header {
+  position: sticky;
+  top: calc(-1 * var(--continent-vertical-spacing));
+  z-index: var(--layer-front);
 }
 
-.continent-body > .continent-body-inner {
-  direction: ltr;
-}
-
-/* Handling Scroll */
-
-.continent.continent-active {
-  overflow: hidden;
-  padding-top: 0;
-}
-
-.continent.continent-active.scrollable > .continent-body {
-  padding-bottom: var(--continent-vertical-spacing);
-  overflow: auto;
-
-  /* Scrollbar */
-  /* 0.5rem left for the width of scrollbar. */
-  padding-left: 1.5rem;
-  margin-left: -2rem;
-}
-
-/* Expand/Collapse Button */
-
-.expand-collapse-button {
+.continent-header.continent-header-sticky::before {
+  content: '';
   position: absolute;
-  left: 50%;
-  bottom: 0.75rem;
-  transform: translateX(-50%);
-}
-
-.expand-collapse-button::part(icon) {
-  transform: rotate(-90deg);
-}
-
-.continent.continent-active > .expand-collapse-button::part(icon) {
-  transform: rotate(90deg);
-}
-
-.continent:not(.scrollable) > .expand-collapse-button {
-  display: none;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-primary);
+  filter: blur(2rem);
+  opacity: 0.75;
+  z-index: var(--layer-background);
 }
 
 /* Scrollbar Styles */
 
 .continent::-webkit-scrollbar {
-  display: none;
-}
-
-.continent-body::-webkit-scrollbar {
   width: 0.5rem;
 }
 
-.continent-body::-webkit-scrollbar-track {
+.continent::-webkit-scrollbar-track {
   background: transparent;
 }
 
-.continent-body::-webkit-scrollbar-thumb {
+.continent::-webkit-scrollbar-thumb {
   background: var(--primary);
   border-radius: 1rem;
 }
 
-.continent-body::-webkit-scrollbar-thumb:hover {
+.continent::-webkit-scrollbar-thumb:hover {
   background: var(--primary-dim);
 }
 
-.continent-body::-webkit-scrollbar-track-piece:end {
+.continent::-webkit-scrollbar-track-piece:end {
   background: transparent;
   margin-bottom: 10rem;
 }
 
-.continent-body::-webkit-scrollbar-track-piece:start {
+.continent::-webkit-scrollbar-track-piece:start {
   background: transparent;
-  margin-top: 10rem;
+  margin-top: calc(var(--continent-vertical-spacing) * 1.5);
+}
+
+/* Desktop */
+@media screen and (min-width: 992px) {
+  .continent.scrollable {
+    /* Scrollbar */
+    padding-left: 2rem;
+    /* 0.5rem left for the width of scrollbar. */
+    margin-left: 1.5rem;
+  }
 }
 
 /* Tablet */
@@ -3901,11 +3878,11 @@ void main() {
     width: 50%;
   }
 
-  .continent-body::-webkit-scrollbar-track-piece:end {
+  .continent::-webkit-scrollbar-track-piece:end {
     margin-bottom: 0;
   }
 
-  .continent-body::-webkit-scrollbar-track-piece:start {
+  .continent::-webkit-scrollbar-track-piece:start {
     margin-top: 0;
   }
 }
@@ -3918,13 +3895,13 @@ void main() {
 
   /* Hide Scrollbar for Mobile */
 
-  .continent-body::-webkit-scrollbar {
+  .continent::-webkit-scrollbar {
     display: none;
   }
 
-  .continent.continent-active.scrollable > .continent-body {
-    padding-left: 0;
-    margin-left: 0;
+  .continent {
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
 }
 
@@ -3938,11 +3915,9 @@ void main() {
     width: unset;
     top: 0;
     bottom: 42%;
-    padding-left: 3rem;
-    padding-right: 3rem;
   }
 }
-`;var hb=Object.defineProperty,db=Object.getOwnPropertyDescriptor,fb=u((s,e,t,n)=>{for(var i=n>1?void 0:n?db(e,t):e,r=s.length-1,o;r>=0;r--)(o=s[r])&&(i=(n?o(e,t,i):o(i))||i);return n&&i&&hb(e,t,i),i},"__decorateClass$7");let va=u(class extends St{onInit(){this.continent=this.getElement("continent"),this.continentBody=this.getElement("continentBody")}static get observedAttributes(){return["open"]}attributeChangedCallback(s,e,t){if(s!=="open")return;t===null?this.deactivateContinent():this.isContentScrollable()&&this.continent.classList.add("scrollable")}onExpandCollapseClick(){const s=this.getElement("expandCollapseButton");this.continent.classList.contains("continent-active")?(this.deactivateContinent(),this.continentBody.scrollTop=0,s.textContent="Expand"):(this.activateContinent(),this.continentBody.focus(),s.textContent="Collapse")}activateContinent(){this.continent.classList.add("continent-active")}deactivateContinent(){this.continent.classList.remove("continent-active")}isContentScrollable(){return this.continentBody.scrollHeight>this.continentBody.offsetHeight}},"ContinentInfo");va=fb([mt(cb),Ut(ub)],va);at(va);const pb=`<div class="continent-pin">
+`;var hb=Object.defineProperty,db=Object.getOwnPropertyDescriptor,fb=u((s,e,t,n)=>{for(var i=n>1?void 0:n?db(e,t):e,r=s.length-1,o;r>=0;r--)(o=s[r])&&(i=(n?o(e,t,i):o(i))||i);return n&&i&&hb(e,t,i),i},"__decorateClass$7");let va=u(class extends St{constructor(){super(...arguments),this.continentVerticalSpacing=.35}onInit(){this.continent=this.getElement("continent"),this.continentHeader=this.getElement("continentHeader")}static get observedAttributes(){return["open"]}attributeChangedCallback(s){s==="open"&&this.isContentScrollable()&&this.continent.classList.add("scrollable")}onContinentScroll(){const s=document.documentElement.clientHeight*this.continentVerticalSpacing;this.continent.scrollTop>s?this.continentHeader.classList.add("continent-header-sticky"):this.continentHeader.classList.remove("continent-header-sticky")}isContentScrollable(){return this.continent.scrollHeight>this.continent.offsetHeight}},"ContinentInfo");va=fb([mt(cb),Ut(ub)],va);at(va);const pb=`<div class="continent-pin">
   <div class="continent-pin-content">
     <mp-heading level="h3" class="continent-pin-title">
       <slot name="title"></slot>

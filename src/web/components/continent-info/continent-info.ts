@@ -7,14 +7,14 @@ import continentStyles from './continent-info.css?raw';
 @styles(continentStyles)
 class ContinentInfo extends Component {
   private continent!: HTMLElement;
-  private continentHeader!: HTMLElement;
+  private continentBody!: HTMLElement;
   // This spacing should be the same as `--continent-vertical-spacing`
   // in `continent-info.cs`.
   private readonly continentVerticalSpacing = 0.35;
 
   protected onInit() {
     this.continent = this.getElement('continent') as HTMLElement;
-    this.continentHeader = this.getElement('continentHeader') as HTMLElement;
+    this.continentBody = this.getElement('continentBody') as HTMLElement;
   }
 
   // Should move the attribute observation logic to the @property
@@ -40,12 +40,12 @@ class ContinentInfo extends Component {
     // Simulating the `vh` (viewport height) CSS unit.
     const expectedScrollTop =
       document.documentElement.clientHeight * this.continentVerticalSpacing;
-    const stickContinentHeader = this.continent.scrollTop > expectedScrollTop;
 
-    if (stickContinentHeader) {
-      this.continentHeader.classList.add('continent-header-sticky');
+    const continentBodyScroll = this.continent.scrollTop - expectedScrollTop;
+    if (continentBodyScroll > 0) {
+      this.continentBody.style.clipPath = `polygon(0 ${continentBodyScroll}px, 100% ${continentBodyScroll}px, 100% 100%, 0 100%)`;
     } else {
-      this.continentHeader.classList.remove('continent-header-sticky');
+      this.continentBody.removeAttribute('style');
     }
   }
 

@@ -5,10 +5,10 @@
   on:scroll="this.onContinentScroll"
 >
   <div class="continent-inner">
-    <div :continentHeader class="continent-header">
+    <div class="continent-header">
       <slot name="continent-header"></slot>
     </div>
-    <div class="continent-body">
+    <div :continentBody class="continent-body">
       <slot name="continent-body"></slot>
     </div>
   </div>

@@ -3,7 +3,7 @@ import { Component, registerComponent } from '../component';
 import * as planetFavicons from './lib/icons';
 
 class PlanetFavicon extends Component {
-  private frameDelay = 400;
+  private frameDelay = 600;
 
   protected onInit() {
     this.animateFavicon();

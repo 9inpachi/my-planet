@@ -121,7 +121,7 @@
     font-size: 1rem;
   }
 
-  /* Hide Scrollbar for Mobile */
+  /* Hide Scrollbar on Mobile */
 
   .continent::-webkit-scrollbar {
     display: none;

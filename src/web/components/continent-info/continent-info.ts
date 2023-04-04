@@ -40,10 +40,10 @@ class ContinentInfo extends Component {
     // Simulating the `vh` (viewport height) CSS unit.
     const expectedScrollTop =
       document.documentElement.clientHeight * this.continentVerticalSpacing;
+    const clipScrollTop = this.continent.scrollTop - expectedScrollTop;
 
-    const continentBodyScroll = this.continent.scrollTop - expectedScrollTop;
-    if (continentBodyScroll > 0) {
-      this.continentBody.style.clipPath = `polygon(0 ${continentBodyScroll}px, 100% ${continentBodyScroll}px, 100% 100%, 0 100%)`;
+    if (clipScrollTop > 0) {
+      this.continentBody.style.clipPath = `polygon(0 ${clipScrollTop}px, 100% ${clipScrollTop}px, 100% 100%, 0 100%)`;
     } else {
       this.continentBody.removeAttribute('style');
     }

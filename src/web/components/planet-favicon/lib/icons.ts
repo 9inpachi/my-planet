@@ -9,14 +9,3 @@ export { default as planetFavicon08 } from '../../../../assets/icons/favicon/pla
 export { default as planetFavicon09 } from '../../../../assets/icons/favicon/planet-icon-09.ico';
 export { default as planetFavicon10 } from '../../../../assets/icons/favicon/planet-icon-10.ico';
 export { default as planetFavicon11 } from '../../../../assets/icons/favicon/planet-icon-11.ico';
-export { default as planetFavicon12 } from '../../../../assets/icons/favicon/planet-icon-12.ico';
-export { default as planetFavicon13 } from '../../../../assets/icons/favicon/planet-icon-13.ico';
-export { default as planetFavicon14 } from '../../../../assets/icons/favicon/planet-icon-14.ico';
-export { default as planetFavicon15 } from '../../../../assets/icons/favicon/planet-icon-15.ico';
-export { default as planetFavicon16 } from '../../../../assets/icons/favicon/planet-icon-16.ico';
-export { default as planetFavicon17 } from '../../../../assets/icons/favicon/planet-icon-17.ico';
-export { default as planetFavicon18 } from '../../../../assets/icons/favicon/planet-icon-18.ico';
-export { default as planetFavicon19 } from '../../../../assets/icons/favicon/planet-icon-19.ico';
-export { default as planetFavicon20 } from '../../../../assets/icons/favicon/planet-icon-20.ico';
-export { default as planetFavicon21 } from '../../../../assets/icons/favicon/planet-icon-21.ico';
-export { default as planetFavicon22 } from '../../../../assets/icons/favicon/planet-icon-22.ico';

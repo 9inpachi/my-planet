@@ -5,11 +5,12 @@ export const colors = {
   star: rgbColor('#ffffff'),
   sun: rgbColor('#fcd900'),
   earth: rgbColor('#4d96ff'),
+  mountain: rgbColor('#9ede73'),
+  cloud: rgbColor('#ffffff'),
   tree: {
     trunk: rgbColor('#be8c63'),
     crown: rgbColor('#9ede73'),
   },
-  mountain: rgbColor('#9ede73'),
   house: {
     roof: rgbColor('#b20600'),
     base: rgbColor('#f1eee9'),

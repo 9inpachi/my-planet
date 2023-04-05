@@ -18,7 +18,7 @@ export type BuildingProperties = {
 export class Building extends BaseObject<BuildingProperties> {
   protected constructObject() {
     const building = new Group();
-    const { floors = 3, size } = this.properties ?? {};
+    const { floors = 3, size = 10 } = this.properties ?? {};
 
     for (let floorNum = 0; floorNum < floors; floorNum++) {
       const floor = this.constructFloor(floorNum, size);
@@ -31,7 +31,7 @@ export class Building extends BaseObject<BuildingProperties> {
     return building;
   }
 
-  private constructFloor(floor: number, size = 10) {
+  private constructFloor(floor: number, size: number) {
     const box = new BoxGeometry(size, size, size);
     const material = new MeshLambertMaterial({
       color: this.properties?.floorColor ?? colors.building.floor,
@@ -45,7 +45,7 @@ export class Building extends BaseObject<BuildingProperties> {
     return mesh;
   }
 
-  private constructSplit(floor: number, size = 10) {
+  private constructSplit(floor: number, size: number) {
     const height = this.getSplitHeight(size);
     const box = new BoxGeometry(size * 0.8, height, size * 0.8);
     const material = new MeshLambertMaterial({

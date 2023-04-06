@@ -80,6 +80,7 @@ export class Planet {
 
     // Galaxy
 
+    // Avoid placing stars in front of the camera.
     const starsStartRadius = camera.position.z;
     const starsEndRadius = (camera as PerspectiveCamera).far;
     const galaxy = new Galaxy({
@@ -95,9 +96,10 @@ export class Planet {
 
     const clouds = new Clouds({
       cloudsCount: 5,
-      orbitRadius: globeRadius + 50,
+      orbitRadius: globeRadius + 40,
       baseCloudSize: 15,
     });
+    clouds.animateClouds();
     clouds.addTo(planet);
 
     // Continents

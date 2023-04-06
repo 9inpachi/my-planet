@@ -3,6 +3,7 @@ import { Easing } from '@tweenjs/tween.js';
 import { Three, ThreeConfiguration } from '../three';
 import { Globe } from './objects/globe';
 import { Sun } from './objects/sun';
+import { Clouds } from './objects/clouds';
 import { AboutContinent } from './continents/about-continent/about-continent';
 import { ProjectsContinent } from './continents/projects-continent/projects-continent';
 import { GltfLoader } from '../three/loaders/gltf-loader';
@@ -90,6 +91,15 @@ export class Planet {
     enableParallax(galaxy.getObject(), 0.075);
     galaxy.addTo(scene);
 
+    // Clouds
+
+    const clouds = new Clouds({
+      cloudsCount: 5,
+      orbitRadius: globeRadius + 50,
+      baseCloudSize: 15,
+    });
+    clouds.addTo(planet);
+
     // Continents
 
     const continents = await this.loadContinentsLand();
@@ -102,7 +112,7 @@ export class Planet {
       new ConnectContinent({ globeRadius }),
     ];
 
-    allContinents.forEach((continent) => {
+    for (const continent of allContinents) {
       const continentObject = continent.getObject();
       const continentLand = continents[continentObject.name];
 
@@ -121,7 +131,7 @@ export class Planet {
         continent,
         continentInteractor,
       };
-    });
+    }
   }
 
   public resetControls() {

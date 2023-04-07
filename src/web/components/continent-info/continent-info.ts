@@ -1,4 +1,5 @@
 import { Component, template, styles, registerComponent } from '../component';
+import { isScreenPortrait } from '../../../common/util/responsive';
 
 import continentTemplate from './continent-info.html?raw';
 import continentStyles from './continent-info.css?raw';
@@ -8,9 +9,6 @@ import continentStyles from './continent-info.css?raw';
 class ContinentInfo extends Component {
   private continent!: HTMLElement;
   private continentBody!: HTMLElement;
-  // This spacing should be the same as `--continent-vertical-spacing`
-  // in `continent-info.cs`.
-  private readonly continentVerticalSpacing = 0.35;
 
   protected onInit() {
     this.continent = this.getElement('continent') as HTMLElement;
@@ -37,9 +35,14 @@ class ContinentInfo extends Component {
   }
 
   onContinentScroll() {
-    // Simulating the `vh` (viewport height) CSS unit.
-    const expectedScrollTop =
-      document.documentElement.clientHeight * this.continentVerticalSpacing;
+    // This should be the same as `--continent-vertical-spacing` in
+    // `continent-info.cs`.
+    const expectedScrollTop = isScreenPortrait()
+      ? // Simulating `5rem` CSS unit.
+        5 * 16
+      : // Simulating `35vh` CSS unit.
+        0.35 * document.documentElement.clientHeight;
+
     const clipScrollTop = this.continent.scrollTop - expectedScrollTop;
 
     if (clipScrollTop > 0) {

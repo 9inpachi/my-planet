@@ -1,7 +1,11 @@
-import { MathUtils, Object3D } from 'three';
+import { MathUtils, Object3D, Vector3 } from 'three';
 import { ICustomObject } from '../../three/common/lib/icustom-object';
 import { FieldOptional, ParameterOptional } from '../../common/lib/types';
-import { getPositionFromLatLng } from '../common/util/coordinates';
+import {
+  getLatLngFromPosition,
+  getPositionFromLatLng,
+} from '../common/util/coordinates';
+import { Position } from '../common/lib/position';
 
 export type BaseObjectProperties<T = unknown> = T & {
   scale?: number;
@@ -53,5 +57,12 @@ export abstract class BaseObject<ObjectProperties = unknown>
     this.object.position.copy(positionOnGlobe);
     this.object.lookAt(0, 0, 0);
     this.object.rotateX(MathUtils.degToRad(-90));
+  }
+
+  public getPosition(): Position {
+    const origin = new Vector3(0, 0, 0);
+    const { lat, lng } = getLatLngFromPosition(origin, this.object.position);
+
+    return { coordinates: this.object.position, lat, lng };
   }
 }

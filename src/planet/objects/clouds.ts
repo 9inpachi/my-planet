@@ -1,5 +1,5 @@
 import { Tween } from '@tweenjs/tween.js';
-import { Group } from 'three';
+import { Group, Object3D } from 'three';
 import { generateRandomInRange } from '../common/util/random-numbers';
 import { BaseObject } from './base-object';
 import { Cloud } from './cloud';
@@ -14,13 +14,9 @@ export class Clouds extends BaseObject<CloudsProperties> {
   protected constructObject() {
     const { cloudsCount } = this.properties;
     const clouds = new Group();
-    // TODO: Find a different place to store original clouds.
-    clouds.userData.originalClouds = [];
 
     for (let i = 0; i < cloudsCount; i++) {
-      const cloud = this.generateRandomCloud();
-      clouds.userData.originalClouds.push(cloud);
-      clouds.add(cloud.getObject());
+      clouds.add(this.generateRandomCloud().getObject());
     }
 
     clouds.name = 'clouds';
@@ -28,35 +24,30 @@ export class Clouds extends BaseObject<CloudsProperties> {
     return clouds;
   }
 
+  /**
+   * Clouds can also be animated independently using lat and lng.
+   * However, that animation isn't as good as this one which uses
+   * rotation. See commit 2c96c7924f140142db049373306721a6df105965.
+   */
   public animateClouds() {
+    const clouds = this.object;
     const singleIntervalDuration = 1000;
-    const maxSpeed = 5;
+    const deltaX = generateRandomInRange(0, 100) * 0.001;
+    const deltaY = generateRandomInRange(0, 100) * 0.001;
+    const deltaZ = generateRandomInRange(0, 100) * 0.001;
 
-    for (const cloud of this.object.userData.originalClouds as Cloud[]) {
-      const cloudPosition = cloud.getPosition();
-      let { lat, lng } = cloudPosition;
-      const deltaLat = generateRandomInRange(-maxSpeed, maxSpeed);
-      const deltaLng = generateRandomInRange(-maxSpeed, maxSpeed);
+    const animateClouds = (clouds: Object3D) => {
+      const cloudTween = new Tween(clouds.rotation);
+      const { x, y, z } = clouds.rotation;
 
-      const animateClouds = (cloud: Cloud) => {
-        // We store the lat and lng separately because getting it from
-        // the object gives a different result since it's calculated.
-        const cloudTween = new Tween({ lat, lng });
-        lat = lat + deltaLat;
-        lng = lng + deltaLng;
+      cloudTween.to({ x: x + deltaX, y: y + deltaY, z: z + deltaZ });
+      cloudTween.duration(singleIntervalDuration);
+      cloudTween.start();
 
-        cloudTween.to({ lat, lng });
-        cloudTween.duration(singleIntervalDuration);
-        cloudTween.onUpdate((position) =>
-          cloud.applyLatLng(cloudPosition.altitude, position.lat, position.lng),
-        );
-        cloudTween.start();
+      cloudTween.onComplete(() => animateClouds(clouds));
+    };
 
-        cloudTween.onComplete(() => animateClouds(cloud));
-      };
-
-      animateClouds(cloud);
-    }
+    animateClouds(clouds);
   }
 
   private generateRandomCloud(): Cloud {

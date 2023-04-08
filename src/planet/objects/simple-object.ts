@@ -9,10 +9,7 @@ export type SimpleObjectProperties = {
 export class SimpleObject extends BaseObject<SimpleObjectProperties> {
   protected constructObject(): Object3D {
     const { object, name, color } = this.properties;
-
-    if (name) {
-      object.name = name;
-    }
+    object.name = name ?? object.name;
 
     if (color) {
       object.traverse((child) => {

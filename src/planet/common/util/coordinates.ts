@@ -14,9 +14,8 @@ export const getPositionFromLatLng = (
   return position;
 };
 
-export const getLatLngFromPosition = (origin: Vector3, position: Vector3) => {
+export const getLatLngFromPosition = (position: Vector3, radius: number) => {
   const { x, y, z } = position;
-  const radius = position.distanceTo(origin);
   const lat = -MathUtils.radToDeg(Math.acos(y / radius)) + 90;
   const lng = MathUtils.radToDeg(Math.atan(x / z));
 

@@ -61,8 +61,9 @@ export abstract class BaseObject<ObjectProperties = unknown>
 
   public getPosition(): Position {
     const origin = new Vector3(0, 0, 0);
-    const { lat, lng } = getLatLngFromPosition(origin, this.object.position);
+    const radius = this.object.position.distanceTo(origin);
+    const { lat, lng } = getLatLngFromPosition(this.object.position, radius);
 
-    return { coordinates: this.object.position, lat, lng };
+    return { coordinates: this.object.position, lat, lng, altitude: radius };
   }
 }

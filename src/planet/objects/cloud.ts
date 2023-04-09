@@ -27,7 +27,7 @@ export class Cloud extends BaseObject<CloudProperties> {
   }
 
   private createCloudSphere(size: number) {
-    const segments = Math.max(8, size / 2);
+    const segments = Math.max(8, size);
     const geometry = new SphereGeometry(size, segments, segments);
     const material = new MeshLambertMaterial({ color: colors.cloud });
     const mesh = new Mesh(geometry, material);

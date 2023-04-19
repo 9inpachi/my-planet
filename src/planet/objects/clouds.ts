@@ -55,7 +55,7 @@ export class Clouds extends BaseObject<CloudsProperties> {
 
     // +/-10 size to have more random sized clouds.
     const size = generateRandomInRange(baseCloudSize - 5, baseCloudSize + 5);
-    const altitude = generateRandomInRange(orbitRadius - 10, orbitRadius + 10);
+    const altitude = generateRandomInRange(orbitRadius, orbitRadius + 20);
     const lat = generateRandomInRange(-90, 90);
     const lng = generateRandomInRange(-180, 180);
 

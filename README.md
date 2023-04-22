@@ -24,3 +24,7 @@ yarn release
 ```
 
 It will create a new tag and a draft release. Manually pubishing the draft release will trigger a [GitHub Actions workflow](./.github/workflows/deploy.yml) which will deploy the application on the `gh-pages` branch using GitHub Pages.
+
+## Architecture
+
+![My Planet Architecture](./docs/architecture.svg)

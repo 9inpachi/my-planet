@@ -1,30 +1,30 @@
-import { rgbColor } from '../../../three/common/util/colors';
+import { color } from '../../../three/common/util/colors';
 
 export const colors = {
-  ambientLight: rgbColor('#ffffff'),
-  star: rgbColor('#ffffff'),
-  sun: rgbColor('#fcd900'),
-  earth: rgbColor('#4d96ff'),
-  mountain: rgbColor('#9ede73'),
-  cloud: rgbColor('#ffffff'),
+  ambientLight: color('#ffffff'),
+  star: color('#ffffff'),
+  sun: color('#fcd900'),
+  earth: color('#4d96ff'),
+  mountain: color('#9ede73'),
+  cloud: color('#ffffff'),
   tree: {
-    trunk: rgbColor('#be8c63'),
-    crown: rgbColor('#9ede73'),
+    trunk: color('#be8c63'),
+    crown: color('#9ede73'),
   },
   house: {
-    roof: rgbColor('#b20600'),
-    base: rgbColor('#f1eee9'),
+    roof: color('#b20600'),
+    base: color('#f1eee9'),
   },
   land: {
-    brown: rgbColor('#ffcc8f'),
-    green: rgbColor('#83bd75'),
+    brown: color('#ffcc8f'),
+    green: color('#83bd75'),
   },
   building: {
-    floor: rgbColor('#f1eee9'),
-    split: rgbColor('#73777b'),
+    floor: color('#f1eee9'),
+    split: color('#73777b'),
   },
   hut: {
-    roof: rgbColor('#a64b2a'),
-    pillar: rgbColor('#d7a86e'),
+    roof: color('#a64b2a'),
+    pillar: color('#d7a86e'),
   },
 };

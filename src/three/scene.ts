@@ -10,7 +10,7 @@ export class ThreeScene {
   }
 
   private setupLights() {
-    const ambientLight = new AmbientLight(colors.ambientLight);
+    const ambientLight = new AmbientLight(colors.ambientLight, 3);
     const lights = new Group();
     lights.name = 'lights';
 

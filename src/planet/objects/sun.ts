@@ -35,7 +35,7 @@ export class Sun extends BaseObject<SunProperties> {
   // }
 
   private constructLight() {
-    return new DirectionalLight(colors.sun, 0.8);
+    return new DirectionalLight(colors.sun, 2.5);
   }
 
   public setPosition(position: Vector3) {

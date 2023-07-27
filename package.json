@@ -12,22 +12,22 @@
   },
   "devDependencies": {
     "@types/dat.gui": "^0.7.10",
-    "@types/node": "^20.2.5",
-    "@types/three": "^0.152.1",
-    "@typescript-eslint/eslint-plugin": "^5.59.9",
-    "@typescript-eslint/parser": "^5.59.9",
-    "eslint": "^8.42.0",
-    "eslint-config-prettier": "^8.8.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "prettier": "^2.8.8",
-    "release-it": "^15.11.0",
+    "@types/node": "^20.4.5",
+    "@types/three": "^0.154.0",
+    "@typescript-eslint/eslint-plugin": "^6.2.0",
+    "@typescript-eslint/parser": "^6.2.0",
+    "eslint": "^8.45.0",
+    "eslint-config-prettier": "^8.9.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "prettier": "^3.0.0",
+    "release-it": "^16.1.3",
     "ts-node": "^10.9.1",
-    "typescript": "^5.1.3",
-    "vite": "^4.3.9"
+    "typescript": "^5.1.6",
+    "vite": "^4.4.7"
   },
   "dependencies": {
-    "@tweenjs/tween.js": "^20.0.3",
+    "@tweenjs/tween.js": "^21.0.0",
     "dat.gui": "^0.7.9",
-    "three": "^0.153.0"
+    "three": "^0.155.0"
   }
 }

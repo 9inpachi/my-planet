@@ -4446,6 +4446,10 @@ void main() {
   <mp-continent-body slot="continent-body">
     <mp-timeline>
       <mp-timeline-event>
+        <span slot="time">2023/06</span>
+        <mp-heading level="h3" slot="title">Marriage</mp-heading>
+      </mp-timeline-event>
+      <mp-timeline-event>
         <span slot="time">2023/03</span>
         <mp-heading level="h3" slot="title">TomTom</mp-heading>
         <span slot="subtitle">Software Engineer III Job</span>

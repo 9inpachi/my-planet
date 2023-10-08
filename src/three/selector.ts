@@ -28,7 +28,10 @@ export class ThreeSelector implements IUpdatable {
 
   private onAnimationFrame?: VoidFunction;
 
-  constructor(renderer: ThreeRenderer, private controls: ThreeControls) {
+  constructor(
+    renderer: ThreeRenderer,
+    private controls: ThreeControls,
+  ) {
     this.rayCaster = new Raycaster();
     this.rendererElement = renderer.getRenderer().domElement;
 

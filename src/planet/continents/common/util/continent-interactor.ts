@@ -31,7 +31,11 @@ export class ContinentInteractor<T extends BaseContinent> {
   };
   private onContinentClickCallbacks: VoidFunction[] = [];
 
-  constructor(private three: Three, continent: T, private sun: Object3D) {
+  constructor(
+    private three: Three,
+    continent: T,
+    private sun: Object3D,
+  ) {
     this.continentObject = continent.getObject();
     this.continentShadowRoot = document.querySelector(
       `mp-${camelCaseToKebabCase(this.continentObject.name)}`,

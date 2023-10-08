@@ -6,7 +6,10 @@ const eventPrefix = 'on:';
 export class HTMLParser implements IHTMLParser {
   private parsedFragment: DocumentFragment;
 
-  constructor(htmlTemplate: string, private componentContext: Component) {
+  constructor(
+    htmlTemplate: string,
+    private componentContext: Component,
+  ) {
     const parser = new DOMParser();
     const parsedHTML = parser.parseFromString(htmlTemplate, 'text/html');
     const body = parsedHTML.querySelector('body');

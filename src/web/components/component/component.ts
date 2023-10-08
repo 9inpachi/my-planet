@@ -6,12 +6,12 @@ import { HTMLParser } from './util/html-parser/html-parser';
 import { IHTMLParser } from './util/html-parser/ihtml-parser';
 import { evaluateStringTemplate } from './util/template';
 
-export interface Component {
-  template: string;
-  styles: string;
-}
-
 export abstract class Component extends HTMLElement {
+  // `template` is setting using the decorator `src/web/components/component/util/decorators/template.ts`.
+  template!: string;
+  // `styles` is setting using the decorator `src/web/components/component/util/decorators/styles.ts`.
+  styles!: string;
+
   protected shadowDOM: ShadowRoot;
   private htmlParser!: IHTMLParser;
 

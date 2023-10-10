@@ -11,7 +11,7 @@ import { WorkContinent } from './continents/work-continent/work-continent';
 import { LifeContinent } from './continents/life-continent/life-continent';
 import { ConnectContinent } from './continents/connect-continent/connect-continent';
 import { Galaxy } from './objects/galaxy';
-import { enableParallax } from './common/util/parallax';
+import { enableParallax, enableParallaxGyro } from './common/util/parallax';
 import { ContinentInteractor } from './continents/common/util/continent-interactor';
 import { isScreenPortrait } from '../common/util/responsive';
 import { BaseContinent } from './continents/base-continent';
@@ -67,6 +67,7 @@ export class Planet {
 
     const planet = new Group();
     enableParallax(planet, 0.0075);
+    enableParallaxGyro(planet, 0.0075);
     planet.name = 'planet';
     scene.add(planet);
 

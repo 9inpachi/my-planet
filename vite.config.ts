@@ -1,8 +1,10 @@
 import { defineConfig } from 'vite';
+import basicSsl from '@vitejs/plugin-basic-ssl';
 
 export default defineConfig({
-  assetsInclude: ['**/*.gltf'],
   base: './',
+  assetsInclude: ['**/*.gltf'],
+  plugins: process.env.SSL === 'true' ? [basicSsl()] : undefined,
   esbuild: {
     // This is to be able to use ComponentClass.name in `registerComponent`.
     // See src/web/components/component/util/register-component.ts.

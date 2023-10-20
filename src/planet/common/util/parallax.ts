@@ -42,7 +42,6 @@ export const enableParallax = (
 export const enableParallaxMobile = (
   object: Object3D,
   factor = 0.1,
-  wrapper: HTMLElement = document.body,
   inertiaFactor = 0.06,
 ) => {
   // Device doesn't support orientation.

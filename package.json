@@ -7,7 +7,7 @@
   "private": true,
   "scripts": {
     "start": "vite",
-    "start:ssl": "cross-env SSL=true yarn start",
+    "start:ssl": "cross-env SSL=true yarn start --host",
     "build": "vite build",
     "release": "release-it"
   },

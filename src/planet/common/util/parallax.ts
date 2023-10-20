@@ -1,4 +1,4 @@
-import { Object3D, Vector2, Vector3 } from 'three';
+import { Object3D, Vector2 } from 'three';
 
 export const enableParallax = (
   object: Object3D,
@@ -39,30 +39,33 @@ export const enableParallax = (
   });
 };
 
-export const enableParallaxGyro = (
+export const enableParallaxMobile = (
   object: Object3D,
   factor = 0.1,
   wrapper: HTMLElement = document.body,
   inertiaFactor = 0.06,
 ) => {
+  // Device doesn't support orientation.
+  if (!('ondeviceorientation' in window)) {
+    return;
+  }
+
   let frameId: number;
-  const targetPosition = new Vector3();
+  const targetPosition = new Vector2();
 
   const animate = () => {
-    const { x: objectX, y: objectY, z: objectZ } = object.position;
-    const { x: targetX, y: targetY, z: targetZ } = targetPosition;
+    const { x: objectX, y: objectY } = object.position;
+    const { x: targetX, y: targetY } = targetPosition;
 
     const xNearlyEqual = areNearlyEqual(objectX, targetX);
     const yNearlyEqual = areNearlyEqual(objectY, targetY);
-    const zNearlyEqual = areNearlyEqual(objectZ, targetZ);
-    if (xNearlyEqual && yNearlyEqual && zNearlyEqual) {
+    if (xNearlyEqual && yNearlyEqual) {
       cancelAnimationFrame(frameId);
       return;
     }
 
     object.position.x = linearlyInterpolate(objectX, targetX, inertiaFactor);
     object.position.y = linearlyInterpolate(objectY, targetY, inertiaFactor);
-    object.position.z = linearlyInterpolate(objectZ, targetZ, inertiaFactor);
 
     frameId = requestAnimationFrame(animate);
   };
@@ -70,17 +73,14 @@ export const enableParallaxGyro = (
   window.addEventListener('deviceorientation', (event) => {
     cancelAnimationFrame(frameId);
 
-    if (!event.beta || !event.gamma) {
+    const { beta: y, gamma: x } = event;
+
+    if (!x || !y || !(y >= 0 && y <= 90)) {
       return;
     }
 
-    const { beta: y, gamma: x } = event;
-
-    const centerX = wrapper.clientWidth / 2;
-    const centerY = wrapper.clientHeight / 2;
-
-    targetPosition.x = (x * 150 - centerX) * factor;
-    targetPosition.y = -((y - 45) * 150 - centerY) * factor;
+    targetPosition.x = x * 100 * factor;
+    targetPosition.y = -((y - 45) * 150) * factor;
 
     frameId = requestAnimationFrame(animate);
   });

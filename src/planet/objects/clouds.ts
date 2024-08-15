@@ -1,5 +1,5 @@
-import { Tween } from '@tweenjs/tween.js';
 import { Group, Object3D } from 'three';
+import { ThreeAnimator } from '../../three/animator';
 import { generateRandomInRange } from '../common/util/random-numbers';
 import { BaseObject } from './base-object';
 import { Cloud } from './cloud';
@@ -29,7 +29,7 @@ export class Clouds extends BaseObject<CloudsProperties> {
    * However, that animation isn't as good as this one which uses
    * rotation. See commit 2c96c7924f140142db049373306721a6df105965.
    */
-  public animateClouds() {
+  public animateClouds(threeAnimator: ThreeAnimator) {
     const clouds = this.object;
     const singleIntervalDuration = 1000;
     const deltaX = generateRandomInRange(0, 100) * 0.001;
@@ -37,14 +37,20 @@ export class Clouds extends BaseObject<CloudsProperties> {
     const deltaZ = generateRandomInRange(0, 100) * 0.001;
 
     const animateClouds = (clouds: Object3D) => {
-      const cloudTween = new Tween(clouds.rotation);
       const { x, y, z } = clouds.rotation;
+      const targetRotation = { x: x + deltaX, y: y + deltaY, z: z + deltaZ };
 
-      cloudTween.to({ x: x + deltaX, y: y + deltaY, z: z + deltaZ });
-      cloudTween.duration(singleIntervalDuration);
+      const cloudTween = threeAnimator.createTween(
+        clouds.rotation,
+        targetRotation,
+        { duration: singleIntervalDuration },
+      );
       cloudTween.start();
 
-      cloudTween.onComplete(() => animateClouds(clouds));
+      cloudTween.onComplete(() => {
+        threeAnimator.removeTween(cloudTween);
+        animateClouds(clouds);
+      });
     };
 
     animateClouds(clouds);

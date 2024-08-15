@@ -89,7 +89,7 @@ export class Planet {
       startRadius: starsStartRadius,
       endRadius: starsEndRadius,
     });
-    galaxy.animateGalaxy();
+    galaxy.animateGalaxy(this.getAnimator());
     enableParallax(galaxy.getObject(), 0.075);
     galaxy.addTo(scene);
 
@@ -100,7 +100,7 @@ export class Planet {
       orbitRadius: globeRadius + 40,
       baseCloudSize: 15,
     });
-    clouds.animateClouds();
+    clouds.animateClouds(this.getAnimator());
     clouds.addTo(planet);
 
     // Continents

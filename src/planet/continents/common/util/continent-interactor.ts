@@ -122,10 +122,10 @@ export class ContinentInteractor<T extends BaseContinent> {
     // Animate and Apply Changes
 
     const camera = this.three.getControls().getCamera();
-    const threeAnimations = this.three.getAnimator();
+    const threeAnimator = this.three.getAnimator();
 
     [camera, this.sun].forEach((object) => {
-      threeAnimations.animateObjectToTarget(
+      threeAnimator.animateObjectToTarget(
         object,
         targetCameraTransform.position,
         targetCameraTransform.quaternion,

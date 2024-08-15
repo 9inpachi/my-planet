@@ -1,4 +1,3 @@
-import { Tween } from '@tweenjs/tween.js';
 import {
   BufferGeometry,
   Float32BufferAttribute,
@@ -10,6 +9,7 @@ import {
   Texture,
   Vector3,
 } from 'three';
+import { ThreeAnimator } from '../../three/animator';
 import { colors } from '../common/lib/colors';
 import { BaseObject } from './base-object';
 
@@ -97,7 +97,7 @@ export class Galaxy extends BaseObject<GalaxyProperties> {
     return texture;
   }
 
-  public animateGalaxy() {
+  public animateGalaxy(threeAnimator: ThreeAnimator) {
     const starsGroups = this.object.children;
     const movementFactor = 0.02;
     const singleIntervalDuration = 1000;
@@ -106,13 +106,19 @@ export class Galaxy extends BaseObject<GalaxyProperties> {
     // restarts using recursion every 1000 ms. `delta` decides if the
     // group rotates to the right (+y) or left (-y).
     const animateStarsGroup = (group: Object3D, delta = 1) => {
-      const starsTween = new Tween(group.rotation);
+      const targetRotation = { y: group.rotation.y + movementFactor * delta };
 
-      starsTween.to({ y: group.rotation.y + movementFactor * delta });
-      starsTween.duration(singleIntervalDuration);
+      const starsTween = threeAnimator.createTween(
+        group.rotation,
+        targetRotation,
+        { duration: singleIntervalDuration },
+      );
       starsTween.start();
 
-      starsTween.onComplete(() => animateStarsGroup(group, delta));
+      starsTween.onComplete(() => {
+        threeAnimator.removeTween(starsTween);
+        animateStarsGroup(group, delta);
+      });
     };
 
     for (let i = 0; i < starsGroups.length; i++) {

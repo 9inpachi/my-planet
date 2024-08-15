@@ -1,4 +1,4 @@
-import { Easing, Tween, update as tweenUpdate } from '@tweenjs/tween.js';
+import { Easing, Group, Tween } from '@tweenjs/tween.js';
 import { Object3D, Quaternion, Vector3 } from 'three';
 import { IUpdatable } from './common/lib/iupdatable';
 
@@ -8,8 +8,14 @@ export type TweenOptions = {
 };
 
 export class ThreeAnimator implements IUpdatable {
+  private tweenGroup: Group;
+
+  constructor() {
+    this.tweenGroup = new Group();
+  }
+
   public update() {
-    tweenUpdate();
+    this.tweenGroup.update();
   }
 
   public animateObjectToTarget(
@@ -35,18 +41,26 @@ export class ThreeAnimator implements IUpdatable {
 
       tween.start();
     });
+
+    this.tweenGroup.add(...tweens);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public createTween<T extends Record<string, any>>(
     from: T,
-    to: T,
+    to: Partial<T>,
     tweenOptions?: TweenOptions,
   ) {
     const tween = new Tween(from).to(to);
     tweenOptions?.duration && tween.duration(tweenOptions.duration);
     tweenOptions?.easing && tween.easing(tweenOptions.easing);
 
+    this.tweenGroup.add(tween);
+
     return tween;
+  }
+
+  public removeTween(tween: Tween) {
+    this.tweenGroup.remove(tween);
   }
 }

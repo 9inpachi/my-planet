@@ -4736,7 +4736,6 @@ void main() {
         <span slot="time">2024/05</span>
         <mp-heading level="h3" slot="title">Puffer Finance</mp-heading>
         <span slot="subtitle">Senior Software Engineer Job</span>
-        Hello World!
       </mp-timeline-event>
       <mp-timeline-event>
         <span slot="time">2023/10</span>

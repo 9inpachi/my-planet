@@ -10,13 +10,11 @@
 
 .continents-menu-toggle {
   position: absolute;
-  opacity: 0;
-  pointer-events: none;
+  transition: all 0.5s;
 }
 
-:host([open]) > mp-backdrop > .continents-menu-toggle,
-.continents-menu-toggle:focus-within {
-  opacity: 1;
+.continents-menu-toggle:hover::part(icon) {
+  transform: rotateZ(90deg);
 }
 
 .continents-menu-options {
@@ -30,9 +28,11 @@
   visibility: hidden;
   opacity: 0;
   transition: all 0.5s;
+  pointer-events: none;
 }
 
 :host([open]) > mp-backdrop > .continents-menu-options > mp-circle-button {
   visibility: visible;
   opacity: 1;
+  pointer-events: auto;
 }

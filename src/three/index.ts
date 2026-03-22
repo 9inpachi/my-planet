@@ -1,4 +1,4 @@
-import { Clock } from 'three';
+import { Timer } from 'three';
 import { ThreeAnimator } from './animator';
 import { ThreeControls } from './controls';
 import { ThreeEventHandler } from './event-handler';
@@ -36,10 +36,10 @@ export class Three {
     const scene = this.threeScene.getScene();
     const camera = this.threeControls.getCamera();
     const renderer = this.threeRenderer.getRenderer();
-    const clock = new Clock();
+    const timer = new Timer();
 
     renderer.setAnimationLoop(() => {
-      const deltaTime = clock.getDelta();
+      const deltaTime = timer.getDelta();
 
       this.threeControls.update(deltaTime);
       this.threeSelector.update();

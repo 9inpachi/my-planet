@@ -5,16 +5,15 @@ export default defineConfig({
   base: './',
   assetsInclude: ['**/*.gltf'],
   plugins: process.env.SSL === 'true' ? [basicSsl()] : undefined,
-  esbuild: {
-    // This is to be able to use ComponentClass.name in `registerComponent`.
-    // See src/web/components/component/util/register-component.ts.
-    keepNames: true,
-  },
   build: {
-    rollupOptions: {
+    rolldownOptions: {
       output: {
+        // This is to be able to use ComponentClass.name in
+        // `registerComponent`. See
+        // src/web/components/component/util/register-component.ts.
+        keepNames: true,
         assetFileNames: (asset) => {
-          const extension = asset.name?.split('.').pop() ?? '';
+          const extension = asset.names[0]?.split('.').pop() ?? '';
           let directory: string;
 
           if (/png|jpe?g|svg|gif/i.test(extension)) {

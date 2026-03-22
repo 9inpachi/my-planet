@@ -1,4 +1,4 @@
-var e=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+const a=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
   <g fill="currentColor">
     <path d="M35.387 71.79L32.5 70.128l32.152-55.43 2.883 1.656zm0 0" />
     <path d="M31.84 65.7h64.3v3.32h-64.3zm0 0" />
@@ -16,4 +16,4 @@ var e=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
     />
   </g>
 </svg>
-`;export{e as default};
+`;export{a as default};

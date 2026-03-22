@@ -1,4 +1,4 @@
-var e=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+const n=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
   <g
     fill="none"
     stroke="currentColor"
@@ -11,4 +11,4 @@ var e=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
     <line x1="10" y1="14" x2="21" y2="3"></line>
   </g>
 </svg>
-`;export{e as default};
+`;export{n as default};
